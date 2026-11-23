@@ -1,0 +1,323 @@
+% !TeX root = ../main.tex
+\subsection{Sylow 定理}\label{sec:sylow-theorems}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.5/（相对于本科目目录）。
+% 共 5 张照片，文件名编号 61--65 不是原稿页码；覆盖原稿 2.5.1--2.5.17。
+% 2.5.8、2.5.11、2.5.12 的另页证明移至对应条目后；无编号补充性质不占用原编号。
+
+% 来源：微信图片_20261119110950_61_26.jpg，节首、2.5.1--2.5.5 及紫笔证明。
+% 整理：原稿紫笔补写 G 为有限群，已并入节首的明确假设。
+本节的一个动机是：设 $G$ 为有限群，若 $m\mid |G|$，是否一定存在 $G$ 的一个阶为 $m$ 的子群？对于第~\ref{sec:finitely-generated-abelian-groups} 节讨论的有限阿贝尔群，推论~\ref{cor:finite-abelian-subgroups-all-divisors} 给出了肯定回答；对于非阿贝尔群则未必成立。Sylow 定理讨论的是 $m=p^a$，$p$ 为质数的情形。
+
+\begin{lemma}\label{lem:p-group-action-fixed-point-congruence}
+设群 $H$ 的阶为 $p^n$，其中 $p$ 为质数。若 $H$ 作用于有限集合 $S$，记
+\[
+  S_0=\{x\in S\mid hx=x\text{ 对所有 }h\in H\text{ 成立}\},
+\]
+则
+\[
+  |S|\equiv |S_0|\pmod p.
+\]
+\end{lemma}
+
+% 整理：原稿将求和指标简写为 x 不属于 S_0；这里明确每个非单点轨道只取一个代表，避免重复计数。
+\begin{purpleproof}
+若 $x\in S_0$，则其轨道 $\bar x=\{x\}$。在其余各轨道中分别取一个代表 $x_1,\ldots,x_r$，由定理~\ref{thm:orbit-stabilizer-cardinality}，有
+\[
+  |S|=|S_0|+\sum_{i=1}^{r}[H:H_{x_i}].
+\]
+由于 $|H|=p^n$，每个非单点轨道的基数 $[H:H_{x_i}]$ 都是大于 $1$ 的 $p$ 的幂，因而均被 $p$ 整除，结论成立。
+\end{purpleproof}
+
+\begin{theorem}[Cauchy]\label{thm:cauchy-prime-order-element}
+若 $G$ 是有限群，且质数 $p$ 整除 $|G|$，则 $G$ 中存在一个阶为 $p$ 的元素。
+\end{theorem}
+
+% 整理：原稿明确提示须检验循环移位作用良定义；此处写出非交换情形的乘积检验。
+\begin{purpleproof}
+证明的思路是构造适当的群作用。考虑
+\[
+  S=\{(a_1,\ldots,a_p)\in G^p\mid a_1\cdots a_p=e\}.
+\]
+前 $p-1$ 个分量任意选定后，最后一个分量由乘积条件唯一确定，故
+\[
+  |S|=|G|^{p-1},\qquad p\mid |S|.
+\]
+令 $\mathbb Z_p$ 通过循环移位作用于 $S$：对 $0\leq k<p$，定义
+\[
+  \bar k\cdot(a_1,\ldots,a_p)
+    =(a_{k+1},\ldots,a_p,a_1,\ldots,a_k).
+\]
+该作用是良定义的：一次循环移位后，乘积为
+\[
+  a_2\cdots a_pa_1=a_1^{-1}(a_1\cdots a_p)a_1=e,
+\]
+所以仍落在 $S$ 中；循环移位 $p$ 次为恒等映射，且移位次数相加对应于映射复合。
+
+由引理~\ref{lem:p-group-action-fixed-point-congruence}，公共不动点集 $S_0$ 满足
+\[
+  |S_0|\equiv |S|\equiv0\pmod p.
+\]
+一个元组属于 $S_0$，当且仅当它的所有分量相同。因此
+\[
+  S_0=\{(a,\ldots,a)\mid a\in G,\ a^p=e\}.
+\]
+又 $(e,\ldots,e)\in S_0$，故 $|S_0|\geq p>1$。于是存在 $a\ne e$，使 $a^p=e$。因为 $p$ 为质数，$a$ 的阶恰为 $p$。
+\end{purpleproof}
+
+\begin{purplenote}
+下面再次明确 $p$-群的定义。
+\end{purplenote}
+
+\begin{definition}[$p$-群]\label{def:p-group-p-subgroup}
+给定质数 $p$，若群 $G$ 中所有元素的阶都是 $p$ 的非负整数次幂，则称 $G$ 为\textbf{$p$-群}。若 $H\leq G$ 且 $H$ 是 $p$-群，则称 $H$ 是 $G$ 的一个\textbf{$p$-子群}。
+
+特别地，平凡子群 $\{e\}$ 对每个质数 $p$ 都是 $G$ 的一个 $p$-子群。
+\end{definition}
+
+\begin{corollary}\label{cor:finite-p-group-order-characterization}
+有限群 $G$ 是 $p$-群，当且仅当 $|G|$ 是 $p$ 的非负整数次幂。
+\end{corollary}
+
+\begin{purpleproof}
+直接应用定理~\ref{thm:cauchy-prime-order-element} 即可。
+\end{purpleproof}
+
+\begin{corollary}\label{cor:nontrivial-finite-p-group-center}
+非平凡有限 $p$-群 $G$ 的中心
+\[
+  C(G)=\{g\in G\mid gx=xg\text{ 对所有 }x\in G\text{ 成立}\}
+\]
+至少包含两个元素。
+\end{corollary}
+
+\begin{purpleproof}
+由\hyperref[cor:conjugacy-class-equation]{类方程}，
+\[
+  |G|=|C(G)|+\sum_{i=1}^{r}[G:C_G(x_i)],
+\]
+其中 $x_i$ 代表全部不同的非中心共轭类。每个 $[G:C_G(x_i)]>1$ 都是 $p$ 的幂，故 $p\mid |C(G)|$。又 $e\in C(G)$，所以 $|C(G)|\geq p\geq2$。
+\end{purpleproof}
+
+% 来源：微信图片_20261119110952_62_26.jpg，2.5.6--2.5.10 及紫笔说明。
+\begin{lemma}\label{lem:p-subgroup-normalizer-index-congruence}
+若 $H$ 是有限群 $G$ 的一个 $p$-子群，则
+\[
+  [N_G(H):H]\equiv [G:H]\pmod p.
+\]
+\end{lemma}
+
+\begin{purpleproof}
+令 $S$ 为 $H$ 在 $G$ 中的所有左陪集组成的集合，并令 $H$ 在 $S$ 上以左平移作用。对 $xH\in S$，有
+\[
+  \begin{aligned}
+    xH\in S_0
+      &\Longleftrightarrow hxH=xH\quad\text{对所有 }h\in H\\
+      &\Longleftrightarrow x^{-1}Hx\leq H\\
+      &\Longleftrightarrow x^{-1}Hx=H\\
+      &\Longleftrightarrow x\in N_G(H).
+  \end{aligned}
+\]
+这里由包含关系得到相等，用到了 $H$ 有限以及 $|x^{-1}Hx|=|H|$。故
+\[
+  |S_0|=[N_G(H):H].
+\]
+再由引理~\ref{lem:p-group-action-fixed-point-congruence}，即得
+\[
+  [G:H]=|S|\equiv |S_0|=[N_G(H):H]\pmod p.
+\]
+\end{purpleproof}
+
+\begin{corollary}\label{cor:p-subgroup-proper-normalizer}
+若 $H$ 是有限群 $G$ 的一个 $p$-子群，且 $p\mid[G:H]$，则 $N_G(H)\ne H$。
+\end{corollary}
+
+\begin{purpleproof}
+由引理~\ref{lem:p-subgroup-normalizer-index-congruence}，有 $p\mid[N_G(H):H]$，故 $[N_G(H):H]>1$。
+\end{purpleproof}
+
+\begin{theorem}[第一 Sylow 定理]\label{thm:first-sylow}
+设群 $G$ 的阶为 $p^nm$，其中 $p$ 为质数，$n\geq1$ 且 $\gcd(p,m)=1$。则对每个 $1\leq i\leq n$，$G$ 都包含阶为 $p^i$ 的子群。而且，$G$ 中任意一个阶为 $p^i$ 的子群（$1\leq i<n$），都是 $G$ 中某个阶为 $p^{i+1}$ 的子群的正规子群。
+\end{theorem}
+
+% 来源：微信图片_20261119110954_63_26.jpg，2.5.8 的另页证明。
+% 修订：原稿首句误引“2.5.8”自身；所用的阶为 p 元素的存在性实际是 Cauchy 定理 2.5.2。
+\begin{purpleproof}
+首先由定理~\ref{thm:cauchy-prime-order-element}，存在 $a\in G$ 的阶为 $p$。于是 $\langle a\rangle$ 是阶为 $p$ 的子群。
+
+现设 $H\leq G$ 的阶为 $p^i$，其中 $1\leq i<n$。由推论~\ref{cor:finite-p-group-order-characterization}，$H$ 是 $p$-子群；又因 $i<n$，有 $p\mid[G:H]$。结合引理~\ref{lem:p-subgroup-normalizer-index-congruence}，得到
+\[
+  p\mid[N_G(H):H].
+\]
+由于 $H\trianglelefteq N_G(H)$，商群 $N_G(H)/H$ 的阶被 $p$ 整除。再由~\ref{thm:cauchy-prime-order-element} 定理，其中存在一个阶为 $p$ 的子群 $\overline H_1$。由推论~\ref{cor:quotient-subgroup-correspondence}，它对应于一个子群 $H_1$，满足
+\[
+  H\leq H_1\leq N_G(H),\qquad H_1/H=\overline H_1.
+\]
+且有
+\[
+  |H_1|=|H_1/H|\,|H|=p\cdot p^i=p^{i+1}.
+\]
+这证明了所述的正规扩张性质；从阶为 $p$ 的子群出发逐次应用，即得到各个阶为 $p^i$ 的子群，完成归纳。
+\end{purpleproof}
+
+% 整理：原稿“最大 p-群”按随后的包含关系定义写为“极大 p-子群”。
+\begin{definition}[Sylow $p$-子群]\label{def:sylow-p-subgroup}
+设 $p$ 为质数，$P\leq G$。若 $P$ 是 $G$ 的一个按包含关系极大的 $p$-子群，即 $P$ 是 $p$-群，且只要 $H$ 是 $G$ 的 $p$-子群并满足
+\[
+  P\leq H\leq G,
+\]
+就有 $P=H$，则称 $P$ 为 $G$ 的一个\textbf{Sylow $p$-子群}。
+\end{definition}
+
+\begin{purplenote}
+Sylow $p$-子群总是存在，尽管可能是平凡子群，且Sylow $p$-子群可能不唯一。每个 $p$-子群都包含在某个 Sylow $p$-子群中；对于无限群，这一存在性需要使用 Zorn 引理来证明。
+
+第一 Sylow 定理进一步说明：对于任意有限群 $G$ 及任意整除 $|G|$ 的质数 $p$，$G$ 都有非平凡的 $p$-子群。
+\end{purplenote}
+
+\begin{corollary}\label{cor:sylow-order-conjugates-unique-normal}
+设 $|G|=p^nm$，其中 $p$ 为质数，$n\geq1$ 且 $\gcd(p,m)=1$，$H$ 是 $G$ 的一个 $p$-子群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $H$ 是 Sylow $p$-子群，当且仅当 $|H|=p^n$。
+  \item 任意一个 Sylow $p$-子群的共轭子群也是 Sylow $p$-子群。
+  \item 若 $G$ 有且仅有一个 Sylow $p$-子群 $P$，则 $P\trianglelefteq G$。
+\end{enumerate}
+\end{corollary}
+
+% 来源：微信图片_20261119110957_64_26.jpg，2.5.11--2.5.17、紫笔说明及无编号补充性质。
+\begin{theorem}[第二 Sylow 定理]\label{thm:second-sylow}
+若 $H$ 是有限群 $G$ 的一个 $p$-子群，$P$ 是 $G$ 的任意一个 Sylow $p$-子群，则存在 $x\in G$，使得
+\[
+  H\leq xPx^{-1}.
+\]
+特别地，$G$ 中任意两个 Sylow $p$-子群都是共轭的。
+\end{theorem}
+
+\begin{purplenote}
+这里关于 Sylow $p$-子群共轭性的结论，可视为推论~\ref{cor:sylow-order-conjugates-unique-normal} 第 (2) 条的逆向结论。
+\end{purplenote}
+
+% 来源：微信图片_20261119110959_65_26.jpg，2.5.11 的另页证明。
+\begin{purpleproof}
+令 $S$ 为 $P$ 在 $G$ 中的所有左陪集组成的集合，并令 $H$ 在 $S$ 上以左平移作用。注意，对 $x\in G$，
+\[
+  \begin{aligned}
+    H\leq xPx^{-1}
+      &\Longleftrightarrow x^{-1}Hx\leq P\\
+      &\Longleftrightarrow x^{-1}hx\in P\quad\text{对所有 }h\in H\\
+      &\Longleftrightarrow hxP=xP\quad\text{对所有 }h\in H\\
+      &\Longleftrightarrow xP\in S_0.
+  \end{aligned}
+\]
+由于 $P$ 是 Sylow $p$-子群，$p\nmid[G:P]=|S|$。再由引理~\ref{lem:p-group-action-fixed-point-congruence}，
+\[
+  |S_0|\equiv|S|\not\equiv0\pmod p,
+\]
+故 $S_0\ne\varnothing$。取 $xP\in S_0$，即得 $H\leq xPx^{-1}$。
+
+若 $H$ 本身也是 Sylow $p$-子群，则 $|H|=|P|=|xPx^{-1}|$，故上述包含关系必为相等。
+\end{purpleproof}
+
+\begin{theorem}[第三 Sylow 定理]\label{thm:third-sylow}
+设 $G$ 是有限群，$p$ 为质数。若 $k$ 是 $G$ 的所有 Sylow $p$-子群的数目，则
+\[
+  k\mid |G|,\qquad k\equiv1\pmod p.
+\]
+\end{theorem}
+
+% 来源：微信图片_20261119110959_65_26.jpg，2.5.12 的另页证明。
+\begin{purpleproof}
+固定 $G$ 的一个 Sylow $p$-子群 $P$，令 $S$ 为 $G$ 的所有 Sylow $p$-子群组成的集合。由定理~\ref{thm:second-sylow}，
+\[
+  S=\{xPx^{-1}\mid x\in G\}.
+\]
+因此 $S$ 是共轭作用下 $P$ 的轨道，由推论~\ref{cor:conjugacy-class-equation} 第 (3) 条，
+\[
+  k=|S|=[G:N_G(P)]\mid |G|.
+\]
+
+现令 $P$ 通过共轭作用于 $S$。若 $Q\in S_0$，则对所有 $x\in P$ 都有 $xQx^{-1}=Q$，即
+\[
+  P\leq N_G(Q).
+\]
+$P,Q$ 均是 $G$ 的 Sylow $p$-子群，故也是 $N_G(Q)$ 的 Sylow $p$-子群。由第二 Sylow 定理，它们在 $N_G(Q)$ 中共轭；但 $Q\trianglelefteq N_G(Q)$，因此只能有 $P=Q$。反过来，显然 $P\in S_0$，所以
+\[
+  S_0=\{P\}.
+\]
+再由引理~\ref{lem:p-group-action-fixed-point-congruence}，得到
+\[
+  k=|S|\equiv|S_0|=1\pmod p.
+\]
+\end{purpleproof}
+
+\begin{theorem}\label{thm:sylow-normalizer-self-normalizing}
+若 $P$ 是有限群 $G$ 的一个 Sylow $p$-子群，则
+\[
+  N_G(N_G(P))=N_G(P).
+\]
+\end{theorem}
+
+\begin{purpleproof}
+显然 $N_G(P)\leq N_G(N_G(P))$。反过来，若 $x\in N_G(N_G(P))$，则
+\[
+  xN_G(P)x^{-1}=N_G(P).
+\]
+由于 $P\leq N_G(P)$，有 $xPx^{-1}\leq N_G(P)$。$P$ 与 $xPx^{-1}$ 都是 $N_G(P)$ 的 Sylow $p$-子群，由定理~\ref{thm:second-sylow}，存在 $x_0\in N_G(P)$，使得
+\[
+  xPx^{-1}=x_0Px_0^{-1}.
+\]
+而 $P\trianglelefteq N_G(P)$，故右边等于 $P$。因此 $xPx^{-1}=P$，即 $x\in N_G(P)$，结论成立。
+\end{purpleproof}
+
+\par\textbf{补充性质（原稿无编号）。}
+若 $G$ 是有限 $p$-群，$H\trianglelefteq G$ 且 $H\ne\{e\}$，则
+\[
+  H\cap C(G)\ne\{e\}.
+\]
+
+下面列出本节的一些习题性质。
+
+\begin{proposition}\label{prop:p-group-normal-subgroups-all-orders}
+设 $p$ 为质数，$|G|=p^n$。则对每个 $0\leq k\leq n$，$G$ 都有一个阶为 $p^k$ 的正规子群。
+\end{proposition}
+
+\begin{purplenote}
+证明提示：考虑
+\[
+  S_k=\{H\leq G\mid |H|=p^k\}
+\]
+及 $G$ 在 $S_k$ 上的共轭作用，并考察相应的公共不动点集 $(S_k)_0$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:infinite-p-group-finite-subgroup-orders}
+设 $p$ 为质数，$G$ 为无限群且为 $p$-群。则下列两种情形至少有一种成立：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对每个 $n\geq1$，$G$ 都有一个阶为 $p^n$ 的子群。
+  \item 存在 $m\in\mathbb N^*$，使 $G$ 的所有有限子群的阶都不超过 $p^m$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}\label{prop:normal-sylow-orders-12-28-56-200}
+任意阶为 $12,28,56,200$ 的群都有一个非平凡的真正规 Sylow 子群，从而不是简单群。
+\end{proposition}
+
+% 整理：不同质数阶子群的交为单位子群，原稿计数时的“完全不交”据此表述。
+\begin{purpleproof}
+记 Sylow $p$-子群的数目为 $n_p$。由第三 Sylow 定理，$n_p\mid |G|$ 且 $n_p\equiv1\pmod p$，故 $n_p$ 与 $p$ 互素，并整除 $|G|$ 中去掉 $p$ 的幂后的部分。
+
+若 $|G|=28=2^2\cdot7$，则 $n_7\mid4$ 且 $n_7\equiv1\pmod7$，故 $n_7=1$。若 $|G|=200=2^3\cdot5^2$，则 $n_5\mid8$ 且 $n_5\equiv1\pmod5$，故 $n_5=1$。由推论~\ref{cor:sylow-order-conjugates-unique-normal} 第 (3) 条，相应的 Sylow 子群都是正规的。
+
+若 $|G|=12=2^2\cdot3$，则 $n_3=1$ 或 $4$。前者已经给出正规 Sylow 子群；若 $n_3=4$，由于不同的阶为 $3$ 的子群只交于单位元，它们共包含
+\[
+  4(3-1)=8
+\]
+个非单位元素，剩下 $12-8=4$ 个元素（包括单位元）。任何 Sylow $2$-子群都有 $4$ 个元素，且其非单位元素不可能属于上述阶为 $3$ 的子群，因而只能恰由这 $4$ 个剩余元素组成。所以 Sylow $2$-子群唯一，进而正规。
+
+若 $|G|=56=2^3\cdot7$，同理 $n_7=1$ 或 $8$。前者给出正规 Sylow 子群；若 $n_7=8$，这些阶为 $7$ 的子群共有 $8(7-1)=48$ 个非单位元素。剩下的 $56-48=8$ 个元素只能组成唯一的 Sylow $2$-子群，故该子群正规。
+
+在上述各情形中，所得正规 Sylow 子群均非平凡且为真子群，因此 $G$ 不是简单群。
+\end{purpleproof}
+
+\begin{proposition}\label{prop:finite-group-normal-sylow-direct-product}
+若 $G$ 是有限群，且对每个质数 $p$，$G$ 的 Sylow $p$-子群都是正规的，则 $G$ 是其各 Sylow 子群的内直积。
+\end{proposition}

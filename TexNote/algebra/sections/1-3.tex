@@ -1,0 +1,190 @@
+% !TeX root = ../main.tex
+\subsection{循环群}
+
+\begin{theorem}\label{thm:subgroups-of-integers}
+% 修正说明：原手写稿 1.3.1 区分零子群与非零子群，并说明非零子群含有无限多个元素；先前误写成“每个非零子群都有有限指数”。
+加法群 $\mathbb Z$ 的每个子群 $H$ 都是循环群。具体地，
+\[
+  H=\langle0\rangle,
+\]
+或者
+\[
+  H=\langle m\rangle=m\mathbb Z,
+\]
+其中 $m$ 是 $H$ 中最小的正整数。若 $H\neq\langle0\rangle$，则 $H$ 含有无限多个元素。
+\end{theorem}
+
+\begin{theorem}\label{thm:cyclic-classification}
+任意无限循环群都与加法群 $\mathbb Z$ 同构；任意阶为 $m$ 的有限循环群都与 $\mathbb Z_m$ 同构。
+\end{theorem}
+
+\begin{definition}[元素的阶]\label{def:element-order}
+设 $G$ 是群，$a\in G$。循环子群 $\langle a\rangle$ 的阶称为元素 $a$ 的\textbf{阶}，记作 $|a|$。
+\end{definition}
+
+\begin{theorem}\label{thm:order-powers}
+设 $G$ 是群，$a\in G$。
+
+若 $|a|=\infty$，则
+\begin{enumerate}[label=(\arabic*)]
+  \item $a^k=e$ 当且仅当 $k=0$；
+  \item $a^r=a^s$ 当且仅当 $r=s$。
+\end{enumerate}
+
+若 $|a|=m<\infty$，则
+\begin{enumerate}[label=(\arabic*),resume]
+  \item $m$ 是满足 $a^m=e$ 的最小正整数；
+  \item $a^k=e$ 当且仅当 $m\mid k$；
+  \item $a^r=a^s$ 当且仅当 $r\equiv s\pmod m$；
+  \item $\langle a\rangle=\{e,a,a^2,\ldots,a^{m-1}\}$，且这些元素两两不同；
+  \item 对任意 $k\in\mathbb Z$，
+  % 修正说明：手写稿给出了 k\mid m 时的特例；这里写成对任意整数 k 成立的完整公式。
+  \[
+    |a^k|=\frac{m}{\gcd(m,k)}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+
+\begin{purplenote}
+当 $k\mid m$ 时，上式简化为 $|a^k|=m/k$（取 $k>0$）。
+\end{purplenote}
+
+\begin{theorem}\label{thm:cyclic-images-subgroups}
+% 修正说明：原手写稿 1.3.5 同时包含“同态像”和“子群”两部分；先前转录遗漏了前一部分。
+循环群的每一个同态像都是循环群；循环群的每一个子群也都是循环群。更具体地，若 $G$ 是循环群且 $f:G\to H$ 是群同态，则 $\operatorname{im}f$ 是循环群；若 $K\leq G$，则 $K$ 是循环群。
+\end{theorem}
+
+\begin{theorem}[循环群的生成元]\label{thm:cyclic-generators}
+设 $G=\langle a\rangle$。
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $G$ 为无限循环群，则它的生成元只有 $a$ 与 $a^{-1}$；
+  \item 若 $|G|=m<\infty$，则 $a^k$ 是 $G$ 的生成元当且仅当 $\gcd(m,k)=1$。
+\end{enumerate}
+\end{theorem}
+
+% 第 8 张照片：以下均为循环群一节的补充结论，故置于 1.3 节末尾。
+% 修正说明：照片中的补充命题主体为黑笔，现改用普通 proposition；只有原稿紫笔注释继续使用紫色环境。
+\begin{proposition}\label{prop:abelian-lcm-order}
+设 $G$ 是阿贝尔群，$a,b\in G$ 的阶分别为有限数 $m,n$。则 $G$ 中存在元素 $c$，使得
+\[
+  |c|=\operatorname{lcm}(m,n).
+\]
+\end{proposition}
+
+\begin{proof}
+将 $\operatorname{lcm}(m,n)$ 分解为互异素数幂的乘积
+\[
+  \operatorname{lcm}(m,n)=\prod_{i=1}^r p_i^{\gamma_i}.
+\]
+对每个 $p_i$，它在 $m,n$ 中的指数至少有一个等于 $\gamma_i$。若 $p_i^{\gamma_i}$ 是整除 $m$ 的最高 $p_i$-幂，则取
+\[
+  x_i=a^{m/p_i^{\gamma_i}};
+\]
+否则取 $x_i=b^{n/p_i^{\gamma_i}}$。由定理~\ref{thm:order-powers}，$|x_i|=p_i^{\gamma_i}$。由于 $G$ 为阿贝尔群，$x_1,\ldots,x_r$ 两两交换，且它们的阶两两互素，故
+\[
+  c=x_1x_2\cdots x_r
+\]
+的阶为 $\prod_i p_i^{\gamma_i}=\operatorname{lcm}(m,n)$。
+\end{proof}
+
+\begin{purplenote}
+% 修正说明：存在性结论是正确的；仅“总可直接取 c=ab”不正确。当 gcd(m,n)=1 时可以取 c=ab。
+上述 $c$ 一般不能直接取为 $ab$；若 $\gcd(m,n)=1$，则确有 $|ab|=mn$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:prufer-subgroups}
+\textbf{Prüfer $p$-群的子群。}
+设 $p$ 为素数，定义
+\[
+  \mathbb Z(p^\infty)
+  =\left\{\overline{\frac{a}{b}}\in\mathbb Q/\mathbb Z
+  \ \middle|\ a,b\in\mathbb Z,\ b=p^i,\ i\geq0\right\}.
+\]
+设 $H\leq\mathbb Z(p^\infty)$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对任意 $x\in\mathbb Z(p^\infty)$，存在 $n\geq0$，使得
+  \[
+    |x|=p^n.
+  \]
+
+  \item 若 $H$ 中至少有一个元素的阶为 $p^k$，并且 $H$ 中没有元素的阶大于 $p^k$，则
+  \[
+    H=\left\langle\overline{\frac{1}{p^k}}\right\rangle
+    \cong\mathbb Z_{p^k}.
+  \]
+
+  \item 若 $H$ 中元素的阶没有上界，则
+  \[
+    H=\mathbb Z(p^\infty).
+  \]
+
+  % 修正说明：原稿写“非平凡子群”，但整个 Prüfer p-群本身也是非平凡子群；这里严谨地改为“非平凡真子群”。
+  \item $\mathbb Z(p^\infty)$ 的非平凡真子群恰为
+  \[
+    C_n:=\left\langle\overline{\frac{1}{p^n}}\right\rangle
+    \qquad(n=1,2,\ldots).
+  \]
+  若记 $C_0=\langle\overline0\rangle$，则
+  \[
+    C_0<C_1<C_2<\cdots<C_n<\cdots<\mathbb Z(p^\infty).
+  \]
+
+  % 修正说明：补回原手写稿 1.3.8 的第 (5) 条。
+  \item 设 $G$ 是阿贝尔群，且 $x_1,x_2,\ldots\in G$ 满足
+  \[
+    |x_1|=p,\qquad px_{n+1}=x_n\quad(n\geq1).
+  \]
+  则
+  \[
+    \langle x_1,x_2,\ldots\rangle\cong\mathbb Z(p^\infty).
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+由上述结构可知，$\mathbb Z(p^\infty)$ 含有无限多个有限阶元素；更精确地，阶为 $p^n$ 的元素恰有 $\varphi(p^n)$ 个。
+\end{purplenote}
+
+\begin{proposition}\label{prop:finitely-many-subgroups}
+若一个群只有有限多个子群，则它必为有限群。
+\end{proposition}
+
+\begin{purpleproof}
+若某元素生成无限循环子群，则该循环子群本身已有无限多个子群，矛盾。因此每个循环子群都有限。群是其所有循环子群之并，而循环子群只有有限多个，故该群有限。
+\end{purpleproof}
+
+\begin{proposition}\label{prop:torsion-subgroup}
+若 $G$ 是阿贝尔群，则所有有限阶元素组成的集合
+\[
+  T=\{a\in G\mid |a|<\infty\}
+\]
+是 $G$ 的子群，称为 $G$ 的挠子群。
+\end{proposition}
+
+\begin{proof}
+若 $|a|=m$、$|b|=n$，取 $N=\operatorname{lcm}(m,n)$。因 $G$ 交换，
+\[
+  (ab^{-1})^N=a^N b^{-N}=e,
+\]
+故 $ab^{-1}\in T$。由\hyperref[thm:subgroup-test]{子群判别法}，$T\leq G$。
+\end{proof}
+
+\begin{purplenote}
+阿贝尔条件不可省略：一般群中，两个有限阶元素的乘积未必仍有有限阶。
+\end{purplenote}
+
+\begin{proposition}\label{prop:infinite-cyclic-subgroups}
+% 修正说明：重新核查后，原手写稿中的“当且仅当”是正确的；先前删除逆命题属于误修正。
+设 $G$ 是无限群，则 $G$ 是循环群当且仅当 $G$ 的每一个非平凡子群都与 $G$ 同构。
+\end{proposition}
+
+\begin{proof}
+若 $G$ 是无限循环群，则其每个非平凡子群仍是无限循环群，因而与 $G$ 同构。
+
+反之，任取 $a\in G\setminus\{e\}$，则 $\langle a\rangle$ 是 $G$ 的非平凡子群。由假设 $\langle a\rangle\cong G$，而 $\langle a\rangle$ 是循环群，故 $G$ 也是循环群。
+\end{proof}
+
+\begin{purplenote}
+正向证明使用了无限循环群的每个非平凡子群仍为无限循环群。实际判断一个无限群是否循环时，若能找到一个与原群不同构的非平凡子群，即可断定原群不是循环群。
+\end{purplenote}

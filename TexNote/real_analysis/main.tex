@@ -1,0 +1,28 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+\documentclass[11pt,fontset=fandol,scheme=plain]{ctexart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage[hidelinks,unicode]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}[section]
+\newtheorem{example}[definition]{例}
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{定理}
+\newtheorem{lemma}[definition]{引理}
+\newtheorem{proposition}[definition]{命题}
+\newtheorem{corollary}[definition]{推论}
+\renewcommand{\proofname}{证明}
+\numberwithin{equation}{section}
+\newcommand{\unclear}[1]{\text{\color{red}[待确认：#1]}}
+
+\title{实变函数笔记}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{sections/01}
+\end{document}

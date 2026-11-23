@@ -1,0 +1,322 @@
+% !TeX root = ../main.tex
+\subsection{对称群、偶置换与二面体群}
+
+% 来源：微信图片_20260914150308_24_215.jpg，1.6.1--1.6.6。
+% 排版约定：原黑笔正文和证明用普通环境，原紫笔批注用 purplenote；单独的证明移至对应结论后。
+% 转录补充：明确映射复合的运算次序，便于核对本节的循环乘积公式。
+本节记 $I_n=\{1,2,\ldots,n\}$，以 $S_n$ 表示 $I_n$ 上的对称群。置换的乘积采用映射复合，即
+\[
+  (\sigma\tau)(k)=\sigma\bigl(\tau(k)\bigr),
+\]
+也就是先作用右边的置换。恒等置换记作 $(1)$。
+
+\begin{definition}[循环与对换]\label{def:cycles-transpositions}
+% 排版修正：将取值条件与循环记号分段，避免行内公式越过页边界。
+设 $1\leq r\leq n$，$i_1,\ldots,i_r\in I_n$ 互不相同。
+
+记 $(i_1\,i_2\,\cdots\,i_r)$ 为置换
+\[
+  i_1\longmapsto i_2,\quad i_2\longmapsto i_3,\quad\ldots,\quad
+  i_{r-1}\longmapsto i_r,\quad i_r\longmapsto i_1,
+\]
+而 $I_n$ 中其余的元素都映到自身。称这一置换为长度为 $r$ 的\textbf{循环}，简称 $r$-循环。一个 $2$-循环称为\textbf{对换}。
+\end{definition}
+
+\begin{purplenote}
+由定义立即得到
+\[
+  (i_1\,i_2\,\cdots\,i_r)
+  =(i_2\,i_3\,\cdots\,i_r\,i_1)=\cdots,
+\]
+且
+\[
+  (i_1\,i_2\,\cdots\,i_r)^{-1}=(i_r\,i_{r-1}\,\cdots\,i_1).
+\]
+一般的循环（更一般地，置换）不一定可交换，即不一定有 $\sigma\tau=\tau\sigma$，但在一些特殊情形下二者可交换。
+\end{purplenote}
+
+\begin{definition}[不相交的置换]\label{def:disjoint-permutations}
+设 $\sigma_1,\ldots,\sigma_r\in S_n$。若对任意 $1\leq i\leq r$ 及 $k\in I_n$，都有
+\[
+  \sigma_i(k)\neq k\quad\Longrightarrow\quad
+  \sigma_j(k)=k\qquad(j\neq i),
+\]
+则称 $\sigma_1,\ldots,\sigma_r$ 是\textbf{不相交的置换}。
+\end{definition}
+
+\begin{purplenote}
+换言之，$\sigma_1,\ldots,\sigma_r$ 不相交，当且仅当 $I_n$ 中任意元素至多被其中一个置换移动，即至多有一个 $\sigma_i$ 将它映为不同于自身的元素。因此，当 $\sigma$ 与 $\tau$ 不相交时，有
+\[
+  \sigma\tau=\tau\sigma.
+\]
+\end{purplenote}
+
+\begin{theorem}\label{thm:disjoint-cycle-decomposition}
+% 修正说明：原稿叙述漏写“不相交”，证明页已补出；唯一分解必须限定为两两不相交的循环。
+$S_n$ 中任意非恒等置换都可分解为两两不相交的循环的乘积，其中每个循环的长度至少为 $2$。在忽略循环因子的排列次序以及同一循环的循环移位写法的意义下，这一分解是唯一的。
+\end{theorem}
+
+\begin{proof}
+% 来源：微信图片_20260914150318_26_215.jpg 顶部的 1.6.3 证明。
+对任意 $k\in I_n$，由于 $I_n$ 有限，且 $\sigma$ 是双射，必有正整数 $m$ 使 $\sigma^m(k)=k$。于是集合
+\[
+  B(k)=\{\sigma^j(k)\mid j\in\mathbb Z\}
+\]
+有限；任意两个这样的集合要么相同，要么不相交。因此它们将 $I_n$ 分成有限个互不相交的集合 $B_1,\ldots,B_t$。
+
+对每个 $B_i$ 定义
+\[
+  \sigma_i(x)=
+  \begin{cases}
+    \sigma(x),&x\in B_i,\\
+    x,&x\notin B_i.
+  \end{cases}
+\]
+若 $x\in B_i$，且 $m$ 是使 $\sigma^m(x)=x$ 的最小正整数，则
+\[
+  \sigma_i=\bigl(x\,\sigma(x)\,\cdots\,\sigma^{m-1}(x)\bigr).
+\]
+这些循环两两不相交，且 $\sigma=\sigma_1\cdots\sigma_t$。
+% 补充说明：略去单点集合对应的恒等循环，以满足定理中循环长度至少为 2 的要求。
+略去 $|B_i|=1$ 时的恒等循环，即得所需分解。
+
+为证唯一性，设 $\sigma=\tau_1\cdots\tau_u$ 是另一组两两不相交、长度至少为 $2$ 的循环的乘积。若 $\tau_j(x)\neq x$，则 $\sigma(x)=\tau_j(x)$，进一步有
+\[
+  \sigma^k(x)=\tau_j^k(x)\qquad(k\in\mathbb Z).
+\]
+因此 $\tau_j$ 所移动的元素恰好构成某个 $B_i$，且其循环次序也由 $\sigma$ 确定。这就证明了唯一性。
+\end{proof}
+
+\begin{corollary}\label{cor:permutation-order}
+对任意 $\sigma\in S_n$，$\sigma$ 的阶等于其不相交循环分解中各循环的阶（也就是长度）的最小公倍数。即若
+\[
+  \sigma=\sigma_1\cdots\sigma_r,
+\]
+其中各循环两两不相交，则
+\[
+  |\sigma|=\operatorname{lcm}\bigl(|\sigma_1|,\ldots,|\sigma_r|\bigr).
+\]
+% 补充说明：明确恒等置换这一边界情形，不必使用空集的最小公倍数记号。
+恒等置换的阶为 $1$。
+\end{corollary}
+
+\begin{corollary}\label{cor:transposition-decomposition}
+任意 $\sigma\in S_n$ 都可分解为对换的乘积，其中的对换不一定互不相交。
+% 补充说明：允许空乘积表示恒等置换，以包括 n=1 的情形。
+这里允许用空乘积表示恒等置换。
+\end{corollary}
+
+\begin{definition}[偶置换与奇置换]\label{def:permutation-parity}
+对任意 $\sigma\in S_n$，若 $\sigma$ 可分解为偶数个对换的乘积，则称 $\sigma$ 为\textbf{偶置换}；若可分解为奇数个对换的乘积，则称其为\textbf{奇置换}。
+\end{definition}
+
+\begin{purplenote}
+这一定义的良定义性由定理~\ref{thm:parity-well-defined} 保证。
+\end{purplenote}
+
+% 来源：微信图片_20260914150312_25_215.jpg，1.6.7--1.6.13。
+\begin{theorem}\label{thm:parity-well-defined}
+任意 $\sigma\in S_n$ 不可能既是偶置换又是奇置换。
+\end{theorem}
+
+\begin{proof}
+% 来源：照片 26 中部的 1.6.7 证明；展开对换使乘积变号及奇偶性唯一的推导。
+设
+\[
+  \sigma=\begin{pmatrix}
+    1&2&\cdots&n\\
+    i_1&i_2&\cdots&i_n
+  \end{pmatrix},
+  \qquad
+  \Delta(\sigma)=\prod_{1\leq k<j\leq n}(i_k-i_j).
+\]
+因 $i_1,\ldots,i_n$ 两两不同，$\Delta(\sigma)\neq0$。若 $\tau$ 是一个对换，则左乘 $\tau$ 恰好交换上述 $i_1,\ldots,i_n$ 中的两个值，故
+\[
+  \Delta(\tau\sigma)=-\Delta(\sigma).
+\]
+所以若 $\sigma$ 分解为 $r$ 个对换的乘积，则
+\[
+  \Delta(\sigma)=(-1)^r\Delta((1)).
+\]
+由于 $\Delta((1))\neq0$，不同分解中对换个数的奇偶性必相同。$n=1$ 时只有恒等置换，结论也成立。
+\end{proof}
+
+\begin{theorem}\label{thm:alternating-group}
+对任意 $n\geq2$，记 $A_n$ 为 $S_n$ 中所有偶置换组成的集合，则
+\[
+  A_n\trianglelefteq S_n,\qquad
+  [S_n:A_n]=2,\qquad |A_n|=\frac{|S_n|}{2}=\frac{n!}{2}.
+\]
+进一步，$A_n$ 是 $S_n$ 中唯一的指数为 $2$ 的子群。
+% 转录补充：补明 A_n 的名称，不另增编号。
+$A_n$ 称为 $n$ 元\textbf{交错群}。
+\end{theorem}
+
+\begin{purplenote}
+% 来源说明：原稿将唯一性的习题出处记作“教材习题 8”，此处保留原稿提示。
+唯一性的证明见教材习题 $8$（原稿所记）。
+\end{purplenote}
+
+\begin{definition}[简单群]\label{def:simple-group}
+设 $G$ 是群。若 $G$ 没有非平凡真正规子群，即 $G$ 的正规子群只能是 $\{e\}$ 或 $G$ 本身，则称 $G$ 为\textbf{简单群}。
+\end{definition}
+
+% 约定说明：遵循本节原稿及 Hungerford Definition 6.9 / Theorem 6.10 的约定，不额外要求简单群非平凡；否则下面 n\ne4 的说法需调整。
+\par\textbf{术语约定。}这里的定义不排除平凡群。有些文献在简单群的定义中还要求 $G\neq\{e\}$，阅读时需注意这一区别。
+
+\begin{purplenote}
+% 修正说明：原稿“简单阿贝尔群只能同构于 Z_p”需限定非平凡群，才能与本节允许平凡简单群的约定一致。
+阿贝尔群的任意子群都是正规子群，而无限群必有非平凡真子群，故非平凡的简单阿贝尔群一定有限，进一步只能同构于 $\mathbb Z_p$，其中 $p$ 为素数。
+非阿贝尔简单群也有许多例子，例如下面的交错群。
+\end{purplenote}
+
+\begin{theorem}\label{thm:alternating-simple}
+% 约定说明：保留原稿 n\ne4 的结论；n=2 时 A_2 为平凡群，在上面的简单群约定下仍满足结论。
+设 $n\geq2$。若 $n\neq4$，则 $A_n$ 是简单群。
+\end{theorem}
+
+\begin{purplenote}
+定理~\ref{thm:alternating-simple} 的证明涉及以下两个重要引理。
+\end{purplenote}
+
+\begin{lemma}\label{lem:alternating-generators}
+设 $n\geq3$，$r,s$ 是 $I_n$ 中两个不同的元素，则 $A_n$ 由下列 $3$-循环生成：
+\[
+  A_n=\bigl\langle(r\,s\,k)\mid 1\leq k\leq n,\ k\neq r,s\bigr\rangle.
+\]
+\end{lemma}
+
+\begin{proof}
+% 来源：照片 26 下半页的 1.6.11 证明；所有乘积均按从右向左作用核对。
+$n=3$ 时，$A_3$ 由恒等置换及两个 $3$-循环组成，结论可直接验证。以下设 $n\geq4$。
+
+任意 $\sigma\in A_n$ 都可写成偶数个对换的乘积。将相邻的对换两两配对：相同的对换相消，其余各对可写成 $(a\,b)(c\,d)$ 或 $(a\,b)(a\,c)$ 的形式。注意到
+\[
+  (a\,b)(c\,d)=(a\,c\,b)(c\,d\,a),
+  \qquad (a\,b)(a\,c)=(a\,c\,b),
+\]
+所以每个偶置换都是 $3$-循环的乘积。
+
+令 $L=\langle(r\,s\,k)\mid k\neq r,s\rangle$。只需说明每个 $3$-循环都属于 $L$。
+按是否含有 $r,s$，并允许循环移位及取逆，只需考虑
+\[
+  (r\,s\,a),\quad(r\,a\,b),\quad(s\,a\,b),\quad(a\,b\,c),
+\]
+其中 $a,b,c$ 互不相同且都不等于 $r,s$；最后一种情形仅在 $n\geq5$ 时出现。由
+\begin{align*}
+  (r\,a\,s)&=(r\,s\,a)^2,\\
+  (r\,a\,b)&=(r\,s\,b)(r\,s\,a)^2,\\
+  (s\,a\,b)&=(r\,s\,b)^2(r\,s\,a),\\
+  (a\,b\,c)&=(r\,s\,a)^2(r\,s\,c)(r\,s\,b)^2(r\,s\,a),
+\end{align*}
+可知这些循环都属于 $L$。另一方面，$3$-循环是偶置换，所以 $L\leq A_n$，故 $L=A_n$。
+\end{proof}
+
+\begin{lemma}\label{lem:normal-containing-three-cycle}
+设 $n\geq3$。若 $N\trianglelefteq A_n$，且 $N$ 包含一个 $3$-循环，则 $N=A_n$。
+\end{lemma}
+
+\begin{proof}
+% 来源：微信图片_20260914150322_27_215.jpg 顶部的 1.6.12 证明。
+设 $(r\,s\,c)\in N$。若 $k\notin\{r,s,c\}$，则 $(r\,s)(c\,k)\in A_n$，并且
+\begin{align*}
+  (r\,s\,k)
+  &=(r\,s)(c\,k)(r\,s\,c)^2(c\,k)(r\,s)\\
+  &=\bigl((r\,s)(c\,k)\bigr)(r\,s\,c)^2
+    \bigl((r\,s)(c\,k)\bigr)^{-1}\in N.
+\end{align*}
+这里使用了 $N\trianglelefteq A_n$。连同已知的 $(r\,s\,c)\in N$，可知 $N$ 包含引理~\ref{lem:alternating-generators} 中的全部生成元，故 $N=A_n$。这也包括 $n=3$ 时只有一个所需生成元的情形。
+\end{proof}
+
+\begin{purplenote}
+定理~\ref{thm:alternating-simple} 的完整证明详见教材。主要策略是取 $A_n$ 的一个非平凡正规子群 $N$，分类讨论其元素的循环分解，归结为引理~\ref{lem:normal-containing-three-cycle}。这一分类论证用于 $n\geq5$；小的 $n$ 单独处理。
+\end{purplenote}
+
+\begin{definition}[二面体群]\label{def:dihedral-group}
+% 补充说明：明确 n\geq3，与后面的阶及关系式定理保持一致。
+设 $n\geq3$，在 $S_n$ 中取
+\[
+  a=(1\,2\,\cdots\,n),\qquad
+  b=\begin{pmatrix}
+    1&2&3&\cdots&n\\
+    1&n&n-1&\cdots&2
+  \end{pmatrix}.
+\]
+也可写成不相交对换的乘积
+\[
+  b=\prod_{2\leq i<(n+2)/2}(i\,\,n+2-i).
+\]
+子群 $D_n=\langle a,b\rangle\leq S_n$ 称为次数为 $n$ 的\textbf{二面体群}。
+\end{definition}
+
+% 来源：微信图片_20260914150326_28_215.jpg，1.6.14--1.6.17。
+\begin{theorem}\label{thm:dihedral-relations}
+对任意 $n\geq3$，二面体群 $D_n$ 的阶为 $2n$，且其生成元 $a,b$ 满足：
+\begin{enumerate}[label=(\arabic*)]
+  \item $a^n=(1)$，$b^2=(1)$，且 $a^k\neq(1)$ 对所有 $0<k<n$ 成立；
+  \item $ba=a^{-1}b$。
+\end{enumerate}
+反过来，若群 $G=\langle a,b\rangle$ 的生成元 $a,b$ 对某个 $n\geq3$ 满足以上两条关系（将 $(1)$ 换成 $G$ 的幺元 $e$），则 $G\cong D_n$。
+\end{theorem}
+
+\begin{proof}
+% 来源：照片 27 中部的 1.6.14 证明；按原稿的标准形思路补足 2n 个元素互异及同构保持乘法的验证。
+定义~\ref{def:dihedral-group} 中的置换 $a,b$ 满足上述关系，且 $a$ 的阶为 $n$。由 $ba=a^{-1}b$ 可得
+\[
+  ba^i=a^{-i}b\qquad(i\in\mathbb Z).
+\]
+因此每个由 $a,b$ 生成的元素都可写成 $a^i b^j$，其中 $0\leq i<n$、$j=0,1$。
+
+事实上，这 $2n$ 个标准形互不相同。首先 $b\notin\langle a\rangle$：否则 $a,b$ 可交换，结合 $ba=a^{-1}b$ 得 $a=a^{-1}$，与 $|a|=n\geq3$ 矛盾。
+同一类中的 $a^i$（或 $a^i b$）两两不同；而 $a^i=a^k b$ 会推出 $b\in\langle a\rangle$，也不可能。故 $|D_n|=2n$。
+
+反过来，若 $G=\langle a,b\rangle$ 满足上述关系，同样的论证给出
+\[
+  G=\{a^i b^j\mid 0\leq i<n,\ j=0,1\},
+\]
+且每个元素的这种写法唯一。为区分两群的生成元，将 $D_n$ 中的生成元记为 $\alpha,\beta$。映射
+\[
+  G\longrightarrow D_n,\qquad a^i b^j\longmapsto\alpha^i\beta^j
+\]
+是双射。两群中的乘法都满足
+\[
+  (a^i b^j)(a^k b^\ell)=a^{\,i+(-1)^j k}b^{\,j+\ell},
+\]
+其中 $a$ 的指数按模 $n$ 化简，$b$ 的指数按模 $2$ 化简。因此该双射保持乘法，是群同构。
+\end{proof}
+
+\begin{purplenote}
+本质上，二面体群 $D_n$ 与正 $n$ 边形的全体对称在复合下组成的群同构。
+
+以下是一些练习题结论。
+\end{purplenote}
+
+\begin{proposition}\label{prop:transposition-generating-sets}
+设 $n\geq2$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $S_n=\langle(1\,2),(1\,3),\ldots,(1\,n)\rangle$；
+  \item $S_n=\langle(1\,2),(2\,3),\ldots,(n-1\,\,n)\rangle$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}\label{prop:conjugation-of-cycle}
+若 $\sigma=(i_1\,i_2\,\cdots\,i_r)\in S_n$，$\tau\in S_n$，则
+\[
+  \tau\sigma\tau^{-1}
+  =\bigl(\tau(i_1)\,\tau(i_2)\,\cdots\,\tau(i_r)\bigr).
+\]
+\end{proposition}
+
+\begin{proposition}\label{prop:two-generators-symmetric}
+% 补充说明：明确生成式的适用范围；第 (2) 条取 n\geq3，使 (2\,3\,\cdots\,n) 的写法不含歧义。
+\begin{enumerate}[label=(\arabic*)]
+  \item 设 $n\geq2$，$\sigma_1=(1\,2)$，$\tau=(1\,2\,\cdots\,n)$，则
+  \[
+    S_n=\langle\sigma_1,\tau\rangle.
+  \]
+  \item 设 $n\geq3$，则
+  \[
+    S_n=\langle(1\,2),(2\,3\,\cdots\,n)\rangle.
+  \]
+\end{enumerate}
+\end{proposition}

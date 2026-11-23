@@ -1,0 +1,387 @@
+% !TeX root = ../main.tex
+\subsection{正规子群、商群和同态}
+
+% 来源：微信图片_20260910201726_17_215.jpg，1.5.1--1.5.6。
+% 排版约定：黑笔正文用普通定理与证明环境；原紫笔批注用 purplenote 或 purpleproof。
+% 记号说明：\trianglelefteq 表示正规子群，不要求为真子群；\leq 同样允许相等。
+\begin{theorem}\label{thm:normal-equivalences}
+设 $N$ 是群 $G$ 的子群，则下列条件等价：
+\begin{enumerate}[label=(\arabic*)]
+  \item 模 $N$ 的左、右同余是 $G$ 上的同一个等价关系，即对任意 $a,b\in G$，
+  \[
+    a\equiv_l b\pmod N\quad\Longleftrightarrow\quad a\equiv_r b\pmod N;
+  \]
+  \item $N$ 在 $G$ 中的每一个左陪集都是 $N$ 在 $G$ 中的某个右陪集；
+  \item 对任意 $a\in G$，$aN=Na$；
+  \item 对任意 $a\in G$，$aNa^{-1}\subseteq N$，其中
+  \[
+    aNa^{-1}=\{ana^{-1}\mid n\in N\};
+  \]
+  \item 对任意 $a\in G$，$aNa^{-1}=N$。
+\end{enumerate}
+\end{theorem}
+
+\begin{purplenote}
+第 (4) 条是判别正规子群时常用的条件。
+\end{purplenote}
+
+\begin{definition}[正规子群]\label{def:normal-subgroup}
+设 $N\leq G$。若 $N$ 满足定理~\ref{thm:normal-equivalences} 中的任意一个条件，则称 $N$ 为 $G$ 的\textbf{正规子群}，记作 $N\trianglelefteq G$。
+\end{definition}
+
+\begin{purplenote}
+阿贝尔群的任意子群都是其正规子群。
+\end{purplenote}
+
+\begin{proposition}\label{prop:normal-intersection-restriction}
+设 $N\trianglelefteq G$，并且 $N_i\trianglelefteq G$（$i\in I$），则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $\displaystyle\bigcap_{i\in I}N_i\trianglelefteq G$；
+  \item 若 $N\leq H\leq G$，则 $N\trianglelefteq H$。
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+需要注意，正规性一般不具有传递性：即使 $N\leq H\leq G$，且 $N\trianglelefteq H$、$H\trianglelefteq G$，也不一定有 $N\trianglelefteq G$。
+\end{purplenote}
+
+\begin{theorem}\label{thm:normal-product}
+设 $G$ 是群，$K\leq G$，$N\trianglelefteq G$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $N\cap K\trianglelefteq K$；
+  \item $N\trianglelefteq N\vee K$；
+  \item $NK=N\vee K=KN$；
+  \item 若还有 $K\trianglelefteq G$ 且 $K\cap N=\{e\}$，则对任意 $k\in K$、$n\in N$，都有 $nk=kn$。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+% 来源：微信图片_20260910201738_18_215.jpg，上半页的 1.5.4 证明移至本定理后。
+(1) 首先 $N\cap K\leq K$。对任意 $a\in K$、$t\in N\cap K$，由 $N\trianglelefteq G$ 得 $ata^{-1}\in N$；又因 $a,t\in K$，有 $ata^{-1}\in K$。故 $ata^{-1}\in N\cap K$，所以 $N\cap K\trianglelefteq K$。
+
+(2) 由 $N\leq N\vee K\leq G$，利用命题~\ref{prop:normal-intersection-restriction} 的第 (2) 条即得。
+
+% 修正说明：原稿第 (3) 条的“两两交换”应理解为利用正规性重写乘积，不是断言 n 与 k 交换；重写后 N 中的元素可能改变。
+(3) 显然 $NK\subseteq N\vee K$。由生成子群的描述，$N\vee K$ 的每个元素都可写成有限交错乘积
+\[
+  n_1k_1\cdots n_rk_r,\qquad n_i\in N,\ k_i\in K.
+\]
+由于 $N\trianglelefteq G$，对任意 $k\in K$、$n\in N$，可写成
+\[
+  kn=(knk^{-1})k\in NK.
+\]
+反复利用这一重写规则，并在各子群内合并乘积，可将上述交错乘积写成 $nk$ 的形式，故 $N\vee K=NK$。
+同理，利用 $nk=k(k^{-1}nk)$ 可得 $N\vee K=KN$。
+
+(4) 因为 $K\trianglelefteq G$，所以 $nkn^{-1}\in K$，从而 $nkn^{-1}k^{-1}\in K$。
+又由 $N\trianglelefteq G$，有 $kn^{-1}k^{-1}\in N$，故
+\[
+  nkn^{-1}k^{-1}\in N\cap K=\{e\}.
+\]
+因此 $nk=kn$。
+\end{proof}
+
+\begin{theorem}\label{thm:quotient-group-construction}
+设 $N\trianglelefteq G$，以 $G/N$ 表示 $N$ 在 $G$ 中的所有左陪集（也就是所有右陪集）组成的集合。在 $G/N$ 上定义
+\[
+  (aN)(bN)=(ab)N.
+\]
+则该运算使 $G/N$ 成为群，且 $|G/N|=[G:N]$。
+\end{theorem}
+
+\begin{definition}[商群]\label{def:quotient-group}
+设 $N\trianglelefteq G$，则定理~\ref{thm:quotient-group-construction} 中定义的群 $G/N$ 称为\textbf{由 $N$ 决定的 $G$ 的商群}。
+\end{definition}
+
+% 来源：微信图片_20260910201741_19_215.jpg 顶部，接续 1.5.6 的紫色备注。
+\begin{purplenote}
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $G$ 的运算采用加法记号，则商群中的运算相应写为
+  \[
+    (a+N)+(b+N)=(a+b)+N.
+  \]
+  \item 对任意整数 $m>1$，$\mathbb Z_m$ 就是由加法群 $\mathbb Z$ 对子群 $\langle m\rangle$ 取商得到的群。
+\end{enumerate}
+以下讨论正规子群、商群和同态之间的关系。
+\end{purplenote}
+
+\begin{theorem}\label{thm:kernel-and-projection}
+设 $f:G\to H$ 是群同态，则 $\ker f\trianglelefteq G$。反之，若 $N\trianglelefteq G$，则映射
+% 修正说明：原稿 1.5.7 及其紫色备注中将标准投影的定义域误写为 N；应为 G，否则一般不满射到 G/N。
+\[
+  \pi:G\longrightarrow G/N,\qquad \pi(a)=aN
+\]
+是满同态，且 $\ker\pi=N$。
+\end{theorem}
+
+\begin{proof}
+% 来源：照片 18 中的 1.5.7 证明。
+已知 $\ker f\leq G$。对任意 $a\in G$、$t\in\ker f$，
+\[
+  f(ata^{-1})=f(a)f(t)f(a)^{-1}=f(a)e_Hf(a)^{-1}=e_H,
+\]
+故 $ata^{-1}\in\ker f$，从而 $\ker f\trianglelefteq G$。
+映射 $\pi$ 显然为满射，且
+\[
+  \pi(ab)=abN=(aN)(bN)=\pi(a)\pi(b).
+\]
+此外，$\pi(a)=N$ 当且仅当 $a\in N$，故 $\ker\pi=N$。
+\end{proof}
+
+\begin{purplenote}
+上述映射 $\pi:G\to G/N$ 称为\textbf{标准满同态}或\textbf{标准投影}。以后若无特别说明，提到 $G\to G/N$（$N\trianglelefteq G$）时均指这一映射。
+\end{purplenote}
+
+\begin{theorem}\label{thm:factor-through-quotient}
+设 $f:G\to H$ 是群同态，$N\trianglelefteq G$ 且 $N\leq\ker f$。则存在唯一的群同态
+\[
+  \overline f:G/N\longrightarrow H,
+  \qquad \overline f(aN)=f(a)\quad(a\in G).
+\]
+并且
+\[
+  \operatorname{im}\overline f=\operatorname{im}f,
+  \qquad \ker\overline f=(\ker f)/N.
+\]
+$\overline f$ 是同构，当且仅当 $f$ 是满同态且 $N=\ker f$。
+\end{theorem}
+
+\begin{proof}
+% 来源：照片 18 中的 1.5.8 证明；补明唯一性，统一 \overline f 与 f 的记号。
+由 $N\trianglelefteq G$、$N\leq\ker f$，有 $N\trianglelefteq\ker f$。
+若 $aN=bN$，由正规性可得 $ab^{-1}\in N\subseteq\ker f$，所以 $f(a)=f(b)$，故 $\overline f$ 良定义。
+又有
+\[
+  \overline f\bigl((aN)(bN)\bigr)=f(ab)=f(a)f(b)
+  =\overline f(aN)\,\overline f(bN),
+\]
+因此 $\overline f$ 是群同态。每个陪集都有形式 $aN$，故指定 $\overline f(aN)=f(a)$ 已唯一确定该映射；像的相等也立即可得。
+
+对任意 $cN\in G/N$，
+\[
+  cN\in\ker\overline f
+  \quad\Longleftrightarrow\quad f(c)=e_H
+  \quad\Longleftrightarrow\quad c\in\ker f.
+\]
+所以 $\ker\overline f=(\ker f)/N$。由群同态的单射判别及像的相等，即得最后的同构判据。
+\end{proof}
+
+\begin{purplenote}
+定理~\ref{thm:factor-through-quotient} 也就是说，存在唯一的群同态 $\overline f$，使下图交换，即 $\overline f\circ\pi=f$：
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+  G \arrow[r,"f"] \arrow[d,"\pi" swap] & H \\
+  G/N \arrow[ur,"\overline f" swap] &
+\end{tikzcd}
+\]
+\end{purplenote}
+
+\begin{corollary}[第一同构定理]\label{cor:first-isomorphism}
+设 $f:G\to H$ 是群同态，则 $f$ 诱导一个群同构
+\[
+  G/\ker f\cong\operatorname{im}f.
+\]
+\end{corollary}
+
+\begin{corollary}\label{cor:induced-quotient-hom}
+设 $f:G\to H$ 是群同态，$N\trianglelefteq G$、$M\trianglelefteq H$，且 $f(N)\leq M$。则 $f$ 诱导群同态
+\[
+  \overline f:G/N\longrightarrow H/M,
+  \qquad \overline f(aN)=f(a)M.
+\]
+$\overline f$ 是群同构，当且仅当
+\[
+  \operatorname{im}f\vee M=H,
+  \qquad f^{-1}(M)\subseteq N.
+\]
+特别地，若 $f$ 是满同态，且 $f(N)=M$、$\ker f\subseteq N$，则 $\overline f$ 是群同构。
+\end{corollary}
+
+\begin{proof}
+% 来源：照片 18 底部的 1.5.10 证明。原稿的 \ker\pi\circ f 统一加括号为 \ker(\pi\circ f)。
+令 $\pi:H\to H/M$ 为标准投影，则 $\pi\circ f:G\to H/M$ 是群同态，且由 $f(N)\leq M$ 得 $N\subseteq\ker(\pi\circ f)$。
+利用定理~\ref{thm:factor-through-quotient}，得到唯一的群同态 $\overline f$，满足
+\[
+  \overline f(aN)=(\pi\circ f)(a)=f(a)M.
+\]
+由\hyperref[thm:factor-through-quotient]{同一定理}，$\overline f$ 是同构当且仅当 $\pi\circ f$ 满射且 $N=\ker(\pi\circ f)$。
+
+% 润色说明：展开照片 18 中标为“需多想”的两个等价条件；未改变原稿 1.5.10 的假设或结论。
+由于 $M\trianglelefteq H$，有 $\operatorname{im}f\vee M=(\operatorname{im}f)M$，所以
+\[
+  \pi\circ f\text{ 满射}
+  \quad\Longleftrightarrow\quad (\operatorname{im}f)M=H
+  \quad\Longleftrightarrow\quad \operatorname{im}f\vee M=H.
+\]
+又因为 $\ker(\pi\circ f)=f^{-1}(M)$，且已知 $N\subseteq f^{-1}(M)$，故核等于 $N$ 当且仅当 $f^{-1}(M)\subseteq N$，从而得到所述判据。
+\end{proof}
+
+\begin{purplenote}
+特别情形的理由是：$f$ 满射立即给出 $\operatorname{im}f\vee M=H$；若 $f(N)=M$ 且 $\ker f\subseteq N$，则对任意 $a\in f^{-1}(M)$，可取 $n\in N$ 使 $f(a)=f(n)$。于是 $an^{-1}\in\ker f\subseteq N$，故 $a\in N$，即 $f^{-1}(M)\subseteq N$。
+\end{purplenote}
+
+% 来源：微信图片_20260910201745_20_215.jpg，原稿 1.5.11--1.5.16。
+\begin{corollary}[第二同构定理]\label{cor:second-isomorphism}
+设 $G$ 是群，$N\trianglelefteq G$、$K\leq G$，则
+\[
+  K/(N\cap K)\cong NK/N.
+\]
+\end{corollary}
+
+\begin{purpleproof}
+由定理~\ref{thm:normal-product}，有 $NK=N\vee K$、$N\cap K\trianglelefteq K$，且 $N\trianglelefteq NK$。
+% 修正说明：原紫笔证明所称“恒等映射”实际是包含映射 K -> N\vee K；定义域、陪域不同，不称为恒等映射。
+考虑包含映射
+\[
+  \psi:K\longrightarrow N\vee K,\qquad\psi(k)=k.
+\]
+则 $\psi$ 是群同态，并且
+\[
+  \psi(N\cap K)\leq N,\qquad
+  \operatorname{im}\psi\vee N=N\vee K,\qquad
+  \psi^{-1}(N)=N\cap K.
+\]
+由推论~\ref{cor:induced-quotient-hom} 即得所述同构。
+\end{purpleproof}
+
+\begin{corollary}[第三同构定理]\label{cor:third-isomorphism}
+设 $G$ 是群，$H\trianglelefteq G$、$K\trianglelefteq G$，且 $K\leq H$，则
+\[
+  H/K\trianglelefteq G/K,
+  \qquad (G/K)/(H/K)\cong G/H.
+\]
+\end{corollary}
+
+\begin{proof}
+% 来源：微信图片_20260910201750_21_215.jpg；按原稿三步组织，略去划去的推导。
+(1) 由 $K\trianglelefteq G$ 及 $K\leq H$，得 $K\trianglelefteq H$。对 $a\in H$，陪集 $aK$ 的所有元素仍属于 $H$，因而将 $H/K=\{aK\mid a\in H\}$ 视为 $G/K$ 的子集是自然的。它对乘法与取逆封闭，所以 $H/K\leq G/K$。
+
+(2) 对任意 $aK\in H/K$、$bK\in G/K$，
+\[
+  (bK)(aK)(bK)^{-1}=(bab^{-1})K.
+\]
+因为 $H\trianglelefteq G$，所以 $bab^{-1}\in H$，故上述陪集属于 $H/K$。因此 $H/K\trianglelefteq G/K$。
+
+% 修正说明：原稿第 (3) 步用恒等映射诱导商映射；这里明确先取标准投影 G -> G/H，再通过 G/K 分解，避免把 G/K -> G/H 称为恒等映射。
+(3) 考虑标准投影 $q:G\to G/H$。由于 $K\subseteq H=\ker q$，由定理~\ref{thm:factor-through-quotient} 得到群同态
+\[
+  \overline q:G/K\longrightarrow G/H,
+  \qquad\overline q(bK)=bH.
+\]
+它是满同态，且
+\[
+  \ker\overline q=\{aK\mid a\in H\}=H/K.
+\]
+再由\hyperref[cor:first-isomorphism]{第一同构定理}，得到
+\[
+  (G/K)/(H/K)\cong G/H.
+\]
+\end{proof}
+
+\begin{purplenote}
+第 (3) 步的思路是先从标准投影得到 $\overline q:G/K\to G/H$，再对它的核 $H/K$ 取商，得到同构
+\[
+  (G/K)/(H/K)\longrightarrow G/H,
+  \qquad (aK)(H/K)\longmapsto aH.
+\]
+\end{purplenote}
+
+\begin{theorem}[子群对应定理]\label{thm:subgroup-correspondence}
+设 $f:G\to H$ 是群的满同态，记
+\[
+  S_f(G)=\{K\leq G\mid\ker f\leq K\},
+  \qquad S(H)=\{L\mid L\leq H\}.
+\]
+则映射
+\[
+  \psi:S_f(G)\longrightarrow S(H),\qquad\psi(K)=f(K)
+\]
+是一一对应，且这一对应将 $S_f(G)$ 中 $G$ 的正规子群与 $H$ 的正规子群一一对应起来。
+\end{theorem}
+
+\begin{purplenote}
+证明一一对应可分别验证满射与单射，也可验证逆映射是 $L\mapsto f^{-1}(L)$。
+正规子群之间的对应，只需进一步证明
+\[
+  K\trianglelefteq G\Longrightarrow f(K)\trianglelefteq H,
+  \qquad
+  L\trianglelefteq H\Longrightarrow f^{-1}(L)\trianglelefteq G.
+\]
+这里第一个蕴含使用了 $f$ 的满射性。
+\end{purplenote}
+
+\begin{corollary}\label{cor:quotient-subgroup-correspondence}
+设 $G$ 是群，$N\trianglelefteq G$，则 $G/N$ 的任意子群都可唯一写为 $K/N$，其中 $N\leq K\leq G$。进一步，
+\[
+  K/N\trianglelefteq G/N\quad\Longleftrightarrow\quad K\trianglelefteq G.
+\]
+\end{corollary}
+
+\begin{purplenote}
+在定理~\ref{thm:subgroup-correspondence} 中取 $f$ 为标准满同态 $\pi:G\to G/N$，利用 $\ker\pi=N$ 即得。
+
+下面是一些习题结论。
+\end{purplenote}
+
+% 来源：照片 20 中原稿 1.5.15 前的未编号结论。
+% 修改说明：按用户要求改为黑色编号命题（现 1.5.15）；原 1.5.15--1.5.21 顺延为 1.5.16--1.5.22，结论不变。
+\begin{proposition}[指数为二的子群]\label{prop:index-two-normal}
+若 $N\leq G$ 且 $[G:N]=2$，则 $N\trianglelefteq G$。
+\end{proposition}
+
+\begin{proposition}\label{prop:normal-congruence}
+设 $G$ 是群，$N\leq G$，则 $N\trianglelefteq G$ 当且仅当模 $N$ 的右同余是 $G$ 上的一个同余关系。
+\end{proposition}
+
+\begin{proposition}\label{prop:congruence-identity-class}
+设 $G$ 是群，$\sim$ 是 $G$ 上的等价关系，记
+\[
+  N=\{a\in G\mid a\sim e\}.
+\]
+则 $\sim$ 是 $G$ 上的同余关系，当且仅当 $N\trianglelefteq G$ 且 $\sim$ 就是模 $N$ 的同余关系。
+\end{proposition}
+
+% 来源：微信图片_20260910201755_22_215.jpg，原稿 1.5.17--1.5.21（现 1.5.18--1.5.22）。
+\begin{example}\label{ex:normality-not-transitive}
+% 转录补充：原稿引用教材印刷页码 25 的 D_4^*；为使笔记可独立阅读，补明其为正方形对称群及相关变换的含义。
+设 $D_4^*$ 为教材中的正方形对称群，它是一个 $8$ 阶群，运算为映射复合。以 $I$ 表示恒等变换，$R$ 表示绕正方形中心旋转 $90^\circ$ 的变换，$T_x,T_y$ 分别表示关于水平轴和竖直轴的反射。取
+\[
+  H=\{T_y,I\},\qquad K=\{I,R^2,T_x,T_y\},
+\]
+则
+\[
+  H\trianglelefteq K,\qquad K\trianglelefteq D_4^*,
+  \qquad H\not\trianglelefteq D_4^*.
+\]
+\end{example}
+
+\begin{proposition}\label{prop:subgroups-of-cyclic-normal}
+设 $G$ 是群，$H$ 是 $G$ 的循环子群，且 $H\trianglelefteq G$。则 $H$ 的任意子群都是 $G$ 的正规子群。
+\end{proposition}
+
+\begin{theorem}\label{thm:finitely-generated-extension}
+设 $G$ 是群，$H\trianglelefteq G$。若 $H$ 和 $G/H$ 都是有限生成群，则 $G$ 也是有限生成群。
+\end{theorem}
+
+\begin{proposition}\label{prop:quotient-direct-product}
+设 $G_1,G_2$ 是群，$N_1\trianglelefteq G_1$、$N_2\trianglelefteq G_2$，则
+\[
+  N_1\times N_2\trianglelefteq G_1\times G_2,
+\]
+且
+\[
+  (G_1\times G_2)/(N_1\times N_2)
+  \cong(G_1/N_1)\times(G_2/N_2).
+\]
+\end{proposition}
+
+\begin{theorem}\label{thm:preimage-image-subgroup}
+设 $f:G\to H$ 是群同态，$N=\ker f$，且 $K\leq G$，则
+\[
+  f^{-1}\bigl(f(K)\bigr)=KN.
+\]
+进一步，
+\[
+  f^{-1}\bigl(f(K)\bigr)=K\quad\Longleftrightarrow\quad N\leq K.
+\]
+\end{theorem}

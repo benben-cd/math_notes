@@ -1,0 +1,281 @@
+% !TeX root = ../main.tex
+\subsection{陪集和计数技巧}
+
+\begin{definition}[模子群的同余]\label{def:congruence-mod-subgroup}
+设 $G$ 是群，$H\leq G$。对 $a,b\in G$：
+\begin{align*}
+  a&\equiv_r b\pmod H &&\Longleftrightarrow&& ab^{-1}\in H,\\
+  a&\equiv_l b\pmod H &&\Longleftrightarrow&& a^{-1}b\in H.
+\end{align*}
+分别称 $a,b$ 模 $H$ 右同余、左同余。
+\end{definition}
+
+\begin{purplenote}
+% 修正说明：补回原手写稿中非阿贝尔情形的记号区别、加法形式以及整数模 m 同余这一特殊情形。
+若 $G$ 不是阿贝尔群，模 $H$ 的右同余和左同余一般并不相同，因此必须分别记作
+\[
+  a\equiv_r b\pmod H,
+  \qquad
+  a\equiv_l b\pmod H.
+\]
+
+若 $G$ 是阿贝尔群，则
+\[
+  ab^{-1}\in H\quad\Longleftrightarrow\quad a^{-1}b\in H,
+\]
+所以左、右同余相同，此时可以省略下标 $l,r$。
+
+% 修正说明：一般加法记号下左同余应写为 (-a)+b；只有在阿贝尔群中才能进一步交换为 b-a。
+若仅把群运算改用加法记号，而不预设交换律，则右同余条件写作
+\[
+  a+(-b)\in H,
+\]
+左同余条件写作
+\[
+  (-a)+b\in H.
+\]
+前者通常简写为 $a-b\in H$；后者一般不能改写成 $b-a\in H$。在当前 $G$ 为阿贝尔群的假设下，才有
+\[
+  (-a)+b=b-a,
+\]
+并且 $a-b=-(b-a)$。由于 $H$ 对取负元封闭，两种同余条件等价。
+
+通常的整数模 $m$ 同余正是这一概念的特殊情形：取加法群 $G=\mathbb Z$ 及其子群
+\[
+  H=m\mathbb Z=\langle m\rangle,
+\]
+则
+\[
+  a\equiv b\pmod m
+  \quad\Longleftrightarrow\quad
+  m\mid(a-b)
+  \quad\Longleftrightarrow\quad
+  a-b\in m\mathbb Z.
+\]
+\end{purplenote}
+
+\begin{theorem}\label{thm:cosets-equivalence}
+若$H$是群$G$的子群则模 $H$ 的左、右同余都是 $G$ 上的等价关系。元素 $a$ 的右同余类和左同余类分别为
+\[
+  Ha=\{ha\mid h\in H\},
+  \qquad
+  aH=\{ah\mid h\in H\}.
+\]
+并且对任意 $a\in G$，
+\[
+  |Ha|=|H|=|aH|.
+\]
+\end{theorem}
+
+\begin{definition}[陪集]\label{def:coset}
+集合 $Ha$ 称为 $H$ 在 $G$ 中的\textbf{右陪集}，$aH$ 称为 $H$ 在 $G$ 中的\textbf{左陪集}。
+\end{definition}
+
+\begin{purplenote}
+% 修正说明：补回第 7 张照片中 1.4.3 后的紫色备注，明确左右陪集及其加法记号。
+一般不能保证 $Ha=aH$，即左、右陪集可能不同，但并非对所有 $a$ 都有 $Ha\neq aH$。
+若将群运算写成加法，则右陪集和左陪集分别为
+\[
+  H+a=\{h+a\mid h\in H\},
+  \qquad
+  a+H=\{a+h\mid h\in H\}.
+\]
+加法记号本身并不意味着交换律；若 $G$ 是阿贝尔群，则 $H+a=a+H$。
+\end{purplenote}
+
+\begin{corollary}\label{cor:coset-partition}
+% 修正说明：按第 10 张照片恢复 1.4.4 的四条结构及陪集集合记号。
+设 $G$ 是群，$H\leq G$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item
+  \[
+    G=\bigcup_{a\in G}Ha=\bigcup_{a\in G}aH,
+  \]
+  即 $G$ 是 $H$ 的全体右陪集之并，也是全体左陪集之并；
+  \item 任意两个右陪集要么不相交，要么相同；任意两个左陪集也要么不相交，要么相同；
+  \item 对任意 $a,b\in G$，
+  \[
+    Ha=Hb\Longleftrightarrow ab^{-1}\in H,
+    \qquad
+    aH=bH\Longleftrightarrow a^{-1}b\in H;
+  \]
+  \item 若记
+  \[
+    \mathcal R=\{Ha\mid a\in G\},
+    \qquad
+    \mathcal L=\{aH\mid a\in G\},
+  \]
+  则 $|\mathcal R|=|\mathcal L|$，即右陪集与左陪集的个数相同。
+\end{enumerate}
+\end{corollary}
+
+\begin{purplenote}
+% 修正说明：补回原稿第 (4) 条的紫色证明提示，并解释其良定义性及双射性。
+第 (4) 条的证明是建立双射
+\[
+  \mathcal R\longrightarrow\mathcal L,
+  \qquad Ha\longmapsto a^{-1}H.
+\]
+这是对陪集中的每个元素取逆得到的，因为 $(Ha)^{-1}=a^{-1}H$；再取一次逆即回到原陪集，因此该映射良定义且为双射。
+\end{purplenote}
+
+\begin{definition}[指数]\label{def:subgroup-index}
+子群 $H\leq G$ 的左（等价地，右）陪集个数称为 $H$ 在 $G$ 中的\textbf{指数}，记作 $[G:H]$。
+\end{definition}
+
+\begin{theorem}[指数的乘法公式]\label{thm:index-multiplication}
+若 $K\leq H\leq G$，则
+\[
+  [G:K]=[G:H]\,[H:K].
+\]
+特别地，只要其中任意两个指数有限，第三个也有限。
+\end{theorem}
+
+\begin{corollary}[Lagrange 定理]\label{cor:lagrange}
+若 $H\leq G$，则
+\[
+  |G|=[G:H]|H|.
+\]
+特别地，当 $G$ 有限时，$|H|\mid |G|$，并且对每个 $a\in G$ 都有 $|a|\mid|G|$。
+\end{corollary}
+
+\begin{purplenote}
+% 恢复说明：第 10 张照片中 1.4.8 前的紫色计数技巧引言；集合乘积定义适用于任意子集，而不仅是子群。
+下面介绍一些计数技巧。设 $G$ 是群，$H,K\subseteq G$，定义集合乘积
+\[
+  HK=\{hk\mid h\in H,\ k\in K\}.
+\]
+陪集是集合乘积的特殊情形：右陪集 $Ha=H\{a\}$，左陪集 $aH=\{a\}H$。
+需要注意，即使 $H,K\leq G$，集合 $HK$ 也不一定是 $G$ 的子群。
+\end{purplenote}
+
+\begin{theorem}[子群乘积的大小]\label{prop:HK-cardinality}
+设 $H,K$ 是群 $G$ 的有限子群，则
+\[
+  |HK|=\frac{|H|\,|K|}{|H\cap K|}.
+\]
+\end{theorem}
+
+\begin{proof}
+% 恢复说明：补回第 9 张照片中 1.4.8 的陪集分解证明，并明确陪集代表元的使用。
+令 $C=H\cap K$则$C$也是$G$的子群，取 $C$ 在 $K$ 中的不同右陪集代表元 $k_1,\ldots,k_t$，则
+\[
+  K=\bigcup_{i=1}^t Ck_i,
+  \qquad t=[K:C]=\frac{|K|}{|C|}.
+\]
+因为 $C\leq H$，所以
+\[
+  HK=\bigcup_{i=1}^t HCk_i=\bigcup_{i=1}^t Hk_i.
+\]
+若 $Hk_i\cap Hk_j\neq\varnothing$，则存在 $h_i,h_j\in H$ 使 $h_i k_i=h_j k_j$，于是
+\[
+  k_i k_j^{-1}=h_i^{-1}h_j\in H\cap K=C.
+\]
+从而 $Ck_i=Ck_j$，故 $i=j$。因此上述 $Hk_i$ 两两不交，且每个都有 $|H|$ 个元素，故
+\[
+  |HK|=t|H|=\frac{|H|\,|K|}{|H\cap K|}.
+\]
+\end{proof}
+
+\begin{proposition}[子群中的相对指数]\label{prop:index-intersection}
+% 恢复说明：第 10 张照片中的 1.4.9 是下述较一般的相对指数不等式；先前误用原稿 1.4.10 的结论替换了它。
+设 $G$ 是群，$H,K\leq G$，则
+\[
+  [H:H\cap K]\leq[G:K].
+\]
+进一步，若 $[G:K]$ 有限，则
+\[
+  [H:H\cap K]=[G:K]\quad\Longleftrightarrow\quad G=KH.
+\]
+\end{proposition}
+
+\begin{proof}
+% 修正说明：按第 9 张照片使用右陪集集合，避免用商群记号暗示子群正规；保留等号判据所需的有限性条件。
+令 $C=H\cap K$，记 $\mathcal A=\{Ch\mid h\in H\}$、$\mathcal B=\{Kg\mid g\in G\}$。考虑映射
+\[
+  \phi:\mathcal A\longrightarrow\mathcal B,
+  \qquad Ch\longmapsto Kh.
+\]
+若 $Ch_1=Ch_2$，则 $h_1h_2^{-1}\in C\subseteq K$，故 $Kh_1=Kh_2$，所以 $\phi$ 良定义。
+反之，若 $Kh_1=Kh_2$，则 $h_1h_2^{-1}\in K$；又因 $h_1,h_2\in H$，故 $h_1h_2^{-1}\in C$，从而 $Ch_1=Ch_2$。因此 $\phi$ 为单射，得到
+\[
+  [H:H\cap K]\leq[G:K].
+\]
+当 $[G:K]$ 有限时，两边相等当且仅当此单射 $\phi$ 为满射。
+而 $\phi$ 满射等价于每个 $g\in G$ 都能找到 $h\in H$ 使 $Kg=Kh$，即 $g\in Kh$，也就等价于 $G=KH$。
+\end{proof}
+
+\begin{proposition}[有限指数子群的交]\label{prop:finite-index-intersection}
+% 恢复说明：按第 11 张照片恢复 1.4.10 的有限指数假设、不等式及等号判据；先前新增的有限性逆命题与下界移至命题后的独立补充。
+设 $G$ 是群，$H,K\leq G$，且 $[G:H]$ 与 $[G:K]$ 均有限。则 $[G:H\cap K]$ 有限，且
+\[
+  [G:H\cap K]\leq[G:H][G:K].
+\]
+进一步，
+\[
+  [G:H\cap K]=[G:H][G:K]\quad\Longleftrightarrow\quad G=HK.
+\]
+\end{proposition}
+
+\begin{purplenote}
+% 恢复说明：原稿 1.4.10 的紫色证明提示是“利用 1.4.6 和 1.4.9 即得”；以下展开该推导。
+由定理~\ref{thm:index-multiplication} 和命题~\ref{prop:index-intersection}，
+\[
+  [G:H\cap K]=[G:H][H:H\cap K]
+  \leq[G:H][G:K]<\infty.
+\]
+因为 $[G:H]$ 是正的有限整数，等号成立当且仅当 $[H:H\cap K]=[G:K]$，即 $G=KH$。
+又由 $(KH)^{-1}=HK$ 及 $G^{-1}=G$，可知 $G=KH$ 与 $G=HK$ 等价。
+\end{purplenote}
+
+% 转录补充（非原稿）：下面是先前额外加入的正确推论，并非原稿 1.4.10；不另编号，也不冒充原紫笔批注。
+\par\textbf{转录补充（非原稿）。}
+先前版本增加的有限性逆命题与下界也成立：
+\[
+  [G:H\cap K]<\infty
+  \quad\Longleftrightarrow\quad
+  [G:H]<\infty\ \text{且}\ [G:K]<\infty.
+\]
+事实上，若左边有限，由 $H\cap K\leq H,K$ 及\hyperref[thm:index-multiplication]{指数乘法公式}即知 $[G:H]$、$[G:K]$ 都有限，且
+\[
+  \max\{[G:H],[G:K]\}\leq[G:H\cap K].
+\]
+反向由命题~\ref{prop:finite-index-intersection} 得到。这里是补充推论，不替代原命题。
+
+\begin{proposition}\label{prop:coset-of-intersection}
+任意一族子群 $\{H_i\mid i\in I\}$ 满足
+\[
+  \left(\bigcap_{i\in I}H_i\right)a
+  =\bigcap_{i\in I}(H_i a),
+  \qquad \forall a\in G.
+\]
+\end{proposition}
+
+\begin{proposition}\label{prop:prime-order-characterizations}
+对有限群 $G$，下列条件等价：
+\begin{enumerate}[label=(\arabic*)]
+  \item $|G|$ 是素数；
+  \item $G\neq\{e\}$，且 $G$ 没有非平凡真子群；
+  \item 存在素数 $p$ 使 $G\cong\mathbb Z_p$。
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}\label{thm:HK-subgroup}
+设 $H,K\leq G$，则
+\[
+  HK\leq G\quad\Longleftrightarrow\quad HK=KH.
+\]
+\end{theorem}
+
+\begin{proposition}\label{prop:p-subgroup-product-not-subgroup}
+设 $G$是群且$|G|=p^k m$，其中 $p$ 为素数且 $\gcd(p,m)=1$。若 $H\leq G$ 的阶为 $p^k$，$K\leq G$ 的阶为 $p^d$，其中 $0<d\leq k$，且 $K\nsubseteq H$，则 $HK$ 不是 $G$ 的子群。
+\end{proposition}
+
+\begin{proof}
+% 修正说明：补足 K\nsubseteq H 推出 H\cap K 为 K 的真子群，以及阶的 p-指数矛盾。
+若 $HK\leq G$，由命题~\ref{prop:HK-cardinality}，
+\[
+  |HK|=\frac{p^{k+d}}{|H\cap K|}.
+\]
+因为 $K\nsubseteq H$，所以 $H\cap K$ 是 $K$ 的真子群，从而 $|H\cap K|\leq p^{d-1}$。于是 $p^{k+1}\mid |HK|$。但 $|HK|\mid |G|=p^k m$ 且 $p\nmid m$，矛盾。
+\end{proof}

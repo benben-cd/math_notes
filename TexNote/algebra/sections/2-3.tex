@@ -1,0 +1,489 @@
+% !TeX root = ../main.tex
+\subsection{Krull--Schmidt 定理}\label{sec:krull-schmidt}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.3/（相对于本科目目录）。
+% 共 7 张照片，文件名编号 47--53；编号不是原稿页码。
+% 覆盖原稿 2.3.1--2.3.17；另页证明移至对应条目之后，末页补充结论不另编号。
+% 本节恢复乘法记号。黑笔主体用普通环境，原紫笔说明用紫色；整理性说明另行注明。
+
+% 来源：微信图片_20261116121258_47_26.jpg，节首与 2.3.1--2.3.5。
+\begin{purplenote}
+本节探索哪些群（不一定是阿贝尔群）可以分解为不可分解群的直积。本节用乘法记号表示群的二元运算。
+\end{purplenote}
+
+\begin{definition}[不可分解群]\label{def:indecomposable-group}
+群 $G$ 称为\textbf{不可分解的}，当且仅当 $G\ne\{e\}$，且 $G$ 不能表示为两个非平凡子群的内直积。
+\end{definition}
+
+% 整理：原稿的 A_n (n≠4) 按非平凡情形注明 n≥3；
+% 作为“不可分解但非简单”的例子时，p^a 的指数取 a≥2，S_n 取 n≥3。
+\begin{purplenote}
+等价地，$G$ 不可分解，当且仅当
+\[
+  G\ne\{e\},\qquad
+  G\cong H\times K\ \Longrightarrow\
+  H=\{e\}\text{ 或 }K=\{e\}.
+\]
+任意非平凡简单群都是不可分解的，例如 $A_n$（$n=3$ 或 $n\geq5$）。反过来，不可分解群不一定是简单群，例如
+\[
+  \mathbb Z,\qquad
+  \mathbb Z_{p^a}\ (p\text{ 为质数},\ a\geq2),\qquad
+  S_n\ (n\geq3).
+\]
+\end{purplenote}
+
+\begin{definition}[升链条件与降链条件]\label{def:group-chain-conditions}
+群 $G$ 称为满足在（正规）子群上的\textbf{升链条件}（ACC），当且仅当对任意由 $G$ 的（正规）子群构成的升链
+\[
+  G_1\leq G_2\leq\cdots,
+\]
+存在正整数 $n$，使得
+\[
+  G_i=G_n\qquad(i\geq n).
+\]
+相应地，$G$ 称为满足在（正规）子群上的\textbf{降链条件}（DCC），当且仅当对任意由 $G$ 的（正规）子群构成的降链
+\[
+  G_1\geq G_2\geq\cdots,
+\]
+存在正整数 $n$，使得 $G_i=G_n$ 对所有 $i\geq n$ 成立。
+\end{definition}
+
+\begin{example}\label{ex:group-chain-conditions}
+任意有限群都满足上述两个链条件。整数加法群 $\mathbb Z$ 满足子群上的升链条件，但不满足降链条件；对任意固定质数 $p$，Prüfer 群 $\mathbb Z(p^\infty)$ 满足子群上的降链条件，但不满足升链条件。
+\end{example}
+
+\begin{theorem}\label{thm:indecomposable-decomposition-existence}
+若非平凡群 $G$ 满足在正规子群上的升链条件或降链条件，则 $G$ 是有限个不可分解子群的内直积。
+\end{theorem}
+
+% 整理：平凡群用空内直积理解，避免与不可分解群必须非平凡的定义冲突。
+\begin{purplenote}
+该结论包括 $G$ 本身不可分解的情形。
+
+证明思路是不断细分直积因子：若不能经过有限次分解就全部得到不可分解因子，则可继续选取尚能细分的因子，由此构造与升链条件或降链条件矛盾的链。该定理给出分解存在的充分条件；后面的引理和推论主要用于研究分解在什么条件下唯一。
+\end{purplenote}
+
+\begin{definition}[正规自同态]\label{def:normal-endomorphism}
+设 $G$ 是群。自同态 $f:G\to G$ 称为\textbf{正规自同态}，当且仅当
+\[
+  f(aba^{-1})=af(b)a^{-1}
+  \qquad(a,b\in G).
+\]
+\end{definition}
+
+% 来源：微信图片_20261116121302_48_26.jpg，2.3.6--2.3.10。
+% 第 2.3.6 条中“正规”是原稿在自同态一词上方补写的条件。
+\begin{lemma}\label{lem:normal-endomorphism-chain-automorphism}
+设 $f$ 是群 $G$ 的正规自同态。
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $G$ 满足正规子群上的升链条件，则 $f$ 是自同构，当且仅当 $f$ 是满同态。
+  \item 若 $G$ 满足正规子群上的降链条件，则 $f$ 是自同构，当且仅当 $f$ 是单同态。
+\end{enumerate}
+\end{lemma}
+
+% 来源：微信图片_20261116121306_49_26.jpg，2.3.6 的证明。
+\begin{proof}
+(1) 只需证明满射蕴含单射。考察正规子群的升链
+\[
+  \ker f\leq\ker f^2\leq\cdots.
+\]
+由升链条件，存在正整数 $m$，使得
+\[
+  \ker f^n=\ker f^m\qquad(n\geq m).
+\]
+若 $f(a)=e$，由 $f$ 满射，可取 $c\in G$，使 $a=f^m(c)$。于是
+\[
+  f^{m+1}(c)=f(a)=e,
+\]
+故 $c\in\ker f^{m+1}=\ker f^m$，从而 $a=f^m(c)=e$。因此 $f$ 单射，进而为自同构。
+
+(2) 只需证明单射蕴含满射。由于 $f$ 正规，其各次复合也正规，故 $\operatorname{im}f^n\trianglelefteq G$。考察降链
+\[
+  \operatorname{im}f\geq\operatorname{im}f^2\geq\cdots.
+\]
+由降链条件，存在正整数 $m$，使得
+\[
+  \operatorname{im}f^n=\operatorname{im}f^m\qquad(n\geq m).
+\]
+任取 $a\in G$，由 $\operatorname{im}f^m=\operatorname{im}f^{m+1}$，可取 $b\in G$，使
+\[
+  f^m(a)=f^{m+1}(b)=f^m(f(b)).
+\]
+由于 $f$ 单射，$f^m$ 也单射，故 $a=f(b)$。因此 $f$ 满射。
+\end{proof}
+
+\begin{purplenote}
+降链情形用到了 $f$ 的正规性，以保证各 $\operatorname{im}f^n$ 都是 $G$ 的正规子群。
+\end{purplenote}
+
+\begin{lemma}[Fitting]\label{lem:fitting-normal-endomorphism}
+设群 $G$ 同时满足在正规子群上的升链条件和降链条件，且 $f$ 为 $G$ 的正规自同态。则存在正整数 $n$，使得
+\[
+  G=\ker f^n\times\operatorname{im}f^n,
+\]
+这里是子群的内直积。
+\end{lemma}
+
+% 原稿只有证明提示，保留其范围；子群交中的空集记号统一为单位子群。
+\begin{purplenote}
+证明提示：结合链条件和引理~\ref{lem:normal-endomorphism-chain-automorphism}，取足够大的 $n$，使 $\ker f^n$ 与 $\operatorname{im}f^n$ 都不再变化；再证明
+\[
+  \ker f^n\cap\operatorname{im}f^n=\{e\},
+  \qquad
+  G=\langle\ker f^n\cup\operatorname{im}f^n\rangle.
+\]
+\end{purplenote}
+
+\begin{definition}[幂零自同态]\label{def:nilpotent-endomorphism}
+设 $f$ 是群 $G$ 的自同态。若存在正整数 $n$，使得
+\[
+  f^n(g)=e\qquad(g\in G),
+\]
+则称 $f$ 为\textbf{幂零的}。
+\end{definition}
+
+\begin{corollary}\label{cor:indecomposable-normal-endomorphism-dichotomy}
+设 $G$ 是不可分解群，且同时满足正规子群上的升链条件和降链条件。若 $f$ 是 $G$ 的正规自同态，则 $f$ 要么幂零，要么是自同构。
+\end{corollary}
+
+\begin{purpleproof}
+直接应用引理~\ref{lem:fitting-normal-endomorphism}。因为 $G$ 不可分解，分解中的一个因子必为单位子群：若 $\operatorname{im}f^n=\{e\}$，则 $f$ 幂零；若 $\ker f^n=\{e\}$，则 $f$ 单射，再由引理~\ref{lem:normal-endomorphism-chain-automorphism} 得 $f$ 为自同构。
+\end{purpleproof}
+
+\begin{purplenote}
+若 $f,g$ 是 $G\to G$ 的函数，定义它们的“和”为逐点乘积：
+\[
+  (f+g)(a)=f(a)g(a)\qquad(a\in G).
+\]
+在此运算下，所有 $G\to G$ 的函数组成一个群，单位元为常值映射
+\[
+  0_G:G\longrightarrow G,\qquad 0_G(a)=e.
+\]
+但即使 $f,g$ 都是自同态，$f+g$ 也未必是自同态。
+
+本节映射的乘积 $fg$ 表示复合 $f\circ g$，$f^n$ 表示 $n$ 次复合；它们与这里的逐点“和”应加以区分。
+\end{purplenote}
+
+\begin{corollary}\label{cor:sum-nilpotent-normal-endomorphisms}
+设 $G\ne\{e\}$ 是不可分解群，且同时满足正规子群上的升链条件和降链条件。设 $f_1,\ldots,f_n$ 是 $G$ 的正规幂零自同态，并且对任意
+\[
+  1\leq i_1<\cdots<i_r\leq n,
+\]
+子和 $f_{i_1}+\cdots+f_{i_r}$ 都是自同态。则 $f_1+\cdots+f_n$ 是幂零的。
+\end{corollary}
+
+% 来源：微信图片_20261116121306_49_26.jpg，2.3.10 的证明。
+% 整理：展开式按复合字说明，避免在非交换的逐点运算中无说明地使用交换环的二项式公式。
+\begin{proof}
+由正规性的定义，各子和只要是自同态，就仍为正规自同态。因此对 $n$ 归纳，只需证明 $n=2$ 的情形。
+
+由推论~\ref{cor:indecomposable-normal-endomorphism-dichotomy}，$f_1+f_2$ 要么幂零，要么为自同构。假设后者成立，令
+\[
+  g=(f_1+f_2)^{-1},\qquad
+  g_1=f_1g,\quad g_2=f_2g.
+\]
+正规自同构的逆仍正规，正规自同态的复合也正规，故 $g_1,g_2$ 均为正规自同态，且
+\[
+  g_1+g_2=(f_1+f_2)g=1_G.
+\]
+若某个 $g_i$ 为自同构，则 $f_i=g_ig^{-1}$ 也是自同构，这与 $G$ 非平凡且 $f_i$ 幂零矛盾。再由推论~\ref{cor:indecomposable-normal-endomorphism-dichotomy}，$g_1,g_2$ 都幂零。取正整数 $m$，使得
+\[
+  g_1^m=g_2^m=0_G.
+\]
+
+先说明 $g_1g_2=g_2g_1$。由 $1_G=g_1+g_2$，对任意 $x\in G$，
+\[
+  x^{-1}=g_1(x^{-1})g_2(x^{-1})
+         =g_1(x)^{-1}g_2(x)^{-1},
+\]
+取逆得 $x=g_2(x)g_1(x)$，因此也有 $1_G=g_2+g_1$。利用复合的分配关系，
+\[
+  g_1(g_1+g_2)=g_1^2+g_1g_2=g_1,
+  \qquad
+  (g_1+g_2)g_1=g_1^2+g_2g_1=g_1.
+\]
+在逐点运算的群中消去 $g_1^2$，得到 $g_1g_2=g_2g_1$。
+
+现在考察
+\[
+  1_G=(g_1+g_2)^{2m}.
+\]
+按分配律展开，右侧是由 $g_1,g_2$ 组成的长度为 $2m$ 的复合字之和。每个字中至少有一种映射出现 $m$ 次；由于 $g_1,g_2$ 在复合下交换，可以把这些映射移到一起，故每个字都等于 $0_G$。于是 $1_G=0_G$，与 $G\ne\{e\}$ 矛盾。因此 $f_1+f_2$ 必为幂零自同态，归纳即得结论。
+\end{proof}
+
+% 来源：微信图片_20261116121312_50_26.jpg，2.3.11 的陈述。
+\begin{theorem}[Krull--Schmidt]\label{thm:krull-schmidt}
+设群 $G$ 同时满足在正规子群上的升链条件和降链条件。若有两种内直积分解
+\[
+  G=G_1\times\cdots\times G_s
+   =H_1\times\cdots\times H_t,
+\]
+其中各 $G_i,H_j$ 都不可分解，则 $s=t$。对 $H_j$ 重新排列指标后，有
+\[
+  G_i\cong H_i\qquad(1\leq i\leq s),
+\]
+而且对每个 $0\leq r\leq s$，都有内直积分解
+\[
+  G=G_1\times\cdots\times G_r
+       \times H_{r+1}\times\cdots\times H_s.
+\]
+\end{theorem}
+
+\begin{purplenote}
+Krull--Schmidt 定理说明了定理~\ref{thm:indecomposable-decomposition-existence} 中分解的唯一性。这种唯一性既指对应因子同构，也包含上面逐个替换因子的内直积分解。
+\end{purplenote}
+
+% 来源：微信图片_20261116121315_51_26.jpg，2.3.11 的完整证明。
+% 整理：投影统一记为 phi_i、psi_j；明确各子和的同态性及换因子映射 theta 的正规性。
+% 本证明使用本节后列的 2.3.14--2.3.16，其位置和编号按原稿保留。
+\begin{proof}
+平凡群的情形按空直积理解，以下设 $G\ne\{e\}$。对
+$0\leq r\leq\min(s,t)$ 作归纳。记 $P(r)$ 为如下命题：对 $H_1,\ldots,H_t$ 适当重排指标后，
+\[
+  G_i\cong H_i\quad(1\leq i\leq r),
+  \qquad
+  G=G_1\times\cdots\times G_r\times H_{r+1}\times\cdots\times H_t.
+\]
+$P(0)$ 由已知分解成立。
+
+设 $P(r-1)$ 已成立，因而可将 $H_j$ 排列为
+\[
+  G=G_1\times\cdots\times G_{r-1}\times H_r\times\cdots\times H_t.
+\]
+对于原来的 $G_i$ 分解，令 $\pi_i:G\to G_i$ 为标准投影，$\lambda_i:G_i\to G$ 为嵌入，记
+\[
+  \varphi_i=\lambda_i\pi_i\qquad(1\leq i\leq s).
+\]
+对于上面的混合分解，记对应的投影后再嵌入的映射为 $\psi_1,\ldots,\psi_t$。由命题~\ref{prop:direct-product-normal-projections}，这些映射都是 $G$ 的正规自同态，并满足
+\[
+  \begin{gathered}
+    \varphi_1+\cdots+\varphi_s=1_G,\qquad
+    \varphi_i^2=\varphi_i,\qquad
+    \varphi_i\varphi_j=0_G\ (i\ne j),\\
+    \psi_1+\cdots+\psi_t=1_G,\qquad
+    \psi_i^2=\psi_i,\qquad
+    \psi_i\psi_j=0_G\ (i\ne j),
+  \end{gathered}
+\]
+以及
+\[
+  \operatorname{im}\varphi_i=G_i,\qquad
+  \operatorname{im}\psi_i=
+  \begin{cases}
+    G_i,&i<r,\\
+    H_i,&i\geq r.
+  \end{cases}
+\]
+特别地，$\varphi_r\psi_i=0_G$（$i<r$），而
+\[
+  \varphi_r
+  =\varphi_r(\psi_1+\cdots+\psi_t)
+  =\varphi_r\psi_r+\cdots+\varphi_r\psi_t.
+\]
+将此式限制在 $G_r$ 上，得到
+\[
+  1_{G_r}
+  =(\varphi_r\psi_r)|_{G_r}+\cdots+(\varphi_r\psi_t)|_{G_r}.
+\]
+各项都是 $G_r$ 的正规自同态。
+% 根据 2026-11-18 的讨论补充：原稿此处直接应用 2.3.10；以下展开任意子和的同态性。
+为应用推论~\ref{cor:sum-nilpotent-normal-endomorphisms}，还需核实上述各项的任意子和都是 $G_r$ 的自同态。任取非空指标集 $J\subseteq\{r,\ldots,t\}$，记
+\[
+  P_J=\sum_{j\in J}\psi_j,
+\]
+其中各和按指标递增的顺序理解。由于 $\psi_j$ 来自同一个混合内直积分解，$P_J$ 恰好保留 $J$ 中各因子的分量，并把其余分量变成单位元，即投影到所选因子的直积后再嵌入 $G$。由命题~\ref{prop:direct-product-normal-projections}，$P_J$ 是 $G$ 的自同态。
+
+又因 $\varphi_r$ 是群同态，对任意 $x\in G_r$，有
+\[
+  \begin{aligned}
+    \left(\sum_{j\in J}(\varphi_r\psi_j)|_{G_r}\right)(x)
+      &=\prod_{j\in J}\varphi_r(\psi_j(x))\\
+      &=\varphi_r\!\left(\prod_{j\in J}\psi_j(x)\right)
+       =(\varphi_r\circ P_J)(x).
+  \end{aligned}
+\]
+因此该子和等于 $(\varphi_r\circ P_J)|_{G_r}$。复合映射 $\varphi_r\circ P_J$ 是同态，限制到子群 $G_r$ 后仍是同态；且其像包含于 $\operatorname{im}\varphi_r=G_r$，故该子和确实是 $G_r$ 的自同态。
+
+由定理~\ref{thm:normal-chains-in-direct-factors}，$G_r$ 及各 $H_j$ 都继承所需的两个正规子群链条件。
+
+若右侧各项都幂零，则推论~\ref{cor:sum-nilpotent-normal-endomorphisms} 将推出 $1_{G_r}$ 幂零，矛盾。因此存在 $r\leq j\leq t$，使得
+\[
+  \alpha=(\varphi_r\psi_j)|_{G_r}
+\]
+不是幂零的；由推论~\ref{cor:indecomposable-normal-endomorphism-dichotomy}，$\alpha$ 是自同构。
+
+再考察 $H_j$ 上的正规自同态
+\[
+  \beta=(\psi_j\varphi_r)|_{H_j}.
+\]
+对所有 $n\geq1$，有
+\[
+  (\varphi_r\psi_j)^{n+1}|_{G_r}
+  =\varphi_r(\psi_j\varphi_r)^n\psi_j|_{G_r}.
+\]
+若 $\beta$ 幂零，则此式将推出 $\alpha$ 幂零，矛盾。因此 $\beta$ 也非幂零，进而为自同构。由 $\alpha,\beta$ 都是自同构，可知
+\[
+  \psi_j|_{G_r}:G_r\longrightarrow H_j,\qquad
+  \varphi_r|_{H_j}:H_j\longrightarrow G_r
+\]
+既单射又满射，所以 $G_r\cong H_j$。交换 $H_r$ 与 $H_j$ 后，可设 $j=r$，于是 $G_r\cong H_r$。
+
+还需证明替换后的因子确实给出 $G$ 的内直积分解。令
+\[
+  B=G_1\cdots G_{r-1}H_{r+1}\cdots H_t.
+\]
+$\psi_r$ 在 $B$ 上为平凡映射，而 $\psi_r|_{G_r}$ 是单射，故
+\[
+  G_r\cap B=\{e\}.
+\]
+这里 $G_r$ 与 $B$ 都是 $G$ 的正规子群，因而相互交换。因此可组成内直积子群
+\[
+  G^*=G_1\times\cdots\times G_{r-1}\times G_r
+          \times H_{r+1}\times\cdots\times H_t\leq G.
+\]
+利用归纳假设下的混合分解，定义
+\[
+  \begin{aligned}
+    \theta:G&\longrightarrow G,\\
+    g_1\cdots g_{r-1}h_rh_{r+1}\cdots h_t
+      &\longmapsto
+    g_1\cdots g_{r-1}\varphi_r(h_r)h_{r+1}\cdots h_t.
+  \end{aligned}
+\]
+因为 $\varphi_r|_{H_r}:H_r\to G_r$ 是同构，其余因子上的映射是恒等映射，且目标各因子组成内直积，故 $\theta$ 是单同态，$\operatorname{im}\theta=G^*$。又
+\[
+  \theta=\psi_1+\cdots+\psi_{r-1}
+          +\varphi_r\psi_r+\psi_{r+1}+\cdots+\psi_t.
+\]
+% 根据 2026-11-18 的讨论修订：theta 已知是自同态，此处只需验证正规性，无须再要求任意子和为同态。
+上式各项均为正规自同态。结合前面已知 $\theta$ 是自同态，可知 $\theta$ 为正规自同态。由引理~\ref{lem:normal-endomorphism-chain-automorphism} 的降链情形，$\theta$ 是自同构。因此
+\[
+  G=\operatorname{im}\theta=G^*,
+\]
+完成 $P(r)$ 的归纳步骤。
+
+最后取 $r=\min(s,t)$。若 $r=s<t$，则
+\[
+  G=G_1\times\cdots\times G_s
+   =G_1\times\cdots\times G_s\times H_{s+1}\times\cdots\times H_t,
+\]
+迫使剩余因子为平凡群，与其不可分解矛盾。若 $r=t<s$，同样由
+$G=G_1\times\cdots\times G_t$ 与原来的 $G_i$ 分解矛盾。因此 $s=t$，定理得证。
+\end{proof}
+
+% 来源：微信图片_20261116121312_50_26.jpg，2.3.12--2.3.15。
+下面列出本节的一些重要结论。
+
+\begin{proposition}\label{prop:indecomposable-group-examples}
+\begin{enumerate}[label=(\arabic*)]
+  \item 群 $G$ 不可分解，当且仅当
+  \[
+    G\ne\{e\},\qquad
+    G\cong H\times K\ \Longrightarrow\
+    H=\{e\}\text{ 或 }K=\{e\}.
+  \]
+  \item 对所有 $n\geq2$，对称群 $S_n$ 不可分解。
+  \item 整数加法群 $\mathbb Z$、素数阶循环群 $\mathbb Z_p$（$p$ 为质数）及有理数加法群 $\mathbb Q$ 都不可分解。
+  \item 不可分解群在非平凡同态下的像不一定不可分解。
+\end{enumerate}
+\end{proposition}
+
+% 整理：为使原稿中的 Z -> Z_mn 确实给出可分解的像，明确 m,n>1。
+\begin{purplenote}
+第 (4) 条的反例：取互素的整数 $m,n>1$，标准满同态
+\[
+  \mathbb Z\longrightarrow\mathbb Z_{mn}
+\]
+的定义域不可分解，而由引理~\ref{lem:cyclic-prime-power-decomposition} 证明中的互素分解，
+\[
+  \mathbb Z_{mn}\cong\mathbb Z_m\times\mathbb Z_n
+\]
+是两个非平凡群的直积。
+\end{purplenote}
+
+\begin{proposition}\label{prop:abelian-subgroup-chain-conditions}
+\begin{enumerate}[label=(\arabic*)]
+  \item $\mathbb Z$ 满足子群上的升链条件，但不满足降链条件。
+  \item 任意有限生成阿贝尔群都满足子群上的升链条件。
+  \item 对任意固定质数 $p$，$\mathbb Z(p^\infty)$ 满足子群上的降链条件，但不满足升链条件。
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}\label{thm:normal-chains-in-direct-factors}
+设 $G=H\times K$ 是子群的内直积，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $N\trianglelefteq H$，则 $N\trianglelefteq G$。
+  \item 若 $G$ 满足正规子群上的升链条件（或降链条件），则 $H,K$ 也分别满足相应的正规子群链条件。
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}\label{prop:normal-endomorphism-properties}
+设 $f,g$ 是群 $G$ 的正规自同态，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $f\circ g$ 是正规自同态。
+  \item 若 $H\trianglelefteq G$，则 $f(H)\trianglelefteq G$。
+  \item 若 $f+g$ 是自同态，则 $f+g$ 是正规自同态。
+\end{enumerate}
+\end{proposition}
+
+% 来源：微信图片_20261116121318_52_26.jpg，2.3.16--2.3.17。
+\begin{proposition}\label{prop:direct-product-normal-projections}
+设 $G=G_1\times\cdots\times G_n$ 是内直积。令 $\lambda_i:G_i\to G$ 为嵌入，$\pi_i:G\to G_i$ 为标准投影，记
+\[
+  \varphi_i=\lambda_i\circ\pi_i.
+\]
+则对任意互异的指标 $i_1,\ldots,i_k$（$1\leq k\leq n$），
+\[
+  \varphi_{i_1}+\cdots+\varphi_{i_k}
+\]
+都是 $G$ 的正规自同态。
+\end{proposition}
+
+\begin{proposition}\label{prop:krull-schmidt-cancellation}
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $G\times G\cong H\times H$，且 $G$ 同时满足正规子群上的 ACC 与 DCC，则 $G\cong H$。
+  \item 若 $G\cong H\times K$、$G\cong H\times J$，且 $G$ 同时满足正规子群上的 ACC 与 DCC，则 $K\cong J$。
+\end{enumerate}
+\end{proposition}
+
+% 来源：微信图片_20261116121322_53_26.jpg，无编号的关键补充结论与证明。
+% 原稿详细展开 ACC 情形；DCC 情形用同样的比较论证说明，不另增加条目编号。
+\par\textbf{补充结论（原稿另页）。}
+下面的结论可用于命题~\ref{prop:krull-schmidt-cancellation}
+以及命题~\ref{prop:abelian-subgroup-chain-conditions} 第 (2) 条：若 $K,H$ 分别满足正规子群上的 ACC（或分别满足 DCC），则 $G=K\times H$ 也满足相应的正规子群链条件。
+
+\begin{proof}
+先讨论 ACC。设
+\[
+  M_1\leq M_2\leq\cdots
+\]
+是 $G$ 的一条正规子群升链。取标准投影
+\[
+  \pi:G\longrightarrow H,\qquad \pi(k,h)=h.
+\]
+则
+\[
+  \pi(M_1)\leq\pi(M_2)\leq\cdots,\qquad
+  M_1\cap K\leq M_2\cap K\leq\cdots
+\]
+分别是 $H$ 和 $K$ 的正规子群升链。因此存在正整数 $m$，使对所有 $n\geq m$，
+\[
+  \pi(M_n)=\pi(M_m),\qquad M_n\cap K=M_m\cap K.
+\]
+任取 $y\in M_n$。由投影像相同，可选 $x\in M_m$，使 $\pi(x)=\pi(y)$。由于 $M_m\leq M_n$，有
+\[
+  xy^{-1}\in M_n\cap K=M_m\cap K.
+\]
+从而 $y=(xy^{-1})^{-1}x\in M_m$。故 $M_n=M_m$，升链稳定。
+
+DCC 情形同理。若 $M_1\geq M_2\geq\cdots$，则取 $m$ 使投影像和与 $K$ 的交在 $n\geq m$ 时均稳定。对 $y\in M_m$，可取 $x\in M_n$ 使 $\pi(x)=\pi(y)$；这时
+\[
+  xy^{-1}\in M_m\cap K=M_n\cap K,
+\]
+故 $y\in M_n$。因此 $M_m=M_n$，降链也稳定。
+\end{proof}
+
+\begin{purplenote}
+这个证明的要点是：在一条包含链中，结合子群的一个投影像与它同投影核的交，就能控制稳定性(但两个都投影就不行)。原稿所说的“一个投影和一个截面”，这里分别对应 $\pi(M_i)$ 与 $M_i\cap K$。
+\end{purplenote}
+

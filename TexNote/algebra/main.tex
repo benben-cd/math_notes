@@ -1,0 +1,88 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+\documentclass[11pt,fontset=fandol,scheme=plain]{ctexart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{enumitem}
+% 排版补充：用于第 1.5 节原稿中的交换图。
+\usepackage{tikz-cd}
+
+\definecolor{notepurple}{RGB}{91,45,145}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65\baselineskip}
+\setlist[enumerate]{itemsep=0.3em,topsep=0.3em}
+
+\newtheoremstyle{notes}
+  {0.8\baselineskip}{0.5\baselineskip}
+  {\normalfont}{}% body font, indent
+  {\bfseries}{.}{0.5em}{}
+\theoremstyle{notes}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+% 排版补充：第 1.6 节的两个引理与定理等环境共用编号。
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newenvironment{purplenote}
+  {\par\begingroup\color{notepurple}\small\noindent}
+  {\par\endgroup}
+
+% 带编号的紫色补充命题与证明：用于对应手写稿中的紫色补充结论。
+\newenvironment{purpleproposition}
+  {\begingroup\color{notepurple}\small\begin{proposition}}
+  {\end{proposition}\endgroup}
+\newenvironment{purpleproof}
+  {\begingroup\color{notepurple}\small\begin{proof}}
+  {\end{proof}\endgroup}
+
+\usepackage[hidelinks,unicode]{hyperref}
+% 交叉引用：每条带编号的结论在环境开头写唯一的 \label{类型:含义}；
+% 正文用“定理~\ref{thm:...}”引用编号，或用 \hyperref[标签]{名称} 链接名称。
+\newcommand{\unclear}[1]{\text{\color{red}[待确认：#1]}}
+
+\title{Hungerford《代数》自学笔记}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{群论}
+
+% 各小节正文分别维护在 sections 目录中。
+\input{sections/1-1}
+\input{sections/1-2}
+\input{sections/1-3}
+\input{sections/1-4}
+% 新增：第 1.5 节单独维护，延续原笔记编号与双色排版。
+\input{sections/1-5}
+% 新增：第 1.6 节独立维护，保留原稿编号及黑、紫双色区分。
+\input{sections/1-6}
+% 新增：第 1.7 节独立维护，按原稿整理范畴、积、余积与自由对象。
+\input{sections/1-7}
+% 新增：第 1.8 节独立维护，整理群的直积、弱直积与内直积。
+\input{sections/1-8}
+% 新增：第 1.9 节独立维护，整理自由群、群表示与自由积。
+\input{sections/1-9}
+
+\section{群的结构}
+
+% 新增：第 2.1 节独立维护，保留自由阿贝尔群原稿编号及黑、紫双色区分。
+\input{sections/2-1}
+
+% 新增：第 2.2 节独立维护，整理有限生成阿贝尔群的分解与全系不变量。
+\input{sections/2-2}
+
+% 新增：第 2.3 节独立维护，整理 Krull--Schmidt 定理及正规子群链条件。
+\input{sections/2-3}
+
+% 新增：第 2.4 节独立维护，整理群作用、轨道与稳定子及陪集作用的应用。
+\input{sections/2-4}
+
+% 新增：第 2.5 节独立维护，整理 Cauchy 定理、Sylow 定理及其应用。
+\input{sections/2-5}
+
+\end{document}

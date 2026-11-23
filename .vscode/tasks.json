@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "编译代数（XeLaTeX）",
+      "type": "process",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=build",
+        "main.tex"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/TexNote/algebra"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "编译实变（XeLaTeX）",
+      "type": "process",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=build",
+        "main.tex"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/TexNote/real_analysis"
+      },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

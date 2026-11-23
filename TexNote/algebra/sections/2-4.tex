@@ -1,0 +1,313 @@
+% !TeX root = ../main.tex
+\subsection{群作用}\label{sec:group-actions}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.4/（相对于本科目目录）。
+% 共 4 张照片，完整文件名分别记在对应正文前；文件名编号 55--58 不是原稿页码。
+% 覆盖原稿 2.4.1--2.4.15，保留黑笔主体、紫笔说明与原稿的证明／提示范围。
+
+% 来源：微信图片_20261118134403_55_26.jpg，节首、2.4.1--2.4.3 及紫笔说明。
+\begin{purplenote}
+本节研究的技术将用于后续对非阿贝尔有限群结构的研究。
+\end{purplenote}
+
+\begin{definition}[群作用]\label{def:group-action}
+设 $G$ 是群，$S$ 是集合。$G$ 在 $S$ 上的一个\textbf{作用}是一个映射
+\[
+  G\times S\longrightarrow S,\qquad (g,x)\longmapsto gx,
+\]
+满足对任意 $x\in S$ 及 $g_1,g_2\in G$，都有
+\[
+  ex=x,\qquad (g_1g_2)x=g_1(g_2x).
+\]
+给定这样的映射后，称 $G$ 作用于集合 $S$。
+\end{definition}
+
+\begin{purplenote}
+本节采用左作用，应注意作用与平移的方向；对于一般子群的左陪集，不能直接用右平移定义作用。
+
+对给定的群 $G$ 和集合 $S$，可以有许多不同的作用映射，因此使用 $gx$ 等记号时需要注意上下文。不过，后面研究结构时，许多结论并不依赖作用映射的具体形式。
+\end{purplenote}
+
+\begin{example}\label{ex:group-actions-permutations-translations-conjugation}
+\begin{enumerate}[label=(\arabic*)]
+  \item 对称群 $S_n$ 在集合 $I_n=\{1,\ldots,n\}$ 上有自然作用
+  \[
+    (\sigma,x)\longmapsto\sigma(x).
+  \]
+
+  \item 设 $H\leq G$。由 $G$ 中的乘法定义 $H$ 在集合 $G$ 上的作用
+  \[
+    (h,x)\longmapsto hx.
+  \]
+  对固定的 $h\in H$，映射 $x\mapsto hx$ 称为由 $h$ 给出的\textbf{左平移}（left translation）。若 $K\leq G$，$S$ 是 $K$ 在 $G$ 中的所有左陪集组成的集合，则 $H$ 还可在 $S$ 上以左平移作用：
+  \[
+    (h,xK)\longmapsto hxK.
+  \]
+
+  \item 设 $H\leq G$。可以定义 $H$ 在集合 $G$ 上的\textbf{共轭作用}
+  \[
+    (h,x)\longmapsto hxh^{-1}.
+  \]
+  由固定的 $h\in H$ 给出的映射 $x\mapsto hxh^{-1}$ 称为由 $h$ 带来的共轭，元素 $hxh^{-1}$ 称为 $x$ 的一个\textbf{共轭元}。
+
+  若 $K\leq G$，则对任意 $h\in H$，都有
+  \[
+    hKh^{-1}\leq G,\qquad hKh^{-1}\cong K.
+  \]
+  因此 $H$ 也可以在 $G$ 的所有子群组成的集合上以共轭作用：
+  \[
+    (h,K)\longmapsto hKh^{-1}.
+  \]
+  子群 $hKh^{-1}$ 称为 $K$ 的一个\textbf{共轭子群}。
+\end{enumerate}
+\end{example}
+
+\begin{purplenote}
+在上述第 (3) 种作用中，为避免与第 (2) 种左平移的记号 $hx$ 混淆，通常直接写出 $hxh^{-1}$。
+\end{purplenote}
+
+% 整理：原稿 2.4.3(2) 的“x∈G”按作用的定义域修正为“x∈S”。
+\begin{theorem}\label{thm:action-orbit-equivalence-stabilizer}
+设群 $G$ 作用于集合 $S$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 在 $S$ 上定义关系
+  \[
+    x\sim x'\quad\Longleftrightarrow\quad
+    \text{存在 }g\in G\text{，使 }gx=x',
+  \]
+  则 $\sim$ 是等价关系。
+  \item 对任意 $x\in S$，集合
+  \[
+    G_x=\{g\in G\mid gx=x\}
+  \]
+  是 $G$ 的一个子群。
+\end{enumerate}
+\end{theorem}
+
+\begin{purplenote}
+定理~\ref{thm:action-orbit-equivalence-stabilizer} 第 (1) 条中的等价类称为 $G$ 在 $S$ 上的\textbf{轨道}，$x\in S$ 所在的轨道记为
+\[
+  \bar x=\{gx\mid g\in G\}.
+\]
+$G_x$ 称为 $x$ 的\textbf{稳定子群}，也称\textbf{迷向群}。
+\end{purplenote}
+
+% 来源：微信图片_20261118134405_56_26.jpg，2.4.4--2.4.8 及紫笔说明、短证。
+\begin{example}\label{ex:conjugacy-centralizer-normalizer}
+若 $G$ 通过共轭作用于自身，则 $x\in G$ 的轨道
+\[
+  \bar x=\{gxg^{-1}\mid g\in G\}
+\]
+称为 $x$ 的\textbf{共轭类}。
+
+若 $H\leq G$ 通过共轭作用于 $G$，则 $x$ 的稳定子群是
+\[
+  H_x=\{h\in H\mid hxh^{-1}=x\}
+      =\{h\in H\mid hx=xh\}.
+\]
+它称为 $x$ 在 $H$ 中的\textbf{中心子}，记为 $C_H(x)$。当 $H=G$ 时，$C_G(x)$ 简称为 $x$ 的中心子。
+
+若 $H$ 通过共轭作用于 $G$ 的所有子群组成的集合，则子群 $K\leq G$ 的稳定子群为
+\[
+  H_K=\{h\in H\mid hKh^{-1}=K\},
+\]
+称为 $K$ 在 $H$ 中的\textbf{正规子}，记为 $N_H(K)$。当 $H=G$ 时，$N_G(K)$ 简称为 $K$ 的正规子。
+\end{example}
+
+\begin{purplenote}
+显然有
+\[
+  K\trianglelefteq N_G(K),\qquad
+  \text{且有} K\trianglelefteq G\quad\Longleftrightarrow\quad N_G(K)=G.
+\]
+\end{purplenote}
+
+\begin{theorem}\label{thm:orbit-stabilizer-cardinality}
+设群 $G$ 作用于集合 $S$，则对每个 $x\in S$，其轨道的基数为
+\[
+  |\bar x|=[G:G_x].
+\]
+\end{theorem}
+
+\begin{purpleproof}
+对任意 $g,h\in G$，
+\[
+  gx=hx
+  \quad\Longleftrightarrow\quad g^{-1}hx=x
+  \quad\Longleftrightarrow\quad g^{-1}h\in G_x
+  \quad\Longleftrightarrow\quad gG_x=hG_x.
+\]
+故 $gG_x\mapsto gx$ 给出了左陪集集合与轨道 $\bar x$ 之间的双射。
+\end{purpleproof}
+
+% 整理：类方程对全部共轭类求和，明确原稿“不同共轭类”是完整代表系。
+\begin{corollary}\label{cor:conjugacy-class-equation}
+设 $G$ 是有限群，$K\leq G$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对任意 $x\in G$，其共轭类中的元素个数为
+  \[
+    |\bar x|=[G:C_G(x)],\qquad [G:C_G(x)]\mid |G|.
+  \]
+  \item 若 $\bar x_1,\ldots,\bar x_n$ 是 $G$ 的全部不同共轭类，则
+  \[
+    |G|=\sum_{i=1}^{n}[G:C_G(x_i)].
+  \]
+  \item $G$ 中与 $K$ 共轭的子群的数目为
+  \[
+    [G:N_G(K)],\qquad [G:N_G(K)]\mid |G|.
+  \]
+\end{enumerate}
+\end{corollary}
+
+\begin{purplenote}
+推论~\ref{cor:conjugacy-class-equation} 第 (2) 条的等式称为有限群 $G$ 的\textbf{类方程}。
+\end{purplenote}
+
+\begin{theorem}\label{thm:action-induced-permutation-homomorphism}
+若群 $G$ 作用于集合 $S$，则这个作用诱导出一个群同态
+\[
+  \tau:G\longrightarrow A(S),
+\]
+其中 $A(S)$ 是 $S$ 上的所有置换组成的群。
+\end{theorem}
+
+% 整理：按原稿给出的 tau_g 定义，写明其逆映射及由作用公理得到的复合等式。
+\begin{purpleproof}
+对每个 $g\in G$，定义
+\[
+  \tau_g:S\longrightarrow S,\qquad \tau_g(x)=gx.
+\]
+由于 $\tau_{g^{-1}}$ 是 $\tau_g$ 的逆映射，$\tau_g\in A(S)$；又由作用公理，
+\[
+  \tau_{gh}(x)=(gh)x=g(hx)=(\tau_g\circ\tau_h)(x).
+\]
+故 $g\mapsto\tau_g$ 就是所需的群同态。
+\end{purpleproof}
+
+\begin{purplenote}
+需注意这里并没有具体指定$G$在$S$上的作用映射，因此所诱导的群同态也不唯一。后续研究中，通常只需要知道存在这样的群同态即可。
+\end{purplenote}
+
+\begin{corollary}[Cayley]\label{cor:cayley-permutation-embedding}
+对任意群 $G$，存在群单同态
+\[
+  G\longrightarrow A(G).
+\]
+% 根据 2026-11-19 的讨论恢复原稿“一些置换组成的群”的含义，明确为 A(G) 的子群。
+因此任意群都同构于一个由某些置换组成的群，即 $A(G)$ 的一个子群。特别地，每个有限群 $G$ 都同构于 $S_n$ 的一个子群，其中 $n=|G|$。
+\end{corollary}
+
+\begin{purpleproof}
+令 $G$ 在自身上以左平移作用，应用定理~\ref{thm:action-induced-permutation-homomorphism}。对任意 $x\in G$，由消去律有 $gx=x$ 当且仅当 $g=e$，故所诱导的群同态是单射。
+\end{purpleproof}
+
+% 来源：微信图片_20261118134408_57_26.jpg，2.4.9--2.4.12 及紫笔说明、证明。
+\begin{purplenote}
+对于群 $G$，$\operatorname{Aut}G$ 表示从 $G$ 到自身的所有群同构，即所有自同构组成的集合。以映射复合作为二元运算，$\operatorname{Aut}G$ 是一个群。
+\end{purplenote}
+
+\begin{corollary}\label{cor:inner-automorphisms-center-kernel}
+设 $G$ 是群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对每个 $g\in G$，由 $g$ 诱导的共轭映射
+  \[
+    \tau_g:G\longrightarrow G,\qquad \tau_g(x)=gxg^{-1},
+  \]
+  是 $G$ 的自同构。
+  \item 存在群同态
+  \[
+    \tau:G\longrightarrow\operatorname{Aut}G,\qquad g\longmapsto\tau_g,
+  \]
+  其核为
+  \[
+    C(G)=\{g\in G\mid gx=xg\text{ 对所有 }x\in G\text{ 成立}\}.
+  \]
+\end{enumerate}
+\end{corollary}
+
+\begin{purplenote}
+推论~\ref{cor:inner-automorphisms-center-kernel} 第 (1) 条中的 $\tau_g$ 称为由 $g$ 诱导的\textbf{内同构}，正规子群 $C(G)=\ker\tau$ 称为 $G$ 的\textbf{中心}。
+
+元素 $g\in C(G)$，当且仅当它的共轭类中只有 $g$ 一个元素。因此，当 $G$ 有限时，对 $x\in C(G)$ 有 $[G:C_G(x)]=1$，类方程可改写为
+\[
+  |G|=|C(G)|+\sum_{i=1}^{m}[G:C_G(x_i)],
+\]
+其中 $x_1,\ldots,x_m\in G\setminus C(G)$ 代表全部不同的非中心共轭类，各 $[G:C_G(x_i)]>1$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:coset-action-kernel-contained-subgroup}
+设 $G$ 是群，$H\leq G$。令 $G$ 在 $H$ 的所有左陪集组成的集合 $S$ 上以左平移作用，则所诱导的群同态
+\[
+  \tau:G\longrightarrow A(S)
+\]
+的核包含于 $H$。
+\end{proposition}
+
+\begin{purpleproof}
+若 $g\in\ker\tau$，则 $g$ 固定左陪集 $H$，即 $gH=H$，故 $g\in H$。
+\end{purpleproof}
+
+\begin{corollary}\label{cor:core-free-subgroup-permutation-embedding}
+设 $H\leq G$，$[G:H]=n$。若 $G$ 的非平凡正规子群均不包含于 $H$，则 $G$ 同构于 $S_n$ 的一个子群。
+\end{corollary}
+
+\begin{purpleproof}
+直接应用命题~\ref{prop:coset-action-kernel-contained-subgroup}：所得同态的核是包含于 $H$ 的正规子群，由假设只能为 $\{e\}$。
+\end{purpleproof}
+
+\begin{corollary}\label{cor:smallest-prime-index-subgroup-normal}
+设 $G$ 是有限群，$H\leq G$，且 $[G:H]=p$，其中 $p$ 是整除 $|G|$ 的最小质数，则 $H\trianglelefteq G$。
+\end{corollary}
+
+\begin{purpleproof}
+令 $G$ 在 $H$ 的所有左陪集组成的集合 $S$ 上以左平移作用，记诱导的群同态为 $\varphi:G\to A(S)$，令 $K=\ker\varphi$。由命题~\ref{prop:coset-action-kernel-contained-subgroup}，$K\leq H$，只需证明 $K=H$。
+
+因为 $|S|=p$，由\hyperref[cor:first-isomorphism]{第一同构定理}及\hyperref[cor:lagrange]{拉格朗日定理}，有
+\[
+  G/K\cong\operatorname{im}\varphi\leq A(S)\cong S_p,
+  \qquad [G:K]\mid p!.
+\]
+又由\hyperref[thm:index-multiplication]{指数乘法公式}，
+\[
+  [G:K]=[G:H][H:K]=p[H:K],
+  \qquad |G|=p[H:K]|K|.
+\]
+由 $p$ 的最小性，$[H:K]$ 的每个质因子都不小于 $p$；结合 $[G:K]\mid p!$，知这些质因子只能是 $p$，故 $[H:K]=p^a$，其中 $a\geq0$。但 $p!$ 中只含一个因子 $p$，而
+\[
+  p^{a+1}=[G:K]\mid p!,
+\]
+故 $a=0$，从而 $[H:K]=1$，即 $H=K\trianglelefteq G$。
+\end{purpleproof}
+
+% 来源：微信图片_20261118134410_58_26.jpg，2.4.13--2.4.15 及紫笔证明提示。
+下面是本节的一些习题结论。
+
+\begin{proposition}\label{prop:normalizer-centralizer-subgroup-properties}
+设 $H\leq G$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $K\leq G$ 且 $H\trianglelefteq K$，则 $K\leq N_G(H)$。
+  \item 定义
+  \[
+    C_G(H)=\{g\in G\mid gh=hg\text{ 对所有 }h\in H\text{ 成立}\},
+  \]
+  则 $C_G(H)\trianglelefteq N_G(H)$。
+\end{enumerate}
+\end{proposition}
+
+% 字迹放大核对：原稿 2.4.14 是“阶为 p”的子群，不是“指数为 p”。
+\begin{proposition}\label{prop:prime-order-subgroup-small-cofactor-normal}
+若 $|G|=pn$，$p>n$ 且 $p$ 为质数，$H$ 是 $G$ 的一个阶为 $p$ 的子群，则 $H\trianglelefteq G$。
+\end{proposition}
+
+\begin{purplenote}
+证明思路与推论~\ref{cor:smallest-prime-index-subgroup-normal} 的证明类似：仍考察陪集作用的核 $K$，证明 $H=K$ 即可。
+\end{purplenote}
+
+\begin{proposition}\label{prop:unique-normal-subgroup-prime-power-index}
+若 $p,q$ 都是质数，$|G|=p^nq$ 且 $p>q$，则 $G$ 包含唯一一个指数为 $q$ 的正规子群。
+\end{proposition}
+
+\begin{purplenote}
+% 整理引用：第 2.5 节已接入，为原稿“下一节”补充可点击的章节引用。
+该结论要用到第~\ref{sec:sylow-theorems} 节的 Sylow 定理和推论~\ref{cor:smallest-prime-index-subgroup-normal}。
+\end{purplenote}

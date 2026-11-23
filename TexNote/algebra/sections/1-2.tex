@@ -1,0 +1,235 @@
+% !TeX root = ../main.tex
+\subsection{同态与子群}
+
+\begin{definition}[同态]\label{def:homomorphism}
+设 $G,H$ 是两个半群。若映射 $f:G\to H$ 保持运算，即
+\[
+  f(ab)=f(a)f(b),\qquad \forall a,b\in G,
+\]
+则称 $f$ 为一个\textbf{同态}（homomorphism）。单射同态称为\textbf{单同态}（monomorphism），满射同态称为\textbf{满同态}（epimorphism），双射同态称为\textbf{同构}（isomorphism）。若 $G$ 与 $H$ 之间存在同构，则记作 $G\cong H$。
+
+同态 $f:G\to G$ 称为 $G$ 的\textbf{自同态}（endomorphism）。
+
+同构 $f:G\to G$ 称为 $G$ 的\textbf{自同构}（automorphism）。
+\end{definition}
+
+\begin{purplenote}
+同态的本质是保持代数运算；例如采用加法记号时，同态条件写作
+\[
+  f(a+b)=f(a)+f(b).
+\]
+\end{purplenote}
+
+\begin{proposition}\label{prop:hom-basic}
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $f:G\to H$ 与 $g:H\to K$ 是半群同态，则 $g\circ f:G\to K$ 也是半群同态。
+  \item 单同态的复合仍是单同态，满同态的复合仍是满同态，同构的复合仍是同构，自同构的复合仍是自同构。
+  \item 若 $f:G\to H$ 是群同态，则
+  \[
+    f(e_G)=e_H,\qquad f(a^{-1})=f(a)^{-1}\quad(a\in G).
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+% 修正说明：群同态必保持幺元；一般幺半群同态若定义中不要求保幺，则未必保持幺元。并规范了习题引用的空格。
+第 (3) 条使用了 $G,H$ 是群这一条件；对一般幺半群同态，若未额外要求保持幺元，则 $f(e_G)=e_H$ 未必成立。反例见 Chapter~1, Exercise~2.1。
+\end{purplenote}
+
+\begin{definition}[核、像与原像]\label{def:kernel-image-preimage}
+设 $f:G\to H$ 是群同态。定义
+\[
+  \ker f=\{a\in G\mid f(a)=e_H\}.
+\]
+若 $A\subseteq G$，定义 $A$ 的像
+\[
+  f(A)=\{f(a)\mid a\in A\},
+\]
+特别地，$f(G)$ 记为 $\operatorname{im}f$。若 $B\subseteq H$，定义 $B$ 的原像
+\[
+  f^{-1}(B)=\{a\in G\mid f(a)\in B\}.
+\]
+\end{definition}
+
+\begin{theorem}\label{thm:mono-kernel}
+设 $f:G\to H$ 是群同态。
+\begin{enumerate}[label=(\arabic*)]
+  \item $f$ 是单同态当且仅当 $\ker f=\{e_G\}$；
+  \item $f$ 是同构当且仅当存在群同态 $f^{-1}:H\to G$，使
+  \[
+    f\circ f^{-1}=1_H,\qquad f^{-1}\circ f=1_G.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}[对运算封闭]\label{def:closed-under-operation}
+设 $G$ 是半群，$H\subseteq G$。若对任意 $a,b\in H$ 都有 $ab\in H$，则称 $H$ 对 $G$ 的运算\textbf{封闭}。
+\end{definition}
+
+\begin{definition}[子群]\label{def:subgroup}
+设 $G$ 是群，$H$ 是 $G$ 的非空子集。若 $H$ 在 $G$ 的二元运算下本身构成群，则称 $H$ 是 $G$ 的\textbf{子群}，记作 $H\leq G$。
+\end{definition}
+
+\begin{purplenote}
+% 补充说明：按 Hungerford《Algebra》第一章第 2 节（印刷页码 32）的约定区分 trivial subgroup 与 proper subgroup；后者同时排除幺元子群和全群。
+群 $G$ 本身以及只含幺元的 $\{e_G\}=\langle e_G\rangle$ 都是 $G$ 的子群。其中 $\{e_G\}$ 称为\textbf{平凡子群}（trivial subgroup）；非平凡子群是指不等于 $\{e_G\}$ 的子群。
+
+特别注意 Hungerford 的术语约定：\textbf{proper subgroup} 指同时满足
+\[
+  H\leq G,\qquad H\neq\{e_G\},\qquad H\neq G
+\]
+的子群，即\textbf{非平凡真子群}，也可写为
+\[
+  \{e_G\}\subsetneq H\subsetneq G.
+\]
+其他一些教材将 proper subgroup 仅用于表示 $H\leq G$ 且 $H\neq G$，不排除平凡子群。为避免混淆，本笔记在对应 Hungerford 的 proper subgroup 时明确写作“非平凡真子群”；若仅写“真子群”，则只表示 $H\neq G$。记号 $H\leq G$ 本身不排除 $H=\{e_G\}$ 或 $H=G$。
+
+若 $H\leq G$，则 $H$ 的幺元就是 $e_G$，且 $a\in H$ 在 $H$ 中的逆元就是它在 $G$ 中的逆元。
+\end{purplenote}
+
+\begin{theorem}\label{thm:image-preimage-subgroups}
+设 $f:G\to H$ 是群同态，$A\leq G$，$B\leq H$，则
+\[
+  \ker f\leq G,\qquad f^{-1}(B)\leq G,\qquad f(A)\leq H.
+\]
+\end{theorem}
+
+\begin{theorem}[子群判别法]\label{thm:subgroup-test}
+设 $H$ 是群 $G$ 的非空子集，则
+\[
+  H\leq G
+  \quad\Longleftrightarrow\quad
+  ab^{-1}\in H\quad\text{对所有 }a,b\in H.
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:intersection-subgroups}
+任意一族子群的交仍是子群。即若 $H_i\leq G$（$i\in I$），则
+\[
+  \bigcap_{i\in I}H_i\leq G.
+\]
+\end{corollary}
+
+\begin{definition}[生成子群]\label{def:generated-subgroup}
+设 $G$ 是群，$X\subseteq G$。所有包含 $X$ 的G的子群之交称为由 $X$ \textbf{生成的子群}，记作 $\langle X\rangle$。若 $X=\{a_1,\ldots,a_n\}$，也写作 $\langle a_1,\ldots,a_n\rangle$；若 $X=\{a\}$，则称 $\langle a\rangle$ 为由 $a$ 生成的\textbf{循环子群}。
+
+% 修正说明：原手写稿 1.2.10 还定义了生成元、有限生成群和循环群；先前转录遗漏了这些内容。
+$X$ 中的元素称为 $\langle X\rangle$ 的\textbf{生成元}。若存在有限多个元素 $a_1,\ldots,a_n\in G$，使得
+\[
+  G=\langle a_1,\ldots,a_n\rangle,
+\]
+则称 $G$ 为\textbf{有限生成群}。若存在 $a\in G$ 使得
+\[
+  G=\langle a\rangle,
+\]
+则称 $G$ 为由 $a$ 生成的\textbf{循环群}。
+\end{definition}
+
+\begin{purplenote}
+% 修正说明：补回原手写稿中关于不同生成集及子群之并所生成子群的记号。
+不同的生成集可能生成同一个群，即使 $X\neq Y$，也可能有
+\[
+  \langle X\rangle=\langle Y\rangle.
+\]
+例如，$\langle x\rangle=\langle x^{-1}\rangle$。一般而言，若 $H,K\leq G$，则 $H\cup K$ 未必是 $G$ 的子群；由 $H\cup K$ 生成的子群记作
+\[
+  H\vee K:=\langle H\cup K\rangle.
+\]
+\end{purplenote}
+
+\begin{theorem}\label{thm:generated-subgroup-words}
+设 $G$ 是群，$X$ 是 $G$ 的非空子集，则
+\[
+  \langle X\rangle
+  % 修正说明：原转录漏写了集合条件符号 \mid 的反斜杠。
+  =\bigl\{a_1^{n_1}\cdots a_t^{n_t}\mid
+  t\geq1,\ a_i\in X,\ n_i\in\mathbb Z\bigr\}.
+\]
+特别地，对任意 $a\in G$，
+\[
+  \langle a\rangle=\{a^n\mid n\in\mathbb Z\}.
+\]
+\end{theorem}
+
+% 修正说明：原手写稿 1.2.12 分为两项，并把若干具体自同构群同构作为命题的一部分；先前版本误将它们全部移入紫色备注。
+\begin{proposition}[自同构群]\label{prop:automorphism-group}
+设 $G$ 是一个群，以 $\operatorname{Aut}G$ 表示 $G$ 的所有自同构，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $\operatorname{Aut}G$ 在映射复合下构成一个群；
+  \item 有
+  \[
+    \operatorname{Aut}(\mathbb Z)\cong \mathbb Z_2,
+    \qquad
+    \operatorname{Aut}(\mathbb Z_6)\cong \mathbb Z_2,
+  \]
+  \[
+    \operatorname{Aut}(\mathbb Z_8)
+    \cong \mathbb Z_2\oplus\mathbb Z_2,
+  \]
+  且对任意素数 $p$，
+  \[
+    \operatorname{Aut}(\mathbb Z_p)
+    \cong \mathbb Z_{p-1}.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+% 修正说明：将手写稿中尚未写完的猜想补充为一般结论，并说明自同构的具体形式。
+% 补充说明：详细解释单位群 (\mathbb Z_n)^\times 的定义及其与自同构群的对应关系。
+% 补充说明：明确区分 \mathbb Z_n 的加法群结构与单位群上的乘法结构。
+这里 $\mathbb Z_n$ 表示模 $n$ 的剩余类集合。单独将它视为群时，本笔记默认指其\textbf{加法群}
+\[
+  (\mathbb Z_n,+).
+\]
+与此不同，下面的单位群采用模 $n$ 乘法作为二元运算。
+
+对任意正整数 $n$，称 $\overline k\in\mathbb Z_n$ 为一个\textbf{可逆元素}（或\textbf{单位}），若存在 $\overline l\in\mathbb Z_n$，使得
+\[
+  \overline k\,\overline l=\overline 1.
+\]
+这等价于存在整数 $l$ 使 $kl\equiv1\pmod n$，也等价于
+\[
+  \gcd(k,n)=1.
+\]
+所有可逆元素在模 $n$ 乘法下构成一个群，称为 $\mathbb Z_n$ 的\textbf{单位群}，即
+\[
+  \bigl((\mathbb Z_n)^{\times},\cdot\bigr),
+  \qquad
+  (\mathbb Z_n)^{\times}
+  =\{\overline k\in\mathbb Z_n\mid \gcd(k,n)=1\}.
+\]
+其幺元是 $\overline1$，而 $\overline k$ 的逆元是满足 $kl\equiv1\pmod n$ 的 $\overline l$；该群共有 $\varphi(n)$ 个元素。
+
+另一方面，加法循环群 $(\mathbb Z_n,+)$ 的每个自同构都由 $\overline1$ 的像唯一决定。对 $\overline k\in(\mathbb Z_n)^{\times}$，定义
+\[
+  \varphi_k(\overline a)=\overline{ka}\qquad(\overline a\in\mathbb Z_n),
+\]
+则 $\varphi_k$ 是加法群 $(\mathbb Z_n,+)$ 的自同构，并且每个自同构都以这种方式唯一得到。由于
+\[
+  \varphi_k\circ\varphi_l=\varphi_{kl},
+\]
+故
+\[
+  \operatorname{Aut}(\mathbb Z_n,+)
+  \cong\bigl((\mathbb Z_n)^{\times},\cdot\bigr).
+\]
+
+% 补充说明：群的阶为 \varphi(n) 并不意味着该群一定是阶为 \varphi(n) 的循环群。
+需要特别注意，虽然
+\[
+  \bigl|\operatorname{Aut}(\mathbb Z_n,+)\bigr|=\varphi(n),
+\]
+但 $(\mathbb Z_n)^{\times}$ 不一定是循环群，因而一般不能断言
+\[
+  \operatorname{Aut}(\mathbb Z_n,+)\cong\mathbb Z_{\varphi(n)}.
+\]
+% 修正说明：删除 \varphi 前误录的多余反斜杠。
+例如，$\varphi(8)=4$，但
+\[
+  \operatorname{Aut}(\mathbb Z_8,+)
+  \cong(\mathbb Z_8)^{\times}
+  \cong\mathbb Z_2\oplus\mathbb Z_2
+  \not\cong\mathbb Z_4.
+\]
+\end{purplenote}

@@ -1,0 +1,488 @@
+% !TeX root = ../main.tex
+\subsection{自由阿贝尔群}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.1/（相对于本科目目录）。
+% 共 7 张照片，文件名编号 32--38；编号不是原稿页码。
+% 保留原稿 2.1.1--2.1.19 的编号；另页证明移至对应结论之后。
+% 黑笔正文用普通环境，原紫笔说明用紫色；明确标出的“整理注”不属于原稿。
+
+% 来源：微信图片_20261114000824_32_26.jpg，2.1.1--2.1.2。
+\begin{proposition}[乘法记号与加法记号的对照]\label{prop:abelian-additive-notation}
+以下是一般群与采用加法记号的阿贝尔群的符号对照表：
+\[
+  \begin{array}{c|c}
+    \text{乘法记号} & \text{加法记号} \\ \hline
+    ab & a+b \\
+    a^{-1} & -a \\
+    e & 0 \\
+    a^n & na \\
+    ab^{-1} & a-b \\
+    HK & H+K \\
+    aH & a+H \\
+    G\times H & G\oplus H \\
+    H\vee K & H+K \\
+    \prod\nolimits_{i\in I}^{w}G_i & \sum_{i\in I}G_i \\
+    \text{weak direct product} & \text{direct sum}
+  \end{array}
+\]
+对任意用加法记号表示运算的群（不一定是阿贝尔群），有
+\[
+  (m+n)a=ma+na\qquad(a\in G,\ m,n\in\mathbb Z).
+\]
+若 $G$ 是阿贝尔群，则还有
+\[
+  m(a+b)=ma+mb\qquad(a,b\in G,\ m\in\mathbb Z).
+\]
+\end{proposition}
+
+\begin{purplenote}
+若 $G$ 是阿贝尔群，$H,K\leq G$，则 $H+K$ 是一个子群；用乘法记号说，这是因为 $HK=KH$。这里 $H\vee K$ 表示由 $H\cup K$ 生成的子群。
+\end{purplenote}
+
+\begin{definition}[阿贝尔群的基]\label{def:abelian-group-basis}
+设 $G$ 是用加法记号表示运算的群，$X$ 是 $G$ 的一个非空子集，则
+\[
+  \langle X\rangle
+  =\{n_1x_1+\cdots+n_kx_k\mid
+      k\in\mathbb N^+,\ n_i\in\mathbb Z,\ x_i\in X\}.
+\]
+特别地，若 $X=\{x_0\}$，则
+\[
+  \langle X\rangle=\{nx_0\mid n\in\mathbb Z\}.
+\]
+现设 $F$ 是阿贝尔群，$X$ 是 $F$ 的一个非空子集。若 $F=\langle X\rangle$，并且对任意两两不同的 $x_1,\ldots,x_k\in X$ 及任意 $n_1,\ldots,n_k\in\mathbb Z$，都有
+\[
+  n_1x_1+\cdots+n_kx_k=0
+  \quad\Longrightarrow\quad n_1=\cdots=n_k=0,
+\]
+则称 $X$ 是 $F$ 的一个\textbf{基}。
+\end{definition}
+
+\begin{purplenote}
+后面需注意阿贝尔群中的基与向量空间中的基的区别与联系。
+\end{purplenote}
+
+% 来源：微信图片_20261114000831_33_26.jpg，2.1.3--2.1.8 的陈述。
+\begin{theorem}\label{thm:free-abelian-characterizations}
+以下关于阿贝尔群 $F$ 的描述是等价的：
+\begin{enumerate}[label=(\arabic*)]
+  \item $F$ 有一个非空的基；
+  \item $F$ 是一族无限阶循环子群的内直和；
+  \item $F$ 同构于一族整数群 $\mathbb Z$ 的外直和；
+  \item 存在非空集合 $X$ 和映射 $\tau:X\to F$，满足：对任意给定的阿贝尔群 $G$ 及任意集合映射 $f:X\to G$，存在唯一群同态
+  \[
+    \overline f:F\longrightarrow G
+  \]
+  使得 $\overline f\circ\tau=f$。换句话说，$F$ 是阿贝尔群范畴中的一个自由对象。
+\end{enumerate}
+这里第 (2)、(3) 条的指标集均取非空集。
+\end{theorem}
+
+\begin{purplenote}
+第 (4) 条中的 $X$ 不一定是 $F$ 的子集。
+\end{purplenote}
+
+% 来源：微信图片_20261114000835_34_26.jpg，2.1.3 的证明。
+\begin{proof}
+$(1)\Rightarrow(2)$：设 $X=\{x_i\mid i\in I\}$ 是 $F$ 的一个非空基，记 $N_i=\langle x_i\rangle$。由于 $F$ 是阿贝尔群，各 $N_i$ 都是 $F$ 的正规子群，且
+\[
+  F=\left\langle\bigcup_{i\in I}N_i\right\rangle.
+\]
+每个 $x_i$ 都有无限阶，否则有某个非零整数 $n$ 满足 $nx_i=0$，与\hyperref[def:abelian-group-basis]{基的定义}矛盾。若
+\[
+  z\in N_i\cap\left\langle\bigcup_{j\ne i}N_j\right\rangle,
+\]
+则存在有限多个不同于 $i$ 的指标 $j_1,\ldots,j_k$，使得
+\[
+  z=nx_i=n_1x_{j_1}+\cdots+n_kx_{j_k}.
+\]
+由基的线性无关性，各系数都为零，故 $z=0$。因此 $F$ 是这族无限阶循环子群的内直和。
+
+$(2)\Rightarrow(3)$：无限阶循环群同构于整数群 $\mathbb Z$，再用定理~\ref{thm:internal-weak-direct-product} 即得。
+
+$(3)\Rightarrow(1)$：先考察 $\sum_{i\in I}\mathbb Z_i$，其中每个 $\mathbb Z_i=\mathbb Z$。令 $u_i$ 的第 $i$ 个坐标为 $1$，其余坐标为 $0$，并记 $Y=\{u_i\mid i\in I\}$。易知
+\[
+  \sum_{i\in I}\mathbb Z_i=\langle Y\rangle,
+\]
+且 $Y$ 线性无关，故为一个非空基。通过给定的同构，把这个基移到 $F$ 中即可。
+
+$(1)\Rightarrow(4)$：设 $X$ 是 $F$ 的基，取 $\tau:X\rightarrow F$ 为嵌入映射。对给定的 $G$ 和 $f$，定义
+\[
+  \overline f(n_1x_1+\cdots+n_kx_k)
+  =n_1f(x_1)+\cdots+n_kf(x_k).
+\]
+把相同基元素的系数合并后，每个元素的有限线性表示唯一，故此定义良好。易验证 $\overline f\circ\tau=f$，且 $\overline f$ 是群同态。任何满足这一条件的同态在 $X$ 上都与 $f$ 相同，而 $X$ 生成 $F$，故同态唯一。
+
+$(4)\Rightarrow(3)$：设 $X=\{x_i\mid i\in I\}$，取 $A=\sum_{i\in I}\mathbb Z_i$(其中$\mathbb Z_i \cong \mathbb Z, i\in I$)，及上面构造的基 $Y=\{u_i\mid i\in I\}$。由 $(1)\Rightarrow(4)$，$A$ 是 $Y$ 上的自由对象；由假设，$F$ 是 $X$ 上的自由对象。因为 $X$ 与 $Y$ 一一对应，由定理~\ref{thm:free-objects-equivalent} 得
+\[
+  F\cong A=\sum_{i\in I}\mathbb Z_i.
+\]
+\end{proof}
+
+\begin{definition}[自由阿贝尔群]\label{def:free-abelian-group}
+若阿贝尔群 $F$ 满足定理~\ref{thm:free-abelian-characterizations} 中的等价条件，则称 $F$ 为\textbf{自由阿贝尔群}；相对于第 (4) 条中的集合 $X$，也称为 $X$ 上的自由阿贝尔群。
+\end{definition}
+
+\begin{purplenote}
+对于任意给定的非空集合 $X$，定理~\ref{thm:free-abelian-characterizations} 的证明展示了如何构造“以 $X$ 为基”的自由阿贝尔群：直接考虑 $\sum_{i\in I}\mathbb Z$，把 $X$ 看成指标集 $I$，并把 $x_i$ 与相应的标准基元素 $u_i$ 对应起来。
+\end{purplenote}
+
+\begin{theorem}\label{thm:free-abelian-rank}
+若 $F$ 是一个自由阿贝尔群，则 $F$ 的任意两个基有相同的基数。因此，给定自由阿贝尔群的基的基数是固定的，称为该自由阿贝尔群的\textbf{秩}（rank）。
+\end{theorem}
+
+% 来源：微信图片_20261114000835_34_26.jpg，2.1.5 的证明概要。
+\begin{proof}[证明概要（有限秩情形）]
+设 $F$ 有一个基 $X$，$|X|=n<\infty$，则 $F\cong\sum_{i=1}^{n}\mathbb Z$。定义
+\[
+  2F=\{2x\mid x\in F\}.
+\]
+易知 $2F\trianglelefteq F$，且在上述同构下(同一个同构)对应于 $\sum_{i=1}^{n}2\mathbb Z$。由推论~\ref{cor:quotient-direct-products}，
+\[
+  F/2F\cong\sum_{i=1}^{n}(\mathbb Z/2\mathbb Z),
+  \qquad |F/2F|=2^n.
+\]
+若 $Y$ 是 $F$ 的另一个基，对于某个任意给定的正整数$r$若有$|Y|\geq r$则由上面类似分析可得 $|F/2F| \geq 2^r$，因此有 $2^n \geq 2^r$，故 $r\leq n$。于是 $Y$ 为有限集，记 $|Y|=m$，再由同一商群的计算得到 $2^m=2^n$，所以 $m=n$。
+\end{proof}
+
+\begin{purplenote}
+原稿注明：$X$ 为无限集时的证明见教材。
+\end{purplenote}
+
+\begin{proposition}\label{prop:free-abelian-isomorphism-rank}
+设 $F_1$ 是以 $X_1$ 为基的自由阿贝尔群，$F_2$ 是以 $X_2$ 为基的自由阿贝尔群。则
+\[
+  F_1\cong F_2
+  \quad\Longleftrightarrow\quad
+  \operatorname{rank}F_1=\operatorname{rank}F_2
+  \quad\Longleftrightarrow\quad |X_1|=|X_2|.
+\]
+\end{proposition}
+
+\begin{theorem}\label{thm:abelian-quotient-of-free-abelian}
+设 $G$ 是阿贝尔群，$X$ 是 $G$ 的一个生成集，则 $G$ 是某个秩为 $|X|$ 的自由阿贝尔群在某个群同态下的像。
+\end{theorem}
+
+\begin{purplenote}
+以下介绍研究有限生成阿贝尔群结构时有用的工具。
+\end{purplenote}
+
+\begin{lemma}\label{lem:free-abelian-basis-shear}
+若 $\{x_1,\ldots,x_n\}$ 是自由阿贝尔群 $F$ 的一个基，$a\in\mathbb Z$，则对所有 $i\ne j$，
+\[
+  \{x_1,\ldots,x_{j-1},\ x_j+ax_i,\ x_{j+1},\ldots,x_n\}
+\]
+也是 $F$ 的一个基。
+\end{lemma}
+
+% 来源：微信图片_20261114000839_35_26.jpg，2.1.9--2.1.12 的陈述及紫笔说明。
+\begin{theorem}\label{thm:subgroup-finite-rank-free-abelian}
+设 $F$ 是秩为 $n<\infty$ 的自由阿贝尔群，$G$ 是 $F$ 的一个非零子群。则存在 $F$ 的一个基 $\{x_1,\ldots,x_n\}$、一个正整数 $r$（$1\leq r\leq n$）及满足
+\[
+  d_1\mid d_2\mid\cdots\mid d_r
+\]
+的正整数 $d_1,\ldots,d_r$，使得 $G$ 是以 $\{d_1x_1,\ldots,d_rx_r\}$ 为基的自由阿贝尔群。
+\end{theorem}
+
+% 来源：微信图片_20261114000843_36_26.jpg，2.1.9 的完整证明。
+% 整理：统一归纳步骤中 G∩H 的基的末项指标，允许 G∩H=0。
+\begin{proof}
+对 $n$ 作归纳。当 $n=1$ 时，结论由无限循环群的非零子群仍为无限循环群得到。设秩小于 $n$ 时结论成立，下面考虑秩为 $n$ 的情形。
+
+记
+\[
+  S=\left\{s\in\mathbb Z\ \middle|\
+    \begin{array}{l}
+      \text{存在 }F\text{ 的一个基 }\{x_1,\ldots,x_n\}\text{ 及 }g\in G,\\
+      g=sx_1+k_2x_2+\cdots+k_nx_n,\quad k_i\in\mathbb Z
+    \end{array}\right\}.
+\]
+由于 $G\ne0$，且交换基元素位置仍是基及改变基元素符号仍是基，故 $S$ 中有正整数。取 $d_1$ 为 $S$ 中最小的正整数，选取相应的基和元素
+\[
+  g_0=d_1x_1+k_2x_2+\cdots+k_nx_n\in G.
+\]
+先证明 $d_1\mid k_i$（$2\leq i\leq n$）。否则，对某个 $i$ 可写成
+\[
+  k_i=q_id_1+r_i,\qquad 0<r_i<d_1.
+\]
+于是
+\[
+  g_0=d_1(x_1+q_ix_i)
+      +\sum_{\substack{2\leq j\leq n\\j\ne i}}k_jx_j+r_ix_i.
+\]
+由引理~\ref{lem:free-abelian-basis-shear}，以 $x_1+q_ix_i$ 替换 $x_1$ 后仍得到 $F$ 的基。再把 $x_i$ 移到第一位，便有 $r_i\in S$，与 $d_1$ 的最小性矛盾。
+
+因此可写 $k_i=d_1q_i$。令
+\[
+  v=x_1+q_2x_2+\cdots+q_nx_n,
+\]
+则 $d_1v=g_0\in G$。反复使用引理~\ref{lem:free-abelian-basis-shear}，可知 $\{v,x_2,\ldots,x_n\}$ 仍为 $F$ 的基。记 $H=\langle x_2,\ldots,x_n\rangle$，则
+\[
+  F=\langle v\rangle\oplus H.
+\]
+任取 $g\in G$，唯一写成
+\[
+  g=n_1v+n_2x_2+\cdots+n_nx_n.
+\]
+将 $n_1$ 除以 $d_1$，写作 $n_1=qd_1+r$，其中 $0\leq r<d_1$。因为 $d_1v\in G$，所以
+\[
+  g-qd_1v=rv+n_2x_2+\cdots+n_nx_n\in G.
+\]
+若 $r>0$，则 $r\in S$，矛盾。因此 $d_1\mid n_1$，从而
+\[
+  G=\langle d_1v\rangle\oplus(G\cap H).
+\]
+
+若 $G\cap H=0$，取 $r=1$ 即得结论。否则，$H$ 的秩为 $n-1$，由归纳假设，存在 $H$ 的一个基 $\{y_2,\ldots,y_n\}$ 及某个 $2\leq r\leq n$，使得
+\[
+  \{d_2y_2,\ldots,d_ry_r\}
+\]
+是 $G\cap H$ 的基，且 $d_2\mid\cdots\mid d_r$。于是 $\{v,y_2,\ldots,y_n\}$ 是 $F$ 的基，$\{d_1v,d_2y_2,\ldots,d_ry_r\}$ 是 $G$ 的基。对
+\[
+  d_1v+d_2y_2+\cdots+d_ry_r\in G
+\]
+使用前面相同的带余除法和换基论证，得到 $d_1\mid d_2$，故所需的整除链成立。
+\end{proof}
+
+\begin{purplenote}
+这里归纳法最核心的技巧是 $d_1$ 的选取。
+\end{purplenote}
+
+\begin{corollary}\label{cor:subgroups-finitely-generated-abelian}
+若阿贝尔群 $G$ 由 $n$ 个元素生成，则 $G$ 的任意子群都可由某个 $m\leq n$ 个元素生成。
+\end{corollary}
+
+\begin{purpleproof}
+考虑由这 $n$ 个元素对应的形式生成元所构造的自由阿贝尔群 $F$，由泛性质得到满同态 $\pi:F\to G$。若 $H\leq G$，则 $\pi^{-1}(H)\leq F$。由定理~\ref{thm:subgroup-finite-rank-free-abelian}，非零的 $\pi^{-1}(H)$ 有一个至多含 $n$ 个元素的基；这些基元素在 $\pi$ 下的像生成 $H$。零子群的情形显然。
+\end{purpleproof}
+
+下面是一些本节的习题。
+
+\begin{proposition}\label{prop:multiples-and-direct-sums}
+设 $G$ 及各 $G_i$ 都是阿贝尔群，$m\in\mathbb Z$，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $mG=\{mu\mid u\in G\}$ 是 $G$ 的正规子群；
+  \item 若 $G\cong\sum_{i\in I}G_i$，则
+  \[
+    mG\cong\sum_{i\in I}mG_i,
+    \qquad
+    G/mG\cong\sum_{i\in I}(G_i/mG_i).
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{example}[线性独立与基]\label{ex:abelian-independence-and-bases}
+设 $F$ 是阿贝尔群，$X\subseteq F$。称 $X$ \textbf{线性独立}，当且仅当对任意有限个两两不同的 $x_1,\ldots,x_k\in X$ 及任意整数 $n_1,\ldots,n_k$，都有
+\[
+  n_1x_1+\cdots+n_kx_k=0
+  \quad\Longleftrightarrow\quad n_1=\cdots=n_k=0.
+\]
+\begin{enumerate}[label=(\arabic*)]
+  \item $X$ 线性独立，当且仅当 $\langle X\rangle$ 中任意非零元素均可唯一写成
+  \[
+    n_1x_1+\cdots+n_kx_k,
+  \]
+  其中 $n_i\in\mathbb Z\setminus\{0\}$，各 $x_i\in X$ 两两不同（表示的唯一性不计各项的排列次序）。
+  \item 若 $F$ 是秩为 $n$ 的自由阿贝尔群，则含 $n$ 个元素的线性独立子集 $X$ 不一定是 $F$ 的基。
+  \item 若 $F$ 是自由阿贝尔群，则 $F$ 的线性独立子集 $X$ 不一定能扩充为 $F$ 的一个基。
+  \item 若 $F$ 是自由阿贝尔群，则 $F$ 的生成集不一定包含 $F$ 的一个基；但若 $F$ 由 $n$ 个元素生成，则其秩 $m\leq n$。
+\end{enumerate}
+\end{example}
+
+\begin{purplenote}
+
+(2)、(3) 的反例为 $F=\mathbb Z$、$X=\{ 2 \}$。
+
+(4) 的反例是 $\mathbb Z=\langle2,3\rangle$：生成集 $\{2,3\}$ 中不包含 $\mathbb Z$ 的基。
+
+对于 (4) 最后的秩不等式，原稿还给出矩阵说明。若 $\{e_1,\ldots,e_m\}$ 是 $F$ 的基，$g_1,\ldots,g_n$ 生成 $F$，则可取整数矩阵 $A\in M_{m\times n}(\mathbb Z)$、$B\in M_{n\times m}(\mathbb Z)$，使得
+\[
+  \begin{pmatrix}e_1\\\vdots\\e_m\end{pmatrix}
+  =A\begin{pmatrix}g_1\\\vdots\\g_n\end{pmatrix},
+  \qquad
+  \begin{pmatrix}g_1\\\vdots\\g_n\end{pmatrix}
+  =B\begin{pmatrix}e_1\\\vdots\\e_m\end{pmatrix}.
+\]
+代入并用基的线性无关性，得到 $AB=I_m$。把整数矩阵视为有理数域上的矩阵，便有
+\[
+  m=\operatorname{rank}(AB)
+  \leq\min\{\operatorname{rank}A,\operatorname{rank}B\}
+  \leq\min\{m,n\},
+\]
+所以 $m\leq n$。这里需区分阿贝尔群的秩与矩阵的秩。
+\end{purplenote}
+
+% 来源：微信图片_20261114000846_37_26.jpg，2.1.13--2.1.19。
+\begin{proposition}\label{prop:free-abelian-commutator-presentation}
+设 $X=\{a_i\mid i\in I\}$ 是一个集合，则 $X$ 上的自由阿贝尔群同构于由生成元 $X$ 和关系
+\[
+  \{a_ia_ja_i^{-1}a_j^{-1}=e\mid i,j\in I\}
+\]
+决定的群。
+\end{proposition}
+
+% 来源：微信图片_20261114000850_38_26.jpg，2.1.13 的证明。
+\begin{proof}
+设 $F$ 是 $X$ 上的自由阿贝尔群，$L$ 是 $X$ 上的自由群，$N$ 是 $L$ 中包含所有 $a_ia_ja_i^{-1}a_j^{-1}$ 的最小正规子群。则 $L/N$ 正是由上述生成元和关系决定的群。因为生成元的像满足
+\[
+  a_ia_jN=a_ja_iN,
+\]
+所以 $L/N$ 是阿贝尔群。考虑集合映射
+\[
+  X\longrightarrow L/N,\qquad a_i\longmapsto a_iN.
+\]
+由自由阿贝尔群的泛性质，存在群同态 $\varphi:F\to L/N$。由于 $L/N$ 由这些陪集生成，$\varphi$ 是满同态。
+
+另一方面，由自由群的泛性质，存在群同态 $\psi:L\to F$，将每个形式生成元 $a_i$ 映为 $F$ 中对应的基元素。其像包含 $F$ 的基，故 $\psi$ 是满同态。由于 $F$ 是阿贝尔群，
+\[
+  \psi(a_ia_ja_i^{-1}a_j^{-1})=0.
+\]
+因此 $N\subseteq\ker\psi$。于是 $\psi$ 诱导出满同态
+\[
+  \overline\psi:L/N\longrightarrow F.
+\]
+复合 $\overline\psi\circ\varphi$ 在 $X$ 上与恒等映射一致，由泛性质的唯一性，
+\[
+  \overline\psi\circ\varphi=\operatorname{id}_F.
+\]
+故 $\varphi$ 为单射；结合其满射性，得到 $F\cong L/N$。
+\end{proof}
+
+\begin{purplenote}
+\end{purplenote}
+
+\begin{proposition}\label{prop:free-abelian-also-free-group}
+一个自由阿贝尔群是自由群，当且仅当它是无限循环群。
+\end{proposition}
+
+\begin{proposition}\label{prop:direct-sum-free-abelian}
+一族自由阿贝尔群的直和仍是自由阿贝尔群；但其完全直和不一定是自由阿贝尔群。
+\end{proposition}
+
+\begin{example}\label{ex:finitely-generated-nonabelian-subgroup}
+设 $G$ 是由实矩阵
+\[
+  a=\begin{pmatrix}2&0\\0&1\end{pmatrix},
+  \qquad
+  b=\begin{pmatrix}1&1\\0&1\end{pmatrix}
+\]
+在矩阵乘法下生成的群。令 $H$ 为 $G$ 中主对角元均为 $1$ 的矩阵组成的子集，则 $H$ 是一个不能由有限个元素生成的子群。
+\end{example}
+
+\begin{purplenote}
+例~\ref{ex:finitely-generated-nonabelian-subgroup} 说明，推论~\ref{cor:subgroups-finitely-generated-abelian} 中的阿贝尔条件不能去掉。
+\end{purplenote}
+
+\begin{proposition}\label{prop:finitely-generated-torsion-free-abelian}
+设 $G$ 是有限生成的阿贝尔群，其中除单位元外的元素都没有有限阶，则 $G$ 是自由阿贝尔群。
+\end{proposition}
+
+% 来源：微信图片_20261114000850_38_26.jpg，2.1.17 的证明。
+% 补证（根据讨论）：用 2.1.10 和有限支撑证明线性无关集有限，再用模 2 商群估计其大小；
+% 据此选取极大线性无关组，后半段沿用原稿的公倍数与单同态构造。
+\begin{proof}
+若 $G=0$，则按空基的约定，$G$ 是秩为 $0$ 的自由阿贝尔群。以下设 $G\ne0$，并写作 $G=\langle g_1,\ldots,g_n\rangle$。
+
+先证明：$G$ 的任意线性无关子集 $Y$ 都是有限集，且 $|Y|\leq n$。$Y=\varnothing$ 时显然，以下设 $Y\ne\varnothing$。令 $H=\langle Y\rangle$，由推论~\ref{cor:subgroups-finitely-generated-abelian}，可写成
+\[
+  H=\langle h_1,\ldots,h_r\rangle,\qquad r\leq n.
+\]
+每个 $h_j$ 都是 $Y$ 中有限多个元素的整数线性组合。将这些表示中用到的元素合并，得到有限集 $Y_0\subseteq Y$，于是
+\[
+  H=\langle h_1,\ldots,h_r\rangle
+  \subseteq\langle Y_0\rangle\subseteq H,
+\]
+故 $H=\langle Y_0\rangle$。若有 $y\in Y\setminus Y_0$，则存在整数 $a_z$（$z\in Y_0$），使得
+\[
+  y-\sum_{z\in Y_0}a_z z=0.
+\]
+这是 $Y$ 中元素的整数线性关系，且 $y$ 的系数为 $1$，与 $Y$ 线性无关矛盾。因此 $Y=Y_0$，从而 $Y$ 有限。
+
+记 $s=|Y|$。由于 $Y$ 是 $H$ 的基，由定理~\ref{thm:free-abelian-characterizations} 及命题~\ref{prop:multiples-and-direct-sums}，
+\[
+  H\cong\mathbb Z^s,\qquad
+  H/2H\cong(\mathbb Z/2\mathbb Z)^s,
+  \qquad |H/2H|=2^s.
+\]
+另一方面，由 $H=\langle h_1,\ldots,h_r\rangle$，$H/2H$ 中每个元素均可写成
+\[
+  \sum_{j=1}^{r}\varepsilon_j(h_j+2H),
+  \qquad \varepsilon_j\in\{0,1\},
+\]
+因为整数系数都可模 $2$ 化简。这样的组合至多有 $2^r$ 种，故
+\[
+  2^s=|H/2H|\leq2^r,
+  \qquad |Y|=\operatorname{rank}H=s\leq r\leq n.
+\]
+
+由于 $G$ 无非零有限阶元素，任意非零元素组成的单元素集都线性无关。所有线性无关子集的大小又都不超过 $n$，故可选取一个元素个数最大的线性无关子集 $X$；它必然是极大的。记
+\[
+  X=\{x_1,\ldots,x_m\},\qquad
+  F=\langle X\rangle\leq G,\qquad 1\leq m\leq n.
+\]
+由线性无关性，$F$ 是以 $X$ 为基、秩为 $m$ 的自由阿贝尔群。
+
+由 $X$ 的极大性，对每个 $y\in G$，都存在整数 $k_0,k_1,\ldots,k_m$，其中 $k_0\ne0$，使得
+\[
+  k_0y=k_1x_1+\cdots+k_mx_m.
+\]
+这里若 $y\in X$，可取 $k_0=1$；若 $y\notin X$，由极大性，$X\cup\{y\}$ 线性相关，故有一组不全为零的整数系数使上式成立。若 $k_0=0$，则由 $X$ 线性无关又得 $k_1=\cdots=k_m=0$，矛盾。因此 $k_0\ne0$，从而 $|k_0|y\in F$。
+
+特别地，对每个 $g_i$ 选取正整数 $n_i$，使得 $n_ig_i\in F$。令
+\[
+  T=\operatorname{lcm}(n_1,\ldots,n_n).
+\]
+由于 $g_1,\ldots,g_n$ 生成 $G$，对任意 $y\in G$ 都有 $Ty\in F$。于是定义
+\[
+  \psi:G\longrightarrow F,\qquad \psi(y)=Ty.
+\]
+这里 $T$ 是固定的，故 $\psi$ 是群同态。若 $\psi(y)=0$，则 $Ty=0$；由于 $G$ 无非零有限阶元素且 $T>0$，只能有 $y=0$。所以 $\psi$ 为单射，得到
+\[
+  G\cong\psi(G)\leq F.
+\]
+再由定理~\ref{thm:subgroup-finite-rank-free-abelian}，$\psi(G)$ 是自由阿贝尔群，故 $G$ 也是。
+\end{proof}
+
+\begin{purplenote}
+注意极大线性无关组与生成集没有相互蕴含的关系。由于
+\[
+  Tx=Ty\quad\Longleftrightarrow\quad T(x-y)=0
+  \quad\Longleftrightarrow\quad x=y,
+\]
+可知 $TG\cong G$，而 $TG\subseteq\langle X\rangle$。因此，原稿中“$G$ 其实也不大于 $F$”应理解为存在到 $F$ 的单同态。
+
+整理注：本节开头按原稿要求基非空；涉及零群时，补用通常的约定：零群是以空集为基、秩为 $0$ 的自由阿贝尔群。命题~\ref{prop:free-abelian-also-free-group} 的陈述按原稿的非零情形理解。
+\end{purplenote}
+
+\begin{proposition}\label{prop:rationals-not-free-abelian}
+\begin{enumerate}[label=(\arabic*)]
+  \item 有理数加法群 $\mathbb Q$ 不是有限生成的；
+  \item $\mathbb Q$ 不是自由阿贝尔群；
+  \item 因而命题~\ref{prop:finitely-generated-torsion-free-abelian} 中的“有限生成”条件不能去掉。
+\end{enumerate}
+\end{proposition}
+
+% 排版：将最后一个命题及其说明放在同一页，避免只把末条结论留到末页。
+\noindent\begin{minipage}{\linewidth}
+\setlength{\parskip}{0.65\baselineskip}
+\begin{proposition}\label{prop:free-group-abelianization-rank}
+设 $F$ 是 $X$ 上的自由群（不一定是阿贝尔群），$G$ 是 $Y$ 上的自由群。令
+\[
+  F'=\langle aba^{-1}b^{-1}\mid a,b\in F\rangle,
+  \qquad
+  G'=\langle aba^{-1}b^{-1}\mid a,b\in G\rangle.
+\]
+则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $F'\trianglelefteq F$、$G'\trianglelefteq G$，且 $F/F'$、$G/G'$ 都是阿贝尔群；
+  \item $F/F'$ 是秩为 $|X|$ 的自由阿贝尔群，其相应的基为 $\{xF'\mid x\in X\}$；类似地，$G/G'$ 是秩为 $|Y|$ 的自由阿贝尔群；
+  \item $F\cong G$ 当且仅当 $|X|=|Y|$。
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+(1) 的证明可参照命题~\ref{prop:free-abelian-commutator-presentation}。对于 (3)，若 $F\cong G$，则同构将换位子子群 $F'$ 映为 $G'$，从而 $F/F'\cong G/G'$；结合 (2) 和命题~\ref{prop:free-abelian-isomorphism-rank}，得到 $|X|=|Y|$。反向由自由群的泛性质得到。
+
+由命题~\ref{prop:free-group-abelianization-rank} 可知，命题~\ref{prop:free-abelian-isomorphism-rank} 中相应的分类结论对给定的自由群也成立。
+\end{purplenote}
+\end{minipage}\par

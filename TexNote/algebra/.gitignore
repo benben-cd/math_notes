@@ -1,0 +1,36 @@
+# 原始照片由百度网盘同步，不提交 Git。
+/NotePhotos/
+/photos/
+# 每门课目录内独立使用本文件时同样生效。
+build/
+.local-backups/
+*.local.*
+*.local.code-workspace
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex*
+*.xdv
+*.dvi
+*.nav
+*.snm
+*.vrb
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+# .vscode/settings.json 与 extensions.json 应跟踪；不忽略整个 .vscode。
+
+# 主文件的旁路编译 PDF 也不作为源码提交；figures 中的其他 PDF 可跟踪。
+main.pdf

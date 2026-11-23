@@ -1,0 +1,363 @@
+% !TeX root = ../main.tex
+\subsection{自由群、群表示与自由积}\label{sec:free-groups}
+
+% 来源：微信图片_20261111163357_47_215.jpg 至微信图片_20261111163413_53_215.jpg，1.9.1--1.9.12。
+% 排版约定：黑笔定义、定理、命题和证明用普通环境；原紫笔说明保留为紫色。
+\begin{purplenote}
+本节将说明：给定一个集合，可以构造以它为自由生成集的群；给定一族群，也可以构造它们的自由积即群范畴中自由对象(自由群)是存在的。同时将推出一种利用生成元和生成元之间的关系来描述群的方法。
+\end{purplenote}
+
+\begin{definition}[自由群的既约字模型]\label{def:free-group-reduced-words}
+设 $X$ 是非空集合。取一个与 $X$ 不相交的集合
+\[
+  X^{-1}=\{x^{-1}\mid x\in X\},
+\]
+并令 $x\mapsto x^{-1}$ 是 $X$ 与 $X^{-1}$ 之间的双射(这里包含了$|X|=|X^{-1}|$的条件)；再取一个不属于 $X\cup X^{-1}$ 的元素为单位字母记为 $1$。称由 $X\cup X^{-1}\cup\{1\}$ 中元素组成、且除有限项外都等于 $1$ 的序列
+\[
+  (a_1,a_2,\ldots)
+\]
+为一个\textbf{字}。若它满足以下条件，则称为\textbf{既约字}：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对每个 $x\in X$，字中 $x$ 与 $x^{-1}$ 不相邻出现；
+  \item 若 $a_k=1$，则对每个 $i\geq k$ 都有 $a_i=1$。
+\end{enumerate}
+特别地，$(1,1,\ldots)$ 称为空字，仍记作 $1$。可以发现空字是既约的。
+\end{definition}
+
+\begin{purplenote}
+这里的 $X^{-1}$ 只是与 $X$ 不相交的形式副本；具体取成什么集合并不重要。后文主要使用字的形式，不依赖其底层集合实现。
+\end{purplenote}
+
+\begin{purplenote}
+将所有既约字组成的集合记作 $F(X)$。由字的定义，每个非空既约字都可唯一写成有限序列
+\[
+  (x_1^{\varepsilon_1},\ldots,x_n^{\varepsilon_n},1,1,\ldots),
+  \qquad n\in\mathbb N^+,\quad x_i\in X,\quad \varepsilon_i\in\{1,-1\}.
+\]
+我们定义两个这样的非空既约字相等，当且仅当它们的长度相同，且对应位置上的 $x_i$ 与指数 $\varepsilon_i$ 分别相同。因此映射
+\[
+  \tau:X\longrightarrow F(X),\qquad x\longmapsto(x,1,1,\ldots)
+\]
+是单射。后文常把 $X$ 与其像 $\tau(X)$ 视为同一集合，并简写为 $X\subseteq F(X)$。对任意整数 $m\geq1$， $m$ 个 $x^{-1}$ 的连续出现可简写为$x^{-m}$。
+\end{purplenote}
+
+\begin{purplenote}
+下面具体说明 $F(X)$ 上定义乘法二元运算的“拼接和消去”规则。空字 $1$ 作为单位元，即对每个 $w\in F(X)$，有 $1w=w1=w$。设两个非空既约字为
+\[
+  w=(x_1^{\varepsilon_1},\ldots,x_m^{\varepsilon_m}),\qquad
+  v=(y_1^{\delta_1},\ldots,y_n^{\delta_n}).
+\]
+令 $k$ 为可以消去的相邻互逆字母对的最大个数，即满足
+\[
+  x_{m-j}^{\varepsilon_{m-j}}=y_{j+1}^{-\delta_{j+1}}
+  \qquad(j=0,1,\ldots,k-1)
+\]
+的最大整数 $0\leq k\leq\min(m,n)$。定义 $wv$ 为消去这 $k$ 对字母后剩下的字：
+\[
+  wv=
+  \begin{cases}
+    (x_1^{\varepsilon_1},\ldots,x_{m-k}^{\varepsilon_{m-k}},
+      y_{k+1}^{\delta_{k+1}},\ldots,y_n^{\delta_n}),
+      & k<m,\ k<n,\\[2pt]
+    (y_{m+1}^{\delta_{m+1}},\ldots,y_n^{\delta_n}),
+      & k=m<n,\\[2pt]
+    (x_1^{\varepsilon_1},\ldots,x_{m-n}^{\varepsilon_{m-n}}),
+      & k=n<m,\\[2pt]
+    1, & k=m=n.
+  \end{cases}
+\]
+由于各情形分别对应 $k<m$ 且 $k<n$、$k=m<n$、$k=n<m$、$k=m=n$，第一种情形中的两段都非空。由于 $w$ 与 $v$ 各自已经既约，拼接后可能出现的互逆相邻字母只会出现在两字的连接处，因此按此规则消去后所得仍是既约字。
+\end{purplenote}
+
+\begin{theorem}\label{thm:free-group-existence}
+设 $X$ 是非空集合，$F(X)$ 为 $X$ 上所有既约字构成的集合。由以上讨论定义$F(X)$上的二元运算: 将两个既约字连接后，把相邻的互逆字母 $xx^{-1}$ 或 $x^{-1}x$ 逐次消去，所得既约字定义为它们的乘积。则 $F(X)$ 在此运算下是群，且$F(X)=\langle X\rangle$。称 $F(X)$ 为 $X$ 上的\textbf{自由群}。
+\end{theorem}
+
+\begin{proof}
+空字 $1$ 是单位元；对既约字
+\[
+  w=(x_1^{\varepsilon_1},\ldots,x_n^{\varepsilon_n}),
+\]
+其逆字为
+\[
+  w^{-1}=(x_n^{-\varepsilon_n},\ldots,x_1^{-\varepsilon_1}),
+\]
+由乘法的消去规则，$ww^{-1}=w^{-1}w=1$。乘积仍是既约字，故运算封闭。下面验证结合律。
+
+对每个 $x\in X$ 及 $\varepsilon\in\{1,-1\}$，定义左乘映射 $L_{x^{\varepsilon}}:F(X)\to F(X)$，令 $L_{x^{\varepsilon}}(1)=(x^{\varepsilon})$；对非空字 $w=(x_1^{\delta_1},\ldots,x_n^{\delta_n})$，令
+\[
+  L_{x^{\varepsilon}}(w)=
+  \begin{cases}
+    (x_2^{\delta_2},\ldots,x_n^{\delta_n}),
+      & x^{\varepsilon}=x_1^{-\delta_1},\\[2pt]
+    (x^{\varepsilon},x_1^{\delta_1},\ldots,x_n^{\delta_n}),
+      & x^{\varepsilon}\neq x_1^{-\delta_1}.
+  \end{cases}
+\]
+第一种情形若 $n=1$，右侧为空字。由定义可知
+\[
+  L_{x^{\varepsilon}}\circ L_{x^{-\varepsilon}}
+  =\operatorname{id}_{F(X)}
+  =L_{x^{-\varepsilon}}\circ L_{x^{\varepsilon}},
+\]
+所以每个 $L_{x^{\varepsilon}}$ 都是 $F(X)$ 上的置换。记 $\operatorname{Sym}(F(X))$ 为集合 $F(X)$ 上所有置换（即双射）在复合运算下构成的群，也就是笔记中记作 $A(F)$ 的群。令
+\[
+  F_0=\langle L_{x^{\varepsilon}}\mid x\in X,\ \varepsilon\in\{1,-1\}\rangle
+  \leq\operatorname{Sym}(F(X)).
+\]
+定义映射 $\Phi:F(X)\to F_0$：
+\[
+  \Phi(1)=\operatorname{id}_{F(X)},\qquad
+  \Phi(w)=L_{x_1^{\varepsilon_1}}\circ\cdots\circ L_{x_n^{\varepsilon_n}}
+\]
+（当 $w=(x_1^{\varepsilon_1},\ldots,x_n^{\varepsilon_n})$）。拼接并消去互逆字母对，对应于置换复合中消去 $L_{x^{\varepsilon}}$ 与 $L_{x^{-\varepsilon}}$，故
+\[
+  \Phi(wv)=\Phi(w)\circ\Phi(v)\qquad(w,v\in F(X)).
+\]
+显然$\Phi$ 是满射。又因 $\Phi(w)(1)=w$，故对$w_1 \neq w_2$ 有$\Phi(w_1) \neq \Phi(w_2)$ 因此$\Phi$ 是单射，故 $\Phi$ 为双射。又因为$F_0$是群，对任意 $u,v,w\in F(X)$，
+\[
+  \Phi((uv)w)
+  =(\Phi(u)\circ\Phi(v))\circ\Phi(w)
+  =\Phi(u)\circ(\Phi(v)\circ\Phi(w))
+  =\Phi(u(vw)).
+\]
+由 $\Phi$ 的单射性，$(uv)w=u(vw)$，故乘法满足结合律。最后，每个既约字都是 $X$ 中单字母及其逆的乘积，所以 $F(X)=\langle X\rangle$。
+\end{proof}
+
+\begin{purplenote}
+上述消去过程给出唯一的既约字；乘积就是连接后逐次消去相邻互逆字母所得的字。单位元为空字，逆字由原字中字母倒序并逐个取逆得到。若 $|X|\geq2$，则 $F(X)$ 非阿贝尔；此外，$F(X)$ 中每个非单位元都有无限阶。
+\end{purplenote}
+
+\begin{theorem}[自由群的泛性质]\label{thm:free-group-universal-property}
+设 $X$ 是非空集合，$F(X)$ 是 $X$ 上的自由群，且 $\tau:X\to F(X)$ 是标准嵌入将 $x$ 映为对应的单字母字。对任意群 $G$ 及任意集合映射 $f:X\to G$，存在唯一群同态
+\[
+  \overline f:F(X)\longrightarrow G
+\]
+使得 $\overline f\circ\tau=f$。因此，在群范畴中，$F(X)$ 是集合 $X$ 上的一个自由对象。
+\end{theorem}
+
+\begin{proof}
+对既约字 $w=(x_1^{\varepsilon_1},\ldots,x_n^{\varepsilon_n})$，其中 $x_i\in X$、$\varepsilon_i\in\{1,-1\}$，定义
+\[
+  \overline f(w)=f(x_1)^{\varepsilon_1}\cdots f(x_n)^{\varepsilon_n},
+  \qquad \overline f(1)=e_G.
+\]
+每个元素都有唯一的既约字表示，故 $\overline f$ 定义良好。由于 $G$ 是群，右侧的乘积总有定义。消去相邻互逆字母不改变右侧的群元素，因此 $\overline f$ 与字的乘法相容，是群同态，且满足 $\overline f\circ\tau=f$。
+
+下面证明唯一性。若 $g:F(X)\to G$ 是群同态且 $g\circ\tau=f$，则对任意既约字 $w=(x_1^{\varepsilon_1},\ldots,x_n^{\varepsilon_n})$，
+\begin{align*}
+  g(w)
+  &=g(x_1^{\varepsilon_1})\cdots g(x_n^{\varepsilon_n})\\
+  &=g(\tau(x_1))^{\varepsilon_1}\cdots g(\tau(x_n))^{\varepsilon_n}\\
+  &=f(x_1)^{\varepsilon_1}\cdots f(x_n)^{\varepsilon_n}
+   =\overline f(w).
+\end{align*}
+所以 $g=\overline f$，延拓唯一。
+\end{proof}
+
+\begin{corollary}\label{cor:every-group-quotient-of-free}
+任意群 $G$ 都是某个自由群在群同态下的像。
+\end{corollary}
+
+\begin{purpleproof}
+取 $G$ 的一个生成集 $X$，即 $G=\langle X\rangle$，并令 $f:X\hookrightarrow G$ 为包含映射。由定理~\ref{thm:free-group-universal-property}，存在唯一群同态 $\overline f:F(X)\to G$ 使得 $\overline f\circ\tau=f$。因为 $\overline f$ 的像包含 $X$，而 $X$ 生成 $G$，所以 $\overline f$ 是满同态，故 $G=\operatorname{im}\overline f$。
+
+需要注意，即使 $G=\langle X\rangle$，自由群 $F(X)$ 中的 $\tau(x)^{-1}$ 与 $G$ 中的 $f(x)^{-1}$ 是不同群中的元素，不应直接视为同一个元素；同态所保证的是
+\[
+  \overline f\bigl(\tau(x)^{-1}\bigr)=f(x)^{-1}\qquad(x\in X).
+\]
+\end{purpleproof}
+
+\begin{definition}[群的表示]\label{def:group-presentation}
+设 $X$ 是非空集合，$Y$ 是自由群 $F(X)$ 中一些既约字组成的集合。令 $N$ 为 $F(X)$ 中包含 $Y$ 的最小正规子群，即由 $Y$ 正规生成的子群。若群 $G$ 同构于 $F(X)/N$，则称 $G$ 是由生成元 $X$ 和关系 $Y$ 定义的群，或称 $G$ 有表示
+\[
+  G\cong\langle X\mid Y\rangle.
+\]
+此时也称 $(X\mid Y)$ 是 $G$ 的一个\textbf{群表示}。
+\end{definition}
+
+\begin{purplenote}
+群的表示通常不唯一。严格地说，若 $\pi:F(X)\to F(X)/N$ 是自然投影，则关系 $w\in Y$ 的含义是 $\pi(w)=N$，即它在商群中成为单位元。由于 $F(X)=\langle X\rangle$，故商群 $F(X)/N$ 由 $X$ 在标准投影下的像生成。
+\end{purplenote}
+
+\begin{theorem}[范·戴克定理]\label{thm:van-dyck}
+设 $N$ 是 $F(X)$ 中由 $Y$ 正规生成的子群，并将 $G=F(X)/N$ 记作 $G=\langle X\mid Y\rangle$。若群 $H$ 中给定元素族 $\{h_x\mid x\in X\}$ 满足关系 $Y$，即将 $x$ 映为 $h_x$ 所诱导的同态(自由对象 $F(X)$ 的泛性质所得的) $\overline f:F(X)\to H$ 满足 $\overline f(y)=e_H$（$y\in Y$），则存在唯一群同态
+\[
+  \varphi:G\longrightarrow H
+\]
+使得 $\varphi(xN)=h_x$（$x\in X$）。若 $\{h_x\mid x\in X\}$ 生成 $H$，则 $\varphi$ 为满同态。
+\end{theorem}
+
+\begin{proof}
+由假设，$\overline f(y)=e_H$ 对每个 $y\in Y$ 成立。因此 $Y\subseteq\ker\overline f$。由于 $\ker\overline f$ 是正规子群，而 $N$ 是包含 $Y$ 的最小正规子群，故
+\[
+  N\subseteq\ker\overline f.
+\]
+定义
+\[
+  \varphi:F(X)/N\longrightarrow H,\qquad
+  \varphi(wN)=\overline f(w)\quad(w\in F(X)).
+\]
+若 $wN=w'N$，则 $w^{-1}w'\in N\subseteq\ker\overline f$，从而 $\overline f(w)=\overline f(w')$；故 $\varphi$ 定义良好。由 $\overline f$ 是群同态可知 $\varphi$ 也是群同态，并且
+\[
+  \varphi(xN)=\overline f(x)=h_x\qquad(x\in X).
+\]
+
+商群 $F(X)/N$ 由 $\{xN\mid x\in X\}$ 生成，所以任何满足上述条件的群同态都必须与 $\varphi$ 相同，故延拓唯一。若 $\{h_x\mid x\in X\}$ 生成 $H$，则 $\operatorname{im}\varphi$ 含有这组生成元，因而 $\varphi$ 是满同态。
+\end{proof}
+
+\begin{purplenote}
+这里一般得到的是满同态（当指定元素生成 $H$ 时），而不一定是同构；$H$ 中还可能满足表示中未列出的其他关系。
+\end{purplenote}
+
+\begin{example}\label{ex:quaternion-presentation}
+四元数群 $Q_8$ 有表示
+\[
+  Q_8\cong\langle a,b\mid a^4=e,\ a^2=b^2,\ bab^{-1}=a^{-1}\rangle.
+\]
+\begin{proof}
+记 $F=F(\{a,b\})$，令 $N$ 为 $F$ 中由 $a^4$、$a^2b^{-2}$、$abab^{-1}$ 正规生成的子群，并记 $P=F/N$。这三个关系分别等价于显示的 $a^4=e$、$a^2=b^2$、$bab^{-1}=a^{-1}$。在 $P$ 中，
+\[
+  b^2=a^2,\qquad ba=a^{-1}b.
+\]
+此外，$a^{-1}=a^3$，且 $b^4=(b^2)^2=a^4=e$，故 $b^{-1}=b^3$。因此任意元素都可先写成由 $a,b$ 构成的字。利用 $ba=a^{-1}b$（从 $bab^{-1}=a^{-1}$ 两边右乘 $b$ 得到），可将字中的 $b$ 逐个移到 $a$ 的右侧，写成 $a^m b^n$ 的形式；再用 $a^4=e$ 和 $b^2=a^2$ 化简，得到 $a^i$ 或 $a^ib$，其中 $0\leq i<4$。故 $|P|\leq8$。
+
+令 $f:\{a,b\}\to Q_8$ 满足 $f(a)=i$、$f(b)=j$。由自由群的泛性质，$f$ 延拓为群同态 $\overline f:F\to Q_8$。由于 $i^4=e$、$i^2=j^2=-1$ 且 $jij^{-1}=-i$，有
+\[
+  \overline f(a^4)=e,\qquad
+  \overline f(a^2b^{-2})=i^2j^{-2}=e,\qquad
+  \overline f(abab^{-1})=i(jij^{-1})=e.
+\]
+所以 $\ker\overline f$ 是包含这三个关系字的正规子群，从而 $N\subseteq\ker\overline f$。定义
+\[
+  \varphi:P\longrightarrow Q_8,\qquad
+  \varphi(wN)=\overline f(w)\quad(w\in F).
+\]
+若 $wN=w'N$，则 $w^{-1}w'\in N\subseteq\ker\overline f$，故 $\overline f(w)=\overline f(w')$，因此 $\varphi$ 定义良好；由定义它是群同态，且 $\varphi(aN)=i$、$\varphi(bN)=j$。因 $i,j$ 生成 $Q_8$，$\varphi$ 是满同态。又 $|P|\leq8=|Q_8|$，故 $\varphi$ 为同构。
+\end{proof}
+\end{example}
+
+\begin{purplenote}
+在群表示中，常把诸如 $x^{-1}x^{-1}y^{-1}y^{-1}y^{-1}$ 的字简写为幂的形式$x^{-2}y^{-3}$，而不逐个写出 $x^{-1}$、$y^{-1}$。
+\end{purplenote}
+
+\begin{purplenote}
+下面讨论群范畴中的余积，即自由积。它的构造与自由群类似：用各因子群中的非单位元作字母，再合并相邻且属于同一因子群的字母，并消去乘积为单位元的情形。
+\end{purplenote}
+
+\begin{definition}[自由积]\label{def:free-product}
+设 $\{G_i\mid i\in I\}$ 是一族两两不交的群，各群的单位元分别记为 $e_i$。另取一个不属于 $\bigcup_{i\in I}G_i$ 的符号 $1$，并记字母集合
+\[
+  \mathcal A=\left(\bigcup_{i\in I}G_i\right)\cup\{1\}.
+\]
+一个\textbf{字}是一个序列
+\[
+  (a_1,a_2,\ldots),\qquad a_k\in\mathcal A,
+\]
+且除有限项外都等于 $1$。全由 $1$ 组成的序列称为空字，仍记为 $1$。
+若一个字满足以下三个条件，则称为\textbf{既约字}：
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $a_k=1$，则对每个 $j\geq k$ 都有 $a_j=1$；
+  \item 若 $a_k\in G_i$，则 $a_k\neq e_i$；
+  \item 若相邻两项 $a_k\in G_i$、$a_{k+1}\in G_j$，则 $i\neq j$(即相邻两项不属于同一个群)。
+\end{enumerate}
+所以既约字的有限有效部分不含任何因子群单位元 $e_i$，末尾可能出现的 $1$ 只是补齐项。
+
+约化一个普通字时，先删去所有等于标记 $1$ 或某个因子群单位元 $e_i$ 的项，再从左到右依次读取剩余字母，并维护一个既约字。读到 $a\in G_i\setminus\{e_i\}$ 时，若当前字为空，或其末字母属于 $G_j$ 且 $j\neq i$，就把 $a$ 接到末尾；若末字母 $b$ 也属于 $G_i$，就在 $G_i$ 内计算 $ba$，并以 $ba$ 替换末字母 $b$；若 $ba=e_i$，则删去末字母 $b$。处理完后在所得有限序列末尾补上无限多个 $1$。约化过程是确定的，故所得既约字唯一。
+
+两个既约字 $u,v$ 的乘积定义为先去掉它们末尾补齐的 $1$，连接其有限有效部分，再按上述规则约化所得的既约字。空字 $1$ 是单位元；若 $u=(a_1,\ldots,a_n,1,1,\ldots)$ 且 $a_n\neq1$，则其逆字为
+\[
+  u^{-1}=(a_n^{-1},\ldots,a_1^{-1},1,1,\ldots),
+\]
+其中每个逆元在相应的因子群中取；空字的逆仍为空字。所有既约字在此乘法下构成群，称为这族群的\textbf{自由积}，记作
+\[
+  \prod_{i\in I}{}^{*}G_i\quad\text{（通常也记作 }\mathop{*}_{i\in I}G_i\text{）}.
+\]
+对每个 $k\in I$，定义标准嵌入
+\[
+  \tau_k:G_k\longrightarrow\prod_{i\in I}{}^{*}G_i
+\]
+为 $\tau_k(e_k)=1$，并将 $a\in G_k\setminus\{e_k\}$ 映为 $(a,1,1,\ldots)$。易知$\tau_k$ 是群单同态，以后视$G_k$和$\tau_k(G_k)$为一个东西。
+\end{definition}
+
+\begin{theorem}[自由积的泛性质]\label{thm:free-product-universal-property}
+设 $\{G_i\mid i\in I\}$ 是一族两两不交的群，$H$ 是群，且对每个 $i\in I$ 给定群同态 $\psi_i:G_i\to H$。则存在唯一群同态
+\[
+  \psi:\prod_{i\in I}{}^{*}G_i\longrightarrow H
+\]
+使得 $\psi\circ\tau_i=\psi_i$（$i\in I$）。因此，$\prod_{i\in I}{}^{*}G_i$ 是群范畴中这族群的余积。
+\end{theorem}
+
+\begin{proof}
+对既约字 $(a_1,\ldots,a_n)$，令 $a_k\in G_{i_k}$，定义
+\[
+  \psi(a_1,\ldots,a_n)=\psi_{i_1}(a_1)\cdots\psi_{i_n}(a_n),
+  \qquad \psi(1)=e_H.
+\]
+在某个因子群内合并相邻字母或删去单位元，不改变右侧的值，故这一定义与合并、消去过程相容并给出群同态。它在每个标准嵌入上的限制都是 $\psi_i$。自由积由各因子的像生成，因此这样的同态唯一。
+\end{proof}
+
+\begin{purplenote}
+以下列出一些群表示的习题结论；其中的验证可参照例~\ref{ex:quaternion-presentation} 的方法。
+\end{purplenote}
+
+\begin{proposition}\label{prop:free-group-basic-facts}
+设 $X$ 是非空集合，$F(X)$ 是 $X$ 上的自由群。则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $F(X)$ 中非单位元的元素的阶为无限；
+  \item 若 $X=\{x\}$，则 $F(X)$ 是无限循环群，故 $F(X)\cong\mathbb Z$；
+  \item 若 $Y\subseteq X$，则 $F(X)$ 除以 $Y$ 的正规闭包所得的商群是由 $X\setminus Y$ 自由生成的自由群（当 $X\setminus Y=\varnothing$ 时，该商群为平凡群）。
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}\label{prop:group-presentations-examples}
+下列群表示给出相应的群：
+\begin{enumerate}[label=(\arabic*)]
+  \item 六阶循环群有表示
+  \[
+    \mathbb Z_6\cong\langle a,b\mid a^2=e,\ b^3=e,\ a^{-1}b^{-1}ab=e\rangle;
+  \]
+  \item $n$ 阶二面体群（$n\geq3$）有表示
+  \[
+    D_n\cong\langle a,b\mid a^n=e,\ b^2=e,\ abab=e\rangle;
+  \]
+  \item 由一个生成元 $b$ 及关系 $b^m=e$（$m\in\mathbb N^+$）定义的群同构于 $\mathbb Z_m$；
+  \item 由生成元 $a,b$ 及关系 $a^2=b^3
+  =e$ 定义的群是无限非阿贝尔群。
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}\label{prop:free-product-facts}
+设 $G,H,K$ 是群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 自由积满足交换律和结合律：$G*H\cong H*G, (G*H)*K\cong G*H*K\cong G*(H*K)$；
+  \item 若 $N$ 是 $G*H$ 中包含标准嵌入像 $G$ 的最小正规子群，则 $(G*H)/N\cong H$；
+  \item 若 $G,H$ 都非平凡，则 $G*H$ 是无限群，且其中心为平凡群$\langle e\rangle$；
+  \item 由生成元 $a,b$ 及关系 $a^2=e$、$b^3=e$ 定义的群同构于 $\mathbb Z_2*\mathbb Z_3$；
+  \item 若 $f:G_1\to G_2$、$g:H_1\to H_2$ 是群同态，则存在唯一群同态
+  \[
+    h:G_1*H_1\longrightarrow G_2*H_2
+  \]
+  使得 $h$ 在 $G_1$ 上的限制等于 $G_1\xrightarrow{f}G_2\hookrightarrow G_2*H_2$，在 $H_1$ 上的限制等于 $H_1\xrightarrow{g}H_2\hookrightarrow G_2*H_2$；这里的 $\hookrightarrow$ 表示相应自由积中的标准嵌入（故为单同态）。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) 由\hyperref[def:free-product]{自由积的定义}可知交换律是显然的。关于结合律，只需证明 $(G*H)*K\cong G*(H*K)$；从既约字的形式表示即可证明。
+
+(2) 考察 $N$ 中元素的具体形式。首先 $G\leq N$；其次，对任意 $h\in H$、$g\in G$，有 $hgh^{-1}\in N$。由此可猜想3，若
+\[
+  x=g_1h_1g_2h_2\cdots g_nh_n\in N,\qquad g_i\in G,\quad h_i\in H,
+\]
+则 $h_1h_2\cdots h_n=e_H$。因此，商群中的陪集由 $H$ 中相应字母的乘积决定，从而 $(G*H)/N\cong H$。
+
+(4) 记 $\mathbb Z_2=\langle 0_2, 1_2\rangle$、$\mathbb Z_3=\langle 0_3, 1_3, 2_3\rangle$。考虑映射
+\[
+  f:X=\{a,b\}\longrightarrow\mathbb Z_2*\mathbb Z_3,\qquad f(a)=1_2,\quad f(b)=1_3.
+\]
+由自由群的泛性质，存在群同态 $\overline f:F(X)\to\mathbb Z_2*\mathbb Z_3$，使得 $\overline f\circ\tau=f$。又因 $\mathbb Z_2*\mathbb Z_3=\langle 1_2,1_3\rangle$，故 $\overline f$ 是满同态。令 $N$ 为由 $a^2,b^3$ 正规生成的子群。由于 $\overline f(a^2)=\overline f(b^3)=1$，有 $N\subseteq\ker\overline f$，故存在满同态
+\[
+  \widetilde f:F(X)/N\longrightarrow\mathbb Z_2*\mathbb Z_3,\qquad \widetilde f(wN)=\overline f(w).
+\]
+任取 $w\in F(X)$，将其写成 $a,b$ 的幂交替出现的形式。若 $w\in\ker\overline f$，则它在 $\mathbb Z_2*\mathbb Z_3$ 中约化为空字。约化过程中将 $\bar{f}(a)$ 的幂按模 $2$ 化简、将 $\bar{f}(b)$ 的幂按模 $3$ 化简，并合并相邻的同因子字母, 故易知 $w\in N$。于是 $\ker\overline f\subseteq N$，从而 $N=\ker\overline f$。由定理~\ref{thm:factor-through-quotient}，$\widetilde f$ 是同构。
+\end{proof}

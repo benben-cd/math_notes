@@ -1,0 +1,656 @@
+% !TeX root = ../main.tex
+\subsection{有限生成阿贝尔群}\label{sec:finitely-generated-abelian-groups}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.2/（相对于本科目目录）。
+% 共 8 张照片，文件名编号 39--46；编号不是原稿页码。
+% 覆盖原稿 2.2.1--2.2.15；另页证明移至对应结论之后。
+% 黑笔正文用普通环境，原紫笔说明用紫色；整理修正另在注释或“整理注”中注明。
+
+% 来源：微信图片_20261115105904_39_26.jpg，节首与 2.2.1 的陈述。
+\begin{purplenote}
+本节的目的是寻找有限生成阿贝尔群的全系不变量，从而对其作分类。
+\end{purplenote}
+
+\begin{theorem}\label{thm:fg-abelian-invariant-factor-existence}
+任意有限生成阿贝尔群 $G$ 都同构于有限个循环群的直和，其中有限循环群（若存在）的阶 $m_1,\ldots,m_t$ 满足
+\[
+  m_i>1,\qquad m_1\mid m_2\mid\cdots\mid m_t.
+\]
+换言之，存在非负整数 $s,t$，使得
+\[
+  G\cong\mathbb Z_{m_1}\oplus\cdots\oplus\mathbb Z_{m_t}
+       \oplus\mathbb Z^s.
+\]
+\end{theorem}
+
+\begin{purplenote}
+该定理给出了有限生成阿贝尔群的一种分解。
+\end{purplenote}
+
+% 来源：微信图片_20261115105906_40_26.jpg，2.2.1 的证明。
+% 整理：自由群的形式基记为 e_i，避免与 G 中的生成元混淆；单列核为零的情形。
+\begin{proof}
+设 $G=\langle g_1,\ldots,g_n\rangle$。取以形式元素 $e_1,\ldots,e_n$ 为基的自由阿贝尔群 $F$，由泛性质，存在满同态
+\[
+  \pi:F\longrightarrow G,\qquad e_i\longmapsto g_i.
+\]
+记 $K=\ker\pi$，由\hyperref[cor:first-isomorphism]{第一同构定理}，$F/K\cong G$。
+
+若 $K=0$，则 $G\cong F\cong\mathbb Z^n$，结论成立。以下设 $K\ne0$。由定理~\ref{thm:subgroup-finite-rank-free-abelian}，存在 $F$ 的一个基 $\{x_1,\ldots,x_n\}$、正整数 $r\leq n$ 及正整数 $d_1,\ldots,d_r$，使得
+\[
+  d_1\mid d_2\mid\cdots\mid d_r,\qquad
+  K=\langle d_1x_1\rangle\oplus\cdots\oplus\langle d_rx_r\rangle.
+\]
+令 $d_j=0$（$j>r$），则
+\[
+  F=\bigoplus_{j=1}^{n}\langle x_j\rangle,\qquad
+  K=\bigoplus_{j=1}^{n}\langle d_jx_j\rangle.
+\]
+同构 $\langle x_j\rangle\cong\mathbb Z$ 将 $\langle d_jx_j\rangle$ 对应到 $d_j\mathbb Z$。由推论~\ref{cor:quotient-direct-products}，
+\[
+  G\cong F/K
+  \cong\bigoplus_{j=1}^{n}
+       \bigl(\langle x_j\rangle/\langle d_jx_j\rangle\bigr)
+  \cong\bigoplus_{j=1}^{n}\mathbb Z/d_j\mathbb Z.
+\]
+其中
+\[
+  \mathbb Z/d_j\mathbb Z\cong
+  \begin{cases}
+    0,&d_j=1,\\
+    \mathbb Z_{d_j},&d_j>1,\\
+    \mathbb Z,&d_j=0.
+  \end{cases}
+\]
+去掉零直和项，把 $d_j$ 中不为 $0$ 或 $1$ 的项依次记为 $m_1,\ldots,m_t$，把 $d_j=0$ 的项数记为 $s$，即得
+\[
+  G\cong\mathbb Z_{m_1}\oplus\cdots\oplus\mathbb Z_{m_t}
+       \oplus\mathbb Z^s,
+  \qquad m_1\mid\cdots\mid m_t.
+\]
+其中 $\mathbb Z^s$ 是秩为 $s$ 的自由阿贝尔群。
+\end{proof}
+
+% 来源：微信图片_20261115105904_39_26.jpg，2.2.2 的陈述。
+\begin{lemma}\label{lem:cyclic-prime-power-decomposition}
+若正整数 $m$ 的素因数分解为
+\[
+  m=p_1^{n_1}\cdots p_t^{n_t},
+\]
+其中 $p_1,\ldots,p_t$ 是互不相同的质数，$n_i>0$，则
+\[
+  \mathbb Z_m\cong
+  \mathbb Z_{p_1^{n_1}}\oplus\cdots\oplus\mathbb Z_{p_t^{n_t}}.
+\]
+\end{lemma}
+
+% 来源：微信图片_20261115105906_40_26.jpg，2.2.2 的证明。
+% 整理：区分不同剩余类群中的元素，保留原稿用嵌入与裴蜀等式构造满同态的证明。
+\begin{proof}
+只需证明：若 $\gcd(r,m)=1$，则
+\[
+  \mathbb Z_{rm}\cong\mathbb Z_r\oplus\mathbb Z_m.
+\]
+在 $\mathbb Z_{rm}$ 中，元素 $\overline m$ 的阶为 $r$，故
+$\langle\overline m\rangle\cong\mathbb Z_r$。定义
+\[
+  \psi_1:\mathbb Z_r\longrightarrow\mathbb Z_{rm},
+  \quad \overline k\longmapsto\overline{mk},
+  \qquad
+  \psi_2:\mathbb Z_m\longrightarrow\mathbb Z_{rm},
+  \quad \overline k\longmapsto\overline{rk}.
+\]
+两者均为单同态。由定理~\ref{thm:weak-direct-sum-universal-property}，存在群同态
+\[
+  \psi:\mathbb Z_r\oplus\mathbb Z_m\longrightarrow\mathbb Z_{rm},
+  \qquad
+  \psi(u,v)=\psi_1(u)+\psi_2(v).
+\]
+由 $\gcd(r,m)=1$，存在 $a,b\in\mathbb Z$ 使 $ra+mb=1$。因此，对任意整数 $k$，
+\[
+  \overline k=\overline{rak+mbk}
+  =\psi_1(\overline{bk})+\psi_2(\overline{ak})
+  =\psi(\overline{bk},\overline{ak}),
+\]
+其中两个输入分别取模 $r$、模 $m$ 的剩余类。故 $\psi$ 为满同态。又因两群均有 $rm$ 个元素，$\psi$ 为同构。对素因数分解逐次使用这一结论即可。
+\end{proof}
+
+% 来源：微信图片_20261115105904_39_26.jpg，2.2.3--2.2.5。
+\begin{theorem}\label{thm:fg-abelian-elementary-divisor-existence}
+任意有限生成阿贝尔群都同构于有限个循环群的直和，其中每个循环群的阶要么是无限的，要么是某个质数的幂。
+\end{theorem}
+
+\begin{purpleproof}
+由定理~\ref{thm:fg-abelian-invariant-factor-existence}
+和引理~\ref{lem:cyclic-prime-power-decomposition} 直接得到。
+\end{purpleproof}
+
+\begin{corollary}\label{cor:finite-abelian-subgroups-all-divisors}
+若有限阿贝尔群 $G$ 有 $n$ 个元素，则对于每个正整数 $m\mid n$，$G$ 都有一个含 $m$ 个元素的子群。
+\end{corollary}
+
+\begin{purplenote}
+证明提示：结合定理~\ref{thm:fg-abelian-elementary-divisor-existence}，利用对于质数 $p$ 及 $0\leq i\leq r$，
+\[
+  p^{r-i}\mathbb Z_{p^r}\cong\mathbb Z_{p^i}.
+\]
+\end{purplenote}
+
+% 整理：原稿“下列任意一条是子群”实际对应 (1)--(4)；(5)--(7) 是同构性质。
+\begin{lemma}\label{lem:abelian-characteristic-subgroups}
+设 $G,H$ 及各 $G_i$ 都是阿贝尔群，$m\in\mathbb Z$，$p$ 为质数，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $mG=\{mu\mid u\in G\}$ 是 $G$ 的子群。
+  \item $G[m]=\{u\in G\mid mu=0\}$ 是 $G$ 的子群。
+  \item
+  \[
+    G(p)=\{u\in G\mid |u|=p^n\text{，对某个整数 }n\geq0\}
+  \]
+  是 $G$ 的子群。
+  \item $G_t=\{u\in G\mid |u|<\infty\}$ 是 $G$ 的子群。
+  \item 对 $n\geq1$，有
+  \[
+    \mathbb Z_{p^n}[p]\cong\mathbb Z_p;
+    \qquad
+    p^a\mathbb Z_{p^n}\cong\mathbb Z_{p^{n-a}}
+    \quad(0\leq a<n).
+  \]
+  \item 若 $g:G\longrightarrow\sum_{i\in I}G_i$ 是同构，则它在 $mG$ 与 $G[m]$ 上的限制分别给出同构
+  \[
+    mG\cong\sum_{i\in I}mG_i,\qquad
+    G[m]\cong\sum_{i\in I}G_i[m].
+  \]
+  \item 若 $f:G\longrightarrow H$ 是同构，则其在 $G_t$ 与 $G(p)$ 上的限制也分别为同构，即
+  \[
+    G_t\cong H_t,\qquad G(p)\cong H(p).
+  \]
+\end{enumerate}
+\end{lemma}
+
+% 来源：微信图片_20261115105904_39_26.jpg，第 (5) 条的紫笔旁注；
+% 微信图片_20261115105909_41_26.jpg，承接 2.2.5 的紫笔说明。
+\begin{purplenote}
+第 (5) 条中，$\mathbb Z_{p^n}[p]$ 的同构类型与 $n\geq1$ 无关，始终为 $\mathbb Z_p$。
+
+第 (1)--(4) 条中的阿贝尔条件不可删去：$S_3$ 可作为第 (1)--(3) 条的反例；第 (4) 条的反例见教材 Chapter~I, Exercise~3.5。
+
+引理中的 $G_t$ 称为 $G$ 的\textbf{挠子群}。若 $G=G_t$，称 $G$ 为\textbf{挠群}；若 $G_t=0$，称 $G$ 为\textbf{无挠群}。
+\end{purplenote}
+
+% 来源：微信图片_20261115105909_41_26.jpg，2.2.6 的陈述。
+\begin{theorem}\label{thm:fg-abelian-decomposition-uniqueness}
+设 $G$ 是有限生成阿贝尔群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 存在唯一的非负整数 $s$，使得将 $G$ 分解成循环群的直和时，任意一种分解中无限循环群的个数都是 $s$。
+  \item 要么 $G$ 是自由阿贝尔群；要么存在唯一的一列不一定两两不同的正整数 $m_1,\ldots,m_t$，使得
+  \[
+    m_1>1,\qquad m_1\mid m_2\mid\cdots\mid m_t,
+    \qquad
+    G\cong\mathbb Z_{m_1}\oplus\cdots\oplus\mathbb Z_{m_t}\oplus F,
+  \]
+  其中 $F$ 为自由阿贝尔群。
+  \item 要么 $G$ 是自由阿贝尔群；要么存在一列在换序意义下唯一的质数幂 $p_1^{s_1},\ldots,p_k^{s_k}$，使得
+  \[
+    G\cong
+    \mathbb Z_{p_1^{s_1}}\oplus\cdots\oplus\mathbb Z_{p_k^{s_k}}\oplus F,
+  \]
+  其中 $p_1,\ldots,p_k$ 不一定不同，$s_1,\ldots,s_k$ 不一定为不同的正整数，$F$ 为自由阿贝尔群。
+\end{enumerate}
+\end{theorem}
+
+% 来源：微信图片_20261115105911_42_26.jpg，2.2.6 的证明；原稿顺序为 (1)、(3)、(2)。
+% 整理：比较素数幂指数时明确 a_k<c_k；不变因子分解中的素数指数允许为零。
+\begin{proof}
+(1) 由定理~\ref{thm:fg-abelian-invariant-factor-existence}，循环群的直和分解存在；略去零直和项后，有限生成性保证这样的分解只有有限项。将有限循环群的直和记为 $H$，无限循环群的直和记为 $F$，则
+\[
+  G\cong H\oplus F.
+\]
+这里 $H$ 为有限群，$F$ 为有限秩自由阿贝尔群。由引理~\ref{lem:abelian-characteristic-subgroups} 的第 (7) 条，
+\[
+  G_t\cong(H\oplus F)_t=H\oplus0.
+\]
+因此
+\[
+  G/G_t\cong(H\oplus F)/(H\oplus0)\cong F.
+\]
+故 $F$ 的同构类型只由 $G$ 决定，与所选分解无关；再由定理~\ref{thm:free-abelian-rank}，其秩 $s$ 唯一。
+
+(3) 存在性由定理~\ref{thm:fg-abelian-elementary-divisor-existence} 得到。设有两种分解
+\[
+  G\cong\bigoplus_{i=1}^{u}\mathbb Z_{p_i^{s_i}}\oplus F
+  \cong\bigoplus_{j=1}^{v}\mathbb Z_{q_j^{r_j}}\oplus F'.
+\]
+对每个固定质数 $p$，由引理~\ref{lem:abelian-characteristic-subgroups} 的第 (5)、(6) 条，
+\[
+  G[p]\cong
+  \bigoplus_{\{i:p_i=p\}}\mathbb Z_p
+  \cong\bigoplus_{\{j:q_j=p\}}\mathbb Z_p.
+\]
+两边元素个数相同，因此 $p$ 的幂次循环直和项的个数相同，记为 $m_p$。比较 $p$ 分量，可写成
+\[
+  G(p)\cong\bigoplus_{i=1}^{m_p}\mathbb Z_{p^{a_i}}
+       \cong\bigoplus_{i=1}^{m_p}\mathbb Z_{p^{c_i}},
+  \qquad
+  1\leq a_1\leq\cdots\leq a_{m_p},\quad
+  1\leq c_1\leq\cdots\leq c_{m_p}.
+\]
+若两列指数不同，令 $k$ 为第一个满足 $a_k\ne c_k$ 的指标。交换两种分解后，不妨设 $a_k<c_k$。于是
+\[
+  p^{a_k}G(p)\cong
+  \bigoplus_{i=k+1}^{m_p}\mathbb Z_{p^{a_i-a_k}}.
+\]
+右侧至多有 $m_p-k$ 个非零循环直和项，因此
+\[
+  \bigl|(p^{a_k}G(p))[p]\bigr|\leq p^{m_p-k}.
+\]
+但从另一种分解看，对所有 $i\geq k$ 均有 $c_i\geq c_k>a_k$，从而
+\[
+  p^{a_k}G(p)\cong
+  \bigoplus_{i=1}^{m_p}\mathbb Z_{p^{\max(c_i-a_k,0)}}
+\]
+至少有 $m_p-k+1$ 个非零循环直和项。因此
+\[
+  \bigl|(p^{a_k}G(p))[p]\bigr|\geq p^{m_p-k+1},
+\]
+矛盾。故 $a_i=c_i$ 对所有 $i$ 成立，即所有质数幂直和项连同重数在换序下唯一。
+
+(2) 存在性由定理~\ref{thm:fg-abelian-invariant-factor-existence} 得到。设
+\[
+  G\cong\mathbb Z_{m_1}\oplus\cdots\oplus\mathbb Z_{m_t}\oplus F
+   \cong\mathbb Z_{\ell_1}\oplus\cdots\oplus\mathbb Z_{\ell_d}\oplus F',
+\]
+其中
+\[
+  1<m_1\mid\cdots\mid m_t,\qquad
+  1<\ell_1\mid\cdots\mid\ell_d.
+\]
+取所有出现的质数 $p_1,\ldots,p_r$，写出素因数分解
+\[
+  m_j=\prod_{i=1}^{r}p_i^{a_{ji}}\quad(1\leq j\leq t),
+  \qquad
+  \ell_j=\prod_{i=1}^{r}p_i^{c_{ji}}\quad(1\leq j\leq d),
+\]
+其中指数为非负整数，且对每个 $i$，
+\[
+  a_{1i}\leq\cdots\leq a_{ti},\qquad
+  c_{1i}\leq\cdots\leq c_{di}.
+\]
+由 (3)，每个质数对应的非零指数及其重数均唯一。由于 $m_1>1$，可取一个质数 $p\mid m_1$；整除链使得 $p$ 出现在全部 $t$ 项中，而另一条链也必须有这些项，故 $t\leq d$。对称地 $d\leq t$，所以 $t=d$。对每个 $p_i$，将其唯一的非零指数列在左边补零到长度 $t$，便得到相同的两列指数。因此 $a_{ji}=c_{ji}$，从而 $m_j=\ell_j$，唯一性得证。
+\end{proof}
+
+\begin{purplenote}
+定理~\ref{thm:fg-abelian-decomposition-uniqueness} 第 (2) 条中的 $m_1,\ldots,m_t$ 称为 $G$ 的\textbf{不变因子组}；第 (3) 条中的质数幂连同其重数称为 $G$ 的\textbf{初等因子组}。
+\end{purplenote}
+
+% 来源：微信图片_20261115105909_41_26.jpg，2.2.7--2.2.8。
+\begin{corollary}\label{cor:fg-abelian-isomorphism-invariants}
+设 $G,H$ 是有限生成阿贝尔群，则 $G\cong H$ 当且仅当 $G/G_t$ 与 $H/H_t$ 的秩相同，且 $G,H$ 的不变因子组相同（等价地，初等因子组相同）。
+\end{corollary}
+
+\begin{purplenote}
+下面是一些习题结论。
+\end{purplenote}
+
+\begin{proposition}[$p$-群]\label{prop:torsion-abelian-primary-decomposition}
+若一个群的每个元素的阶都是某个固定质数 $p$ 的幂，则称它为一个 \textbf{$p$-群}；其中单位元的阶 $1=p^0$ 也计入。
+
+设 $G$ 是阿贝尔挠群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $G(p)$ 是 $G$ 中唯一的最大 $p$-子群，即 $G$ 的任意 $p$-子群都包含在 $G(p)$ 中。
+  \item
+  \[
+    G=\sum_{p}G(p),
+  \]
+  求和遍及使 $G(p)\ne0$ 的所有质数。
+  \item 若 $H$ 是另一个阿贝尔挠群，则
+  \[
+    G\cong H
+    \quad\Longleftrightarrow\quad
+    G(p)\cong H(p)\text{ 对每个质数 }p\text{ 均成立}.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+第 (2) 条可对各有限生成子群运用定理~\ref{thm:fg-abelian-elementary-divisor-existence}；也可先考察各 $G(p)$ 与其余分量之和的交，再利用裴蜀定理。
+\end{purplenote}
+
+% 来源：微信图片_20261115105914_43_26.jpg，2.2.9--2.2.13。
+\begin{proposition}\label{prop:cyclic-multiples-and-torsion}
+设 $k,m$ 为正整数。若 $\gcd(k,m)=1$，则
+\[
+  k\mathbb Z_m=\mathbb Z_m,\qquad
+  \mathbb Z_m[k]=\{0\}.
+\]
+若 $k\mid m$，写作 $m=kd$，则
+\[
+  k\mathbb Z_m\cong\mathbb Z_d,\qquad
+  \mathbb Z_m[k]\cong\mathbb Z_k.
+\]
+\end{proposition}
+
+\begin{theorem}\label{thm:maximal-order-element-direct-summand}
+设 $G$ 是有限阿贝尔群，$x\in G$ 是一个阶最大的元素，则 $\langle x\rangle$ 是 $G$ 的一个直和因子，即存在子群 $H\leq G$，使得
+\[
+  G=\langle x\rangle\oplus H.
+\]
+\end{theorem}
+
+\begin{purplenote}
+证明过程值得细细品味。
+\end{purplenote}
+
+% 来源：微信图片_20261115105916_44_26.jpg，2.2.10 的证明及紫笔旁注。
+% 整理：原稿的子群交写成空集，统一为零子群；区分商群补因子与其完整原像。
+\begin{proof}
+先证明一个辅助结论：若 $\langle x\rangle\ne G$，则存在 $G$ 中一个阶为质数的子群 $K$，满足
+\[
+  K\cap\langle x\rangle=\{0\}.
+\]
+令 $m=|x|$。由命题~\ref{prop:abelian-lcm-order} 和 $m$ 的最大性，$G$ 中每个元素的阶均整除 $m$。取 $y\notin\langle x\rangle$，设 $|y|=k$，则 $k\mid m$。考虑标准满同态
+\[
+  \pi:G\longrightarrow G/\langle x\rangle,
+  \qquad d=|\pi(y)|.
+\]
+因为 $y\notin\langle x\rangle$，有 $d>1$，且 $d\mid k$。取质数 $p\mid d$，则
+\[
+  \overline y=\frac{d}{p}\pi(y)
+\]
+在商群中的阶为 $p$。又 $dy\in\langle x\rangle$，故存在 $a\in\mathbb Z$，使得 $dy=ax$。于是
+\[
+  0=\frac{k}{d}\,dy=\frac{ak}{d}\,x,
+  \qquad m\mid\frac{ak}{d}.
+\]
+所以存在 $t\in\mathbb Z$ 使 $ak=mdt$。由于 $k\mid m$，
+\[
+  a=\frac{m}{k}\,dt,
+\]
+从而 $p\mid a$，可写 $a=pq$。令
+\[
+  v=\frac{d}{p}y-qx.
+\]
+则 $pv=dy-pqx=0$，且
+\[
+  \pi(v)=\frac{d}{p}\pi(y)=\overline y\ne0.
+\]
+因此 $v\notin\langle x\rangle$，$|v|=p$。取 $K=\langle v\rangle$，便有 $K\cap\langle x\rangle=\{0\}$，辅助结论得证。
+
+现在对 $|G|$ 作归纳。$|G|=1$ 或 $G=\langle x\rangle$ 时结论显然。否则取上述 $K$，考察标准满同态
+\[
+  \rho:G\longrightarrow G/K.
+\]
+由于 $K\cap\langle x\rangle=\{0\}$，元素 $\overline x=\rho(x)$ 的阶仍为 $m$。商群中任意元素的阶整除其原像的阶，故不超过 $m$。因此 $\overline x$ 仍是 $G/K$ 中阶最大的元素。由归纳假设，
+\[
+  G/K=\langle\overline x\rangle\oplus\overline H
+\]
+对某个子群 $\overline H$ 成立。令 $H=\rho^{-1}(\overline H)$，则易知 $K\leq H$。
+
+若 $u\in\langle x\rangle\cap H$，则
+\[
+  \rho(u)\in\langle\overline x\rangle\cap\overline H=\{0\}.
+\]
+所以 $u\in K\cap\langle x\rangle=\{0\}$。另一方面，任取 $g\in G$，可写
+\[
+  \rho(g)=a\overline x+\overline h,
+  \qquad a\in\mathbb Z,\quad\overline h\in\overline H.
+\]
+选取 $h\in H$ 使 $\rho(h)=\overline h$，则 $g-ax-h\in K\leq H$，故 $g\in\langle x\rangle+H$。因此 $G=\langle x\rangle\oplus H$。
+\end{proof}
+
+\begin{purplenote}
+先考虑阶为质数 $p$ 的子群，是因为这种子群与 $\langle x\rangle$ 的交只可能为零子群或它自身。
+
+用好商群的性质，可以把 $\rho(ax)=0$ 转化为 $ax\in K$，再与元素的阶联系起来。
+\end{purplenote}
+
+\begin{proposition}\label{prop:lift-order-from-maximal-cyclic-quotient}
+设 $G$ 是有限阿贝尔 $p$-群，$x\in G$ 有最大的阶。若
+$\overline y\in G/\langle x\rangle$ 的阶为 $p^r$，则存在代表元 $y\in G$，使得 $|y|=p^r$。
+\end{proposition}
+
+\begin{purplenote}
+若 $|x|=p^t$，则由阶的最大性，$p^tG=0$。取 $\overline y$ 的任一代表元 $y$，有 $r\leq t$，且
+\[
+  p^ry=ax
+\]
+对某个 $a\in\mathbb Z$ 成立。因此
+\[
+  0=p^ty=p^{t-r}(p^ry)=p^{t-r}ax,
+\]
+由 $|x|=p^t$ 得 $p^r\mid a$。写作 $a=p^rq$，取 $y'=y-qx$，便有 $p^ry'=0$；又 $y'$ 在商群中的像的阶为 $p^r$，而同态像的阶整除原像的阶，故 $|y'|=p^r$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:finite-abelian-p-group-filtration}
+设 $G$ 是有限阿贝尔 $p$-群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对所有 $n\geq0$，
+  \[
+    p^{n+1}G\cap G[p]\leq p^nG\cap G[p].
+  \]
+  \item 商群
+  \[
+    (p^nG\cap G[p])/(p^{n+1}G\cap G[p])
+  \]
+  是若干个 $\mathbb Z_p$ 的直和；记直和项的数量为 $k_n$。
+  \item 将 $G$ 分解为阶为质数幂的循环群的有限直积，则 $k_n$ 恰为其中 $\mathbb Z_{p^{n+1}}$ 的个数。
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+第 (2) 条可直接使用结构定理：先证明该商群中每个元素的阶至多为 $p$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:fg-abelian-cancellation}
+设 $G,H,K$ 都是有限生成阿贝尔群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $G\oplus G\cong H\oplus H$，则 $G\cong H$。
+  \item 若 $G\oplus H\cong G\oplus K$，则 $H\cong K$。
+  \item 若 $G_1$ 是秩为 $\aleph_0$ 的自由阿贝尔群，则
+  \[
+    G_1\oplus\mathbb Z\oplus\mathbb Z\cong G_1\oplus\mathbb Z,
+    \qquad
+    \mathbb Z\oplus\mathbb Z\not\cong\mathbb Z.
+  \]
+\end{enumerate}
+这里第 (3) 条给出无限生成情形的对照。
+\end{proposition}
+
+% 来源：微信图片_20261115105918_45_26.jpg，2.2.14--2.2.15 的陈述。
+\begin{theorem}\label{thm:finite-abelian-quotient-embeds}
+设 $G$ 是有限阿贝尔群，则对任意子群 $H\leq G$，$G$ 都有一个子群同构于 $G/H$。
+\end{theorem}
+
+% 来源：微信图片_20261115105921_46_26.jpg，2.2.14 的证明与紫笔说明。
+% 整理修正：|p^kG/p^{k+1}G| 的指数应计数 a_i>=k+1，而非原稿的 a_i>=k；
+% 因此末步取 k=b_i-1。原稿“子群交为空集”等记号亦统一为零子群。
+\begin{proof}
+由于 $G$ 是有限阿贝尔群，由命题~\ref{prop:torsion-abelian-primary-decomposition}，
+\[
+  G=\bigoplus_{i=1}^{r}G(p_i),\qquad
+  H=\bigoplus_{i=1}^{r}H(p_i).
+\]
+由 $H\leq G$，$H(p_i)=H\cap G(p_i)\leq G(p_i)$。再由推论~\ref{cor:quotient-direct-products}，
+\[
+  G/H\cong\bigoplus_{i=1}^{r}G(p_i)/H(p_i).
+\]
+因此只需讨论 $G$ 为有限阿贝尔 $p$-群的情形。
+
+先证明一个辅助结论。设 $A,B$ 为有限群，$\varphi:A\to B$ 为满同态，$B_1\trianglelefteq B$，令 $A_1=\varphi^{-1}(B_1)$，则 $A_1\trianglelefteq A$，且
+\[
+  |B/B_1|\mid|A/A_1|,\qquad |B/B_1|\leq|A/A_1|.
+\]
+事实上，对 $a\in A$、$a_1\in A_1$，
+\[
+  \varphi(aa_1a^{-1})
+  =\varphi(a)\varphi(a_1)\varphi(a)^{-1}\in B_1,
+\]
+故 $A_1\trianglelefteq A$。映射
+\[
+  \overline\varphi:A/A_1\longrightarrow B/B_1,\qquad
+  aA_1\longmapsto\varphi(a)B_1
+\]
+良定义且为满同态。由\hyperref[cor:first-isomorphism]{第一同构定理}
+和\hyperref[cor:lagrange]{Lagrange 定理}，
+\[
+  |B/B_1|=\frac{|A/A_1|}{|\ker\overline\varphi|},
+\]
+辅助结论得证。
+
+回到原定理。由结构定理，不妨写成
+\[
+  G\cong\bigoplus_{i=1}^{t}\mathbb Z_{p^{a_i}},
+  \qquad
+  G/H\cong\bigoplus_{i=1}^{s}\mathbb Z_{p^{b_i}},
+\]
+其中
+\[
+  a_1\geq\cdots\geq a_t\geq1,\qquad
+  b_1\geq\cdots\geq b_s\geq1.
+\]
+只需证明 $s\leq t$，且 $b_i\leq a_i$（$1\leq i\leq s$）。因为此时每个 $\mathbb Z_{p^{b_i}}$ 都能嵌入相应的 $\mathbb Z_{p^{a_i}}$，其直和便给出所需子群。
+
+令 $\pi:G\to G/H$ 为标准满同态。对每个 $k\geq0$，$\pi$ 在 $p^kG$ 上的限制满射到 $p^k(G/H)$。取
+\[
+  A=p^kG,\quad B=p^k(G/H),\quad B_1=p^{k+1}(G/H),
+  \quad A_1=(\pi|_A)^{-1}(B_1).
+\]
+由于 $p^{k+1}G\leq A_1$，由辅助结论得
+\[
+  \left|p^k(G/H)/p^{k+1}(G/H)\right|
+  \leq |A/A_1|
+  \leq \left|p^kG/p^{k+1}G\right|.
+\]
+另一方面，每个循环直和项的贡献为
+\[
+  p^k\mathbb Z_{p^a}/p^{k+1}\mathbb Z_{p^a}
+  \cong
+  \begin{cases}
+    \mathbb Z_p,&a\geq k+1,\\
+    0,&a\leq k.
+  \end{cases}
+\]
+因此
+\[
+  \left|p^kG/p^{k+1}G\right|
+  =p^{\#\{i:a_i\geq k+1\}},
+\]
+对 $G/H$ 也有同样的公式。由此得到
+\[
+  \#\{i:b_i\geq k+1\}
+  \leq\#\{i:a_i\geq k+1\}
+  \qquad(k\geq0).
+\]
+取 $k=0$，得 $s\leq t$。对 $1\leq i\leq s$，取 $k=b_i-1$；由于 $b_1\geq\cdots\geq b_i$，左侧至少为 $i$，故右侧至少为 $i$，从而 $a_i\geq b_i$，结论成立。
+\end{proof}
+
+\begin{purplenote}
+遇到 $p$-群时，应重视向各个素分量化归的技巧。上面的辅助结论值得积累，在学习向量空间后也可用更简单的语言描述。
+
+另一个思路是考察
+\[
+  \left|p^kG/p^{k+1}G\right|
+  =\frac{|p^kG|}{|p^{k+1}G|},
+\]
+相当于利用乘以 $p^k$ 来过滤；可与命题~\ref{prop:finite-abelian-p-group-filtration} 的第 (1)、(3) 条对照。
+
+整理注：原稿把本证明中的计数写为 $\#\{i:a_i\geq k\}$。这里统一为 $\#\{i:a_i\geq k+1\}$，相应地将最后的取值改为 $k=b_i-1$，以与商群 $p^kG/p^{k+1}G$ 的实际阶一致。
+\end{purplenote}
+
+\begin{theorem}\label{thm:fg-abelian-rank-quotient}
+设 $G$ 是有限生成阿贝尔群，$G/G_t$ 的秩为 $n$。若 $H\leq G$，且 $H/H_t$ 的秩为 $m$，则
+\[
+  m\leq n,\qquad
+  \operatorname{rank}\bigl((G/H)/(G/H)_t\bigr)=n-m.
+\]
+\end{theorem}
+
+% 来源：微信图片_20261115105918_45_26.jpg，2.2.15 的紫笔引言与黑笔证明。
+\begin{purplenote}
+需注意：有限生成群的子群不一定有限生成，但有限生成阿贝尔群的子群一定有限生成，这是由推论~\ref{cor:subgroups-finitely-generated-abelian} 得到的。
+\end{purplenote}
+
+% 整理：原稿的 Z_n 按“秩为 n 的自由阿贝尔群”语境写为 Z^n；
+% H=F∪H_t 按随后直和结论统一为 H=F+H_t；补出纯化在商群中的对应与 m=0 情形。
+\begin{proof}
+考察标准满同态
+\[
+  \pi:G\longrightarrow G/G_t.
+\]
+注意到 $H_t=H\cap G_t$。定义
+\[
+  \varphi:H/H_t\longrightarrow(H+G_t)/G_t,\qquad
+  h+H_t\longmapsto h+G_t.
+\]
+若 $h-h'\in H_t$，则 $h-h'\in G_t$，故 $\varphi$ 良定义。它显然为满同态；若 $\varphi(h+H_t)=G_t$，则 $h\in H\cap G_t=H_t$，所以 $\varphi$ 为单射。因此
+\[
+  H/H_t\cong(H+G_t)/G_t=\pi(H)\leq G/G_t.
+\]
+由定理~\ref{thm:fg-abelian-decomposition-uniqueness} 第 (1) 条，
+$G/G_t$ 是秩为 $n$ 的自由阿贝尔群。再由定理~\ref{thm:subgroup-finite-rank-free-abelian}，$\pi(H)$ 是秩为某个 $m\leq n$ 的自由阿贝尔群（零子群按秩为 $0$ 理解）。
+
+还可进一步说明 $H$ 有限生成。取 $H/H_t$ 的一个基 $\{y_1,\ldots,y_m\}$，为每个 $y_i$ 选取标准投影$H \rightarrow H/H_t$下的原像 $x_i\in H$，令 $F=\langle x_1,\ldots,x_m\rangle$, 易得$F\cap H_t=\{0\}$且$H=F+H_t$。所以
+\[
+  H=F\oplus H_t.
+\]
+这里 $F$ 由 $m$ 个元素生成，而 $G_t$ 为有限群，故 $H_t\leq G_t$ 也有限。因此 $H$ 有限生成。
+
+下面证明商群的秩公式。令
+\[
+  K=\{g\in G\mid kg\in H\text{ 对某个正整数 }k\}.
+\]
+这是标准满同态 $G\to G/H$ 下 $(G/H)_t$ 的原像，因此 $H\leq K\leq G$，并且映射
+\[
+  \psi:G/H\longrightarrow G/K,\qquad
+  g+H\longmapsto g+K
+\]
+是满同态，其核为 $(G/H)_t$。由\hyperref[cor:first-isomorphism]{第一同构定理}，
+\[
+  (G/H)/(G/H)_t\cong G/K.
+\]
+又 $G_t\leq K$，由\hyperref[cor:third-isomorphism]{第三同构定理}，
+\[
+  (G/G_t)/(K/G_t)\cong G/K.
+\]
+记
+\[
+  \overline G=G/G_t,\qquad
+  \overline H=(H+G_t)/G_t,\qquad
+  \overline K=K/G_t.
+\]
+则 $\overline G$ 自由且秩为 $n$，$\overline H$ 的秩为 $m$。此外，
+\[
+  \overline K=
+  \{\overline g\in\overline G\mid
+      k\overline g\in\overline H\text{ 对某个正整数 }k\}.
+\]
+一方面，$kg\in H$ 蕴含 $k\overline g\in\overline H$。反过来，若 $k\overline g\in\overline H$，则 $kg=h+t$，其中 $h\in H$、$t\in G_t$；取正整数 $a$ 使 $at=0$，便得 $akg=ah\in H$，故 $g\in K$。
+
+若 $m=0$，则 $\overline H=0$；由 $\overline G$ 无挠，$\overline K=0$，此时结论直接成立。若 $m>0$，由定理~\ref{thm:subgroup-finite-rank-free-abelian}，可取 $\overline G$ 的一个基 $\{u_1,\ldots,u_n\}$ 和正整数
+$d_1\mid\cdots\mid d_m$，使得
+\[
+  \overline H=\langle d_1u_1,\ldots,d_mu_m\rangle.
+\]
+若 $\overline u=\sum_{i=1}^{n}c_iu_i\in\overline K$，则存在正整数 $k$ 使 $k\overline u\in\overline H$。比较基的系数，得
+\[
+  d_i\mid kc_i\quad(1\leq i\leq m),\qquad
+  c_i=0\quad(i>m).
+\]
+故 $\overline K\leq\langle u_1,\ldots,u_m\rangle$。反过来，取 $D=\operatorname{lcm}(d_1,\ldots,d_m)$，则对任意
+$\overline u\in\langle u_1,\ldots,u_m\rangle$，有 $D\overline u\in\overline H$，从而 $\overline u\in\overline K$。因此
+\[
+  \overline K=\langle u_1,\ldots,u_m\rangle,\qquad
+  G/K\cong\overline G/\overline K
+      \cong\langle u_{m+1},\ldots,u_n\rangle
+      \cong\mathbb Z^{n-m}.
+\]
+结合前面的同构，即得所需秩公式。
+\end{proof}
+
+% 来源：微信图片_20261115105921_46_26.jpg，末尾紫笔说明。
+% 整理修正：原稿末注写“2.2.5”，但 K 与 bar K 出现在 2.2.15 的证明中，故引用后者。
+\begin{purplenote}
+定理~\ref{thm:fg-abelian-rank-quotient} 证明中的 $K$ 和 $\overline K$，分别称为 $H$ 在 $G$ 中、$\overline H$ 在 $\overline G$ 中的\textbf{纯化}。
+
+即使 $g$ 在 $G$ 中有无限阶，$g+H$ 在 $G/H$ 中仍可能有有限阶。而$H$在$G$中的纯化$K$使得只要 $g\notin K$，就有 $|g+K|=\infty$。这是因为若某个非零正整数倍 $kg$ 属于 $K$，则存在正整数 $a$ 使 $akg\in H$，从而 $g\in K$。这种对非零整数倍的封闭性体现了纯化的作用。
+\end{purplenote}
+

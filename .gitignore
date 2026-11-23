@@ -1,0 +1,47 @@
+# Only keep project sources, shared settings, and documentation at the root.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/AGENTS.md
+!/手写数学笔记转写指南.md
+!/.vscode/
+!/TexNote/
+!/pdf/
+
+# Raw photos stay in Baidu Sync; never add these directories to Git.
+NotePhotos/
+BaiduSyncdisk/
+photos/
+
+# Generated outputs, local backups, and temporary work.
+build/
+.local-backups/
+tmp/
+.codex/
+*.local.*
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex*
+*.xdv
+*.dvi
+*.nav
+*.snm
+*.vrb
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+main.pdf
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

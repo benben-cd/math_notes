@@ -1,0 +1,202 @@
+% !TeX root = ../main.tex
+\subsection{半群、幺半群和群}
+
+\begin{definition}[半群、幺半群与群]\label{def:semigroup-monoid-group}
+设 $G$ 是一个非空集合。
+\begin{enumerate}[label=(\arabic*)]
+  \item 若在 $G$ 上定义了一个二元运算，记作 $(a,b)\mapsto ab$，且满足结合律
+  \[
+    a(bc)=(ab)c,\qquad \forall a,b,c\in G,
+  \]
+  则称 $G$ 为一个\textbf{半群}（semigroup）。
+
+  \item 若 $G$ 是一个半群，并且存在 $e\in G$，使得
+  \[
+    ae=ea=a,\qquad \forall a\in G,
+  \]
+  则称 $G$ 为一个\textbf{幺半群}（monoid），$e$ 称为 $G$ 的\textbf{幺元}（单位元）。
+
+  \item 若 $G$ 是一个幺半群，并且对每个 $a\in G$ 都存在 $a^{-1}\in G$，使得
+  \[
+    aa^{-1}=a^{-1}a=e,
+  \]
+  则称 $G$ 为一个\textbf{群}，$a^{-1}$ 称为 $a$ 在 $G$ 中的\textbf{逆元}。
+
+  \item 若群 $G$ 还满足交换律
+  \[
+    ab=ba,\qquad \forall a,b\in G,
+  \]
+  则称 $G$ 为\textbf{阿贝尔群}（交换群）。
+\end{enumerate}
+\end{definition}
+
+\begin{purplenote}
+对于非空集合上的二元运算，常见的记法有乘法形式和加法形式。具体的半群、幺半群或群只需满足相应的运算律即可；在加法记号中，幺元通常记为 $0$，逆元记为 $-a$。
+\end{purplenote}
+
+\begin{theorem}\label{thm:basic-group-properties}
+若 $G$ 是一个幺半群，则幺元 $e$ 是唯一的。若 $G$ 是一个群，则还有：
+\begin{enumerate}[label=(\arabic*)]
+  \item 若 $c\in G$ 且 $cc=c$，则 $c=e$；
+  \item 左、右消去律成立：对任意 $a,b,c\in G$，
+  \[
+    ab=ac\Longrightarrow b=c,
+    \qquad
+    ba=ca\Longrightarrow b=c;
+  \]
+  \item 每个 $a\in G$ 的逆元 $a^{-1}$ 是唯一的；
+  \item $(a^{-1})^{-1}=a$；
+  \item $(ab)^{-1}=b^{-1}a^{-1}$；
+  \item 对任意 $a,b\in G$，方程 $ax=b$ 与 $ya=b$ 在 $G$ 中分别有唯一解
+  \[
+    x=a^{-1}b,\qquad y=ba^{-1}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若 $e$ 与 $e'$ 都是幺元，则 $e=ee'=e'$，故幺元唯一。
+
+若 $cc=c$，在等式两边左乘 $c^{-1}$，即得 $c=e$。消去律同样由在等式两边乘相应的逆元得到。
+
+若 $b,c$ 都是 $a$ 的逆元，则
+\[
+  b=be=b(ac)=(ba)c=ec=c,
+\]
+故逆元唯一。由于 $a$ 是 $a^{-1}$ 的逆元，便有 $(a^{-1})^{-1}=a$。又因为
+\[
+  (ab)(b^{-1}a^{-1})=e=(b^{-1}a^{-1})(ab),
+\]
+所以 $(ab)^{-1}=b^{-1}a^{-1}$。最后，将 $ax=b$ 左乘 $a^{-1}$、将 $ya=b$ 右乘 $a^{-1}$，分别得到所述解；唯一性由消去律保证。
+\end{proof}
+
+\begin{purplenote}
+在加法记号中，幺元记为 $0$，逆元记为 $-a$；于是 $(a+b)^{-1}=b^{-1}+a^{-1}$ 写成
+\[
+  -(a+b)=(-b)+(-a).
+\]
+只有在交换群中，才能进一步写成 $-(a+b)=-a-b$ 而不必在意次序。
+\end{purplenote}
+
+由定理~\ref{thm:basic-group-properties}，群的定义还可以适当减弱。
+
+\begin{proposition}\label{prop:left-group-axioms}
+设 $G$ 是一个半群，则 $G$ 是群当且仅当满足下列两个条件：
+\begin{enumerate}[label=(\arabic*)]
+  \item 存在 $e\in G$，使得 $ea=a$ 对所有 $a\in G$ 成立（左幺元）；
+  \item 对每个 $a\in G$，存在 $a'\in G$，使得 $a'a=e$（相对于该左幺元的左逆元）。
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+相应地，也可用“右幺元＋每个元素都有右逆元”刻画群。
+\end{purplenote}
+
+\begin{proof}
+% 修正说明：原手写稿此处有被划去的推导；以下保留其思路并改写为完整、无循环依赖的证明。
+必要性显然。下证充分性。固定 $a\in G$，取 $a'\in G$ 使 $a'a=e$；再取 $b\in G$ 使 $ba'=e$。于是
+\[
+  aa'=e(aa')=(ba')(aa')=b(a'a)a'=bea'=ba'=e.
+\]
+因此 $a'$ 也是 $a$ 的右逆元。进而
+\[
+  ae=a(a'a)=(aa')a=ea=a,
+\]
+所以 $e$ 也是右幺元。故 $e$ 是双侧幺元，且每个元素都有双侧逆元，$G$ 是群。
+\end{proof}
+
+% 修正说明：原手写稿 1.1.4 是用方程可解性刻画群；先前误录为“反向群”，现已按原稿改回。
+\begin{proposition}\label{prop:solvability-group}
+设 $G$ 是一个半群，则 $G$ 是群当且仅当对任意 $a,b\in G$，方程
+\[
+  ax=b,\qquad ya=b
+\]
+在 $G$ 中都有解。
+\end{proposition}
+
+\begin{proof}
+必要性由定理~\ref{thm:basic-group-properties} 立即得到。下证充分性。
+
+固定 $a\in G$。由方程 $ya=a$ 有解，可取 $e\in G$ 使 $ea=a$。任取 $b\in G$，由方程 $ax=b$ 有解，可取 $x\in G$ 使 $ax=b$，于是
+\[
+  eb=e(ax)=(ea)x=ax=b.
+\]
+因此 $e$ 是 $G$ 的左幺元。再对任意 $a\in G$，由方程 $ya=e$ 有解，可取 $a'\in G$ 使 $a'a=e$，即每个元素都有左逆元。由命题~\ref{prop:left-group-axioms}，$G$ 是群。
+\end{proof}
+
+\begin{example}[置换群]\label{ex:permutation-group}
+设 $S$ 是非空集合，以 $A(S)$ 表示所有双射 $S\to S$ 构成的集合。以映射复合作为乘法，则 $A(S)$ 是一个群，称为 $S$ 上的\textbf{置换群}。若
+\[
+  S=\{1,\ldots,n\},
+\]
+则记 $A(S)=S_n$，称为 $n$ 元对称群。
+\end{example}
+
+\begin{purplenote}
+对称群 $S_n$ 在有限群论中具有重要作用。
+\end{purplenote}
+
+\begin{definition}[群的直积]\label{def:group-direct-product}
+设 $G,H$ 都是群，且 $e_G,e_H$ 分别为其幺元。在笛卡尔积
+\[
+  G\times H=\{(a,b)\mid a\in G, b\in H\}
+\]
+上逐分量定义
+\[
+  (a,b)(a',b')=(aa',bb').
+\]
+则 $G\times H$ 是群，称为 $G$ 与 $H$ 的\textbf{直积}。当群采用加法记号时，直积也常记作 $G\oplus H$。其幺元为 $(e_G,e_H)$，且
+\[
+  (a,b)^{-1}=(a^{-1},b^{-1}).
+\]
+\end{definition}
+
+% 修正说明：原笔记先讨论幺半群的商，并将群作为进一步的特殊情形；先前版本误将条件直接限制为群。
+\begin{theorem}[商幺半群与商群的构造]\label{thm:quotient-congruence}
+设 $\sim$ 是幺半群 $G$ 上的等价关系，并且与乘法相容，即
+\[
+  a_1\sim a_2,\qquad b_1\sim b_2
+  \quad\Longrightarrow\quad
+  a_1b_1\sim a_2b_2.
+\]
+在等价类集合 $G/{\sim}$ 上定义
+\[
+  \overline a\,\overline b:=\overline{ab}.
+\]
+则该运算良定义，并使 $G/{\sim}$ 成为幺半群，其幺元为 $\overline e$。
+
+进一步，若 $G$ 是群，则 $G/{\sim}$ 也是群，且
+\[
+  (\overline a)^{-1}=\overline{a^{-1}}.
+\]
+若 $G$ 是阿贝尔群，则 $G/{\sim}$ 也是阿贝尔群。
+\end{theorem}
+
+\begin{purplenote}
+满足上述相容条件的等价关系称为幺半群 $G$ 上的一个\textbf{同余关系}。当 $G$ 是群时，相应的商幺半群就是商群。例如，对固定的正整数 $m$，整数上的模 $m$ 同余给出商群
+\[
+  \mathbb Z_m.
+\]
+\end{purplenote}
+
+\begin{example}\label{ex:rationals-mod-integers}
+% 修正说明：原手写稿 1.1.8 的底集是全体有理数，而非整数；商群应为 \mathbb Q/\mathbb Z。
+在全体有理数 $\mathbb Q$ 上定义等价关系
+\[
+  a\sim b\quad\Longleftrightarrow\quad a-b\in\mathbb Z.
+\]
+则等价类之和由
+\[
+  \overline a+\overline b=\overline{a+b}
+\]
+定义，所得商群为 $\mathbb Q/\mathbb Z$。
+\end{example}
+
+\begin{purplenote}
+在半群中，由结合律可无歧义地记
+\[
+  a_1a_2\cdots a_n=\prod_{i=1}^n a_i,
+  \qquad
+  a^m=\underbrace{aa\cdots a}_{m\text{ 个}}.
+\]
+\end{purplenote}

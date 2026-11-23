@@ -1,0 +1,315 @@
+% !TeX root = ../main.tex
+\subsection{直积和直和}
+
+% 来源：微信图片_20261008195558_34_215.jpg 至微信图片_20261008195616_39_215.jpg，1.8.1--1.8.15。
+% 排版约定：黑笔定义、定理和命题用普通环境；原紫笔说明及证明提示保留为紫色。
+\begin{purplenote}
+本节讨论如何由已知的群构造新群，并在已知各组成部分结构的情形下描述所得群的结构。
+\end{purplenote}
+
+\begin{definition}[直积与完全直积]\label{def:external-direct-product}
+设 $\{G_i\mid i\in I\}$ 是一族群。在集合
+\[
+  \prod_{i\in I}G_i
+  =\{(g_i)_{i\in I}\mid g_i\in G_i\text{ 对每个 }i\in I\}
+\]
+上定义二元运算：对 $f=(f(i))_{i\in I}$、$g=(g(i))_{i\in I}$，令
+\[
+  (fg)(i)=f(i)g(i)\qquad(i\in I).
+\]
+此运算称为逐坐标运算。所得集合连同此运算称为这族群的\textbf{完全直积}。当 $I=\{1,2,\ldots,n\}$ 时，通常记作
+\[
+  G_1\times G_2\times\cdots\times G_n.
+\]
+\end{definition}
+
+\begin{purplenote}
+若各 $G_i$ 采用加法记号，则逐坐标运算写作
+\[
+  (f+g)(i)=f(i)+g(i)\qquad(i\in I).
+\]
+当 $I=\{1,2,\ldots,n\}$ 且各 $G_i$ 是阿贝尔群时，有限直积也常记作
+\[
+  G_1\oplus G_2\oplus\cdots\oplus G_n;
+\]
+有限指标下，直和与直积相同。
+\end{purplenote}
+
+\begin{theorem}\label{thm:direct-product-group}
+设 $\{G_i\mid i\in I\}$ 是一族群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 完全直积 $\prod_{i\in I}G_i$ 在逐坐标运算下也是一个群；
+  \item 对任意 $k\in I$，映射
+  \[
+    \pi_k:\prod_{i\in I}G_i\longrightarrow G_k,
+    \qquad (g_i)_{i\in I}\longmapsto g_k
+  \]
+  是满同态。
+\end{enumerate}
+\end{theorem}
+
+\begin{purplenote}
+$\pi_k$ 称为第 $k$ 个坐标投影，称为直积的标准投影。
+\end{purplenote}
+
+\begin{theorem}\label{thm:direct-product-universal-property}
+设 $\{G_i\mid i\in I\}$ 是一族群，$H$ 是群，且对每个 $i\in I$ 给定群同态 $\varphi_i:H\to G_i$。则存在唯一群同态
+\[
+  \varphi:H\longrightarrow\prod_{i\in I}G_i
+\]
+使得
+\[
+  \pi_i\circ\varphi=\varphi_i\qquad(i\in I).
+\]
+即$(\prod_{i\in I}G_i, \{\pi_i\}_{i\in I})$是群范畴下$\{G_i\mid i\in I\}$的一个积
+\end{theorem}
+
+\begin{purplenote}
+由范畴论中积在等价的意义下唯一知群范畴中一族给定群的完全直积在同构意义下是唯一的。若各 $G_i$ 都是阿贝尔群，则其完全直积仍是阿贝尔群；因此它不仅是群范畴中的积，也是阿贝尔群范畴中的积。
+\end{purplenote}
+
+\begin{definition}[外弱直积与外直和]\label{def:external-weak-direct-product}
+设 $\{G_i\mid i\in I\}$ 是一族群。完全直积中满足“除有限多个 $i$ 外，$g_i=e_i$”的元素所成的子集记作
+\[
+  \prod\nolimits_{i\in I}^{w}G_i
+  =\{(g_i)_{i\in I}\in\prod_{i\in I}G_i
+      \mid g_i=e_i\text{ 除有限多个 }i\text{ 外}
+    \},
+\]
+称为这族群的\textbf{外弱直积}。若各 $G_i$ 是加法记号的阿贝尔群，则外弱直积通常称为\textbf{外直和}，记作 $\sum_{i\in I}G_i$。
+\end{definition}
+
+\begin{purplenote}
+当指标集 $I$ 有限时，外弱直积就是完全直积。
+\end{purplenote}
+
+\begin{theorem}\label{thm:weak-product-embeddings}
+设 $\{G_i\mid i\in I\}$ 是一族群，则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 外弱直积 $\prod\nolimits_{i\in I}^{w}G_i$ 是完全直积 $\prod_{i\in I}G_i$ 的一个正规子群；
+  \item 对每个 $k\in I$，映射
+  \[
+    \tau_k:G_k\longrightarrow\prod\nolimits_{i\in I}^{w}G_i,
+    \qquad a\longmapsto(g_i)_{i\in I},
+  \]
+  其中 $g_k=a$ 且 $g_i=e_i$（$i\neq k$），是单同态；
+  \item 对每个 $k\in I$，$\tau_k(G_k)$ 是外弱直积$\prod\nolimits_{i\in I}^{w}G_i$的一个正规子群。
+\end{enumerate}
+\end{theorem}
+
+\begin{purplenote}
+上述 $\tau_k$ 称为标准嵌入。
+\end{purplenote}
+
+\begin{theorem}\label{thm:weak-direct-sum-universal-property}
+设 $\{A_i\mid i\in I\}$ 是一族加法记号的阿贝尔群，$B$ 也是阿贝尔群，且对每个 $i\in I$ 给定群同态 $\psi_i:A_i\to B$。则存在唯一群同态
+\[
+  \psi:\sum_{i\in I}A_i\longrightarrow B
+\]
+使得
+\[
+  \psi\circ\tau_i=\psi_i\qquad(i\in I),
+\]
+其中 $\tau_i:A_i\to\sum_{i\in I}A_i$ 是标准嵌入。因此，外直和$\sum_{i\in I}A_i$是阿贝尔群范畴中的余积。
+\end{theorem}
+
+\begin{purpleproof}
+每个 $x=(a_i)_{i\in I}\in\sum_{i\in I}A_i$ 只有有限多个非零坐标，且可写成有限和 $x=\sum_i\tau_i(a_i)$。定义
+\[
+  \psi(x)=\sum_i\psi_i(a_i),
+\]
+右侧也是有限和。此定义给出群同态，并满足 $\psi\circ\tau_i=\psi_i$。若另有群同态满足同一条件，则它在每个 $\tau_i(a_i)$ 上的取值都被确定，因而在有限和 $x$ 上的取值也被确定，故该同态唯一。
+\end{purpleproof}
+
+\begin{purplenote}
+这里的阿贝尔条件不能省略：非阿贝尔群的外弱直积一般不是群范畴中的余积。按手写笔记中的思路，取
+\[
+  A_1=A_2=B=\mathrm{GL}_2(\mathbb R),
+  \qquad \psi_1=\psi_2=\operatorname{id}_{\mathrm{GL}_2(\mathbb R)}.
+\]
+这里 $\mathrm{GL}_2(\mathbb R)$ 表示所有可逆 $2\times2$ 实矩阵在矩阵乘法下构成的群。
+若存在同态 $\psi:A_1\times A_2\to B$ 延拓这两个同态，则在直积中
+\[
+  (g_1,e_2)(e_1,g_2)=(e_1,g_2)(g_1,e_2),
+\]
+故它们的像也必须交换，即
+\[
+  g_1g_2=\psi_1(g_1)\psi_2(g_2)
+  =\psi_2(g_2)\psi_1(g_1)=g_2g_1.
+\]
+但 $\mathrm{GL}_2(\mathbb R)$ 中并非所有矩阵都彼此交换，例如
+\[
+  \begin{pmatrix}1&1\\0&1\end{pmatrix}
+  \begin{pmatrix}1&0\\1&1\end{pmatrix}
+  \neq
+  \begin{pmatrix}1&0\\1&1\end{pmatrix}
+  \begin{pmatrix}1&1\\0&1\end{pmatrix}.
+\]
+因此这样的延拓 $\psi$ 不存在，这说明外弱直积一般不满足群范畴中余积的泛性质。
+
+下面讨论一个群何时是其子群族的内弱直积。
+\end{purplenote}
+
+\begin{theorem}\label{thm:internal-weak-direct-product}
+设 $\{N_i\mid i\in I\}$ 是群 $G$ 的一族正规子群。若
+\begin{enumerate}[label=(\roman*)]
+  \item $G=\left\langle\bigcup_{i\in I}N_i\right\rangle$；
+  \item 对每个 $k\in I$，
+  \[
+    N_k\cap\left\langle\bigcup_{i\neq k}N_i\right\rangle=\{e\},
+  \]
+\end{enumerate}
+则 $G$ 同构于 $\{N_i\mid i\in I\}$ 的外弱直积：
+\[
+  G\cong\prod\nolimits_{i\in I}^{w}N_i.
+\]
+\end{theorem}
+
+\begin{purpleproof}
+若 $i\neq j$，则条件 (ii) 给出 $N_i\cap N_j=\{e\}$。又因 $N_i,N_j\trianglelefteq G$，由定理~\ref{thm:normal-product} 的第 (4) 条，$N_i$ 与 $N_j$ 的元素彼此交换。
+
+定义
+\[
+  \Phi:\prod\nolimits_{i\in I}^{w}N_i\longrightarrow G,
+  \qquad (n_i)_{i\in I}\longmapsto\prod_{i\in I}n_i,
+\]
+其中右侧只有有限多个非单位元因子，且因各因子彼此交换，乘积与排列次序无关。条件 (i) 保证 $\Phi$ 满射；逐坐标相乘及因子间的交换性保证 $\Phi$ 是群同态。
+
+若 $\Phi((n_i))=e$，则对每个 $k$，
+\[
+  n_k=\left(\prod_{i\neq k}n_i\right)^{-1}
+  \in N_k\cap\left\langle\bigcup_{i\neq k}N_i\right\rangle=\{e\}.
+\]
+所以所有 $n_k=e$，$\Phi$ 是单同态，因而为同构。
+\end{purpleproof}
+
+\begin{corollary}\label{cor:finite-internal-direct-product}
+设 $N_1,\ldots,N_r\trianglelefteq G$，且
+\[
+  G=N_1N_2\cdots N_r.
+\]
+若对每个 $1\leq k\leq r$，
+\[
+  N_k\cap N_1\cdots N_{k-1}N_{k+1}\cdots N_r=\{e\},
+\]
+则
+\[
+  G\cong N_1\times N_2\times\cdots\times N_r.
+\]
+\end{corollary}
+
+\begin{definition}[内弱直积与内直和]\label{def:internal-weak-direct-product}
+设 $\{N_i\mid i\in I\}$ 是群 $G$ 的一族正规子群。若
+\[
+  G=\left\langle\bigcup_{i\in I}N_i\right\rangle,
+  \qquad
+  N_k\cap\left\langle\bigcup_{i\neq k}N_i\right\rangle=\{e\}
+  \quad(k\in I),
+\]
+则称 $G$ 是 $\{N_i\mid i\in I\}$ 的\textbf{内弱直积}。若 $G$ 是加法记号的阿贝尔群，也称为 $G$ 的\textbf{内直和}。
+\end{definition}
+
+\begin{theorem}\label{thm:unique-internal-weak-product-decomposition}
+设 $\{N_i\mid i\in I\}$ 是群 $G$ 的一族正规子群。则 $G$ 是 $\{N_i\mid i\in I\}$ 的内弱直积，当且仅当每个非单位元$x\in G$ 都能唯一写成有限个非单位元因子的乘积
+\[
+  x=n_{i_1}n_{i_2}\cdots n_{i_r},
+  \qquad n_{i_j}\in N_{i_j}\setminus\{e\},
+\]
+其中指标 $i_1,\ldots,i_r\in I$ 两两不同。这里的唯一性是指各坐标上的因子唯一；因子彼此交换，排列次序不计。
+\end{theorem}
+
+\begin{purplenote}
+通常将内弱直积记作 $G=\prod\nolimits_{i\in I}^{w}N_i$。严格地说，$G$ 与外弱直积是同构，而不一定是作为集合相等；此记号是为了方便，表示两者在所讨论的直积结构下对应。
+\end{purplenote}
+
+\begin{theorem}\label{thm:weak-product-homomorphism}
+设 $\{f_i:G_i\to H_i\mid i\in I\}$ 是一族群同态。映射
+\[
+  f\stackrel{\text{def}}{=}\prod\nolimits_{i\in I}^{w}f_i:
+  \prod\nolimits_{i\in I}^{w}G_i\longrightarrow\prod\nolimits_{i\in I}^{w}H_i,
+  \qquad (g_i)_{i\in I}\longmapsto(f_i(g_i))_{i\in I}
+\]
+是群同态，并且
+\[
+  \ker f=\prod\nolimits_{i\in I}^{w}\ker f_i,
+  \qquad
+  \operatorname{im}f=\prod\nolimits_{i\in I}^{w}\operatorname{im}f_i.
+\]
+进一步，$f$ 是单同态（满同态），当且仅当每个 $f_i$ 都是单同态（满同态）。
+\end{theorem}
+
+\begin{corollary}\label{cor:quotient-direct-products}
+设 $\{G_i\mid i\in I\}$ 是一族群，且 $N_i\trianglelefteq G_i$（$i\in I$）。则：
+\begin{enumerate}[label=(\arabic*)]
+  \item $\prod_{i\in I}N_i\trianglelefteq\prod_{i\in I}G_i$，且
+  \[
+    \left(\prod_{i\in I}G_i\right)\Big/\left(\prod_{i\in I}N_i\right)
+    \cong\prod_{i\in I}(G_i/N_i);
+  \]
+  \item $\prod\nolimits_{i\in I}^{w}N_i\trianglelefteq\prod\nolimits_{i\in I}^{w}G_i$，且
+  \[
+    \left(\prod\nolimits_{i\in I}^{w}G_i\right)\Big/\left(\prod\nolimits_{i\in I}^{w}N_i\right)
+    \cong\prod\nolimits_{i\in I}^{w}(G_i/N_i).
+  \]
+\end{enumerate}
+\end{corollary}
+
+\begin{purpleproof}
+(1) 对每个 $i\in I$，令 $\pi_i:G_i\to G_i/N_i$ 为标准投影。考虑同态
+\[
+  \pi=\prod_{i\in I}\pi_i:
+  \prod_{i\in I}G_i\longrightarrow\prod_{i\in I}(G_i/N_i),
+  \qquad (g_i)_{i\in I}\longmapsto(g_iN_i)_{i\in I}.
+\]
+由定理~\ref{thm:weak-product-homomorphism} 的坐标映射结论（对完全直积同理），$\pi$ 是满同态，且
+\[
+  \ker\pi=\prod_{i\in I}\ker\pi_i=\prod_{i\in I}N_i,
+  \qquad
+  \operatorname{im}\pi=\prod_{i\in I}\operatorname{im}\pi_i
+  =\prod_{i\in I}(G_i/N_i).
+\]
+由\hyperref[cor:first-isomorphism]{第一同构定理}，得到第 (1) 条的同构。
+
+(2) 将 $\pi$ 限制在外弱直积上，得到
+\[
+  \pi:\prod\nolimits_{i\in I}^{w}G_i
+  \longrightarrow\prod\nolimits_{i\in I}^{w}(G_i/N_i),
+  \qquad (g_i)_{i\in I}\longmapsto(g_iN_i)_{i\in I}.
+\]
+由定理~\ref{thm:weak-product-homomorphism}，该映射是满同态，且
+\[
+  \ker\pi=\prod\nolimits_{i\in I}^{w}\ker\pi_i
+  =\prod\nolimits_{i\in I}^{w}N_i.
+\]
+再由\hyperref[cor:first-isomorphism]{第一同构定理}，得到第 (2) 条的同构。
+\end{purpleproof}
+
+\begin{proposition}\label{prop:quotient-of-internal-direct-product}
+若群 $G$ 是其正规子群 $H$ 与 $K$ 的内直积，则
+\[
+  G/H\cong K,
+  \qquad
+  G/K\cong H.
+\]
+\end{proposition}
+
+\begin{proposition}\label{prop:weak-product-internal-sum}
+设 $\{G_i\mid i\in I\}$ 是一族群，且 $\tau_i:G_i\to\prod\nolimits_{i\in I}^{w}G_i$ 是标准嵌入。则外弱直积 $\prod\nolimits_{i\in I}^{w}G_i$ 是其正规子群族 $\{\tau_i(G_i)\mid i\in I\}$ 的内弱直积。
+\end{proposition}
+
+\begin{proposition}\label{prop:internal-weak-product-criterion}
+设 $\{N_i\mid i\in I\}$ 是群 $G$ 的一族子群。则 $G$ 是这族子群的内弱直积，当且仅当：
+\begin{enumerate}[label=(\arabic*)]
+  \item 对任意 $i\neq j$、$a_i\in N_i$、$a_j\in N_j$，有 $a_ia_j=a_ja_i$；
+  \item 每个非单位元$x\in G$ 都能唯一写成有限个非单位元因子的乘积
+  \[
+    x=a_{i_1}a_{i_2}\cdots a_{i_r},
+    \qquad a_{i_j}\in N_{i_j}\setminus\{e\},
+  \]
+  其中指标 $i_1,\ldots,i_r\in I$ 两两不同；唯一性按各坐标上的因子理解，不计排列次序。
+\end{enumerate}
+\end{proposition}
+
+\begin{purplenote}
+注意与定理~\ref{thm:unique-internal-weak-product-decomposition} 对照：此处没有预先假设各 $N_i$ 正规；由两两交换及唯一分解条件，可以推出每个 $N_i\trianglelefteq G$。
+\end{purplenote}

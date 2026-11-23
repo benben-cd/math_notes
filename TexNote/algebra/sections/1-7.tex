@@ -1,0 +1,159 @@
+% !TeX root = ../main.tex
+\subsection{范畴论：积、余积与自由对象}
+
+% 来源：微信图片_20261008195012_31_215.jpg，1.7.1--1.7.3。
+% 排版约定：黑笔定义、定理用普通环境；原稿中的紫笔解释和证明提示保留为紫色。
+\begin{definition}[范畴]\label{def:category}
+一个\textbf{范畴} $\mathcal C$ 由以下数据组成：
+\begin{enumerate}[label=(\arabic*)]
+  \item 一类对象，记作 $A,B,C,\ldots$；
+  \item 对每对对象 $A,B$，一个态射集合 $\operatorname{Hom}_{\mathcal C}(A,B)$，其元素称为从 $A$ 到 $B$ 的\textbf{态射}，记作 $f:A\to B$；
+  \item 对任意对象 $A,B,C$，一个复合运算
+  \[
+    \operatorname{Hom}_{\mathcal C}(B,C)\times
+    \operatorname{Hom}_{\mathcal C}(A,B)
+    \longrightarrow \operatorname{Hom}_{\mathcal C}(A,C),
+    \qquad (g,f)\longmapsto g\circ f.
+  \]
+\end{enumerate}
+这些数据满足：
+\begin{enumerate}[label=(\arabic*),resume]
+  \item 复合满足结合律：若 $f:A\to B$、$g:B\to C$、$h:C\to D$，则
+  \[
+    h\circ(g\circ f)=(h\circ g)\circ f;
+  \]
+  \item 对每个对象 $A$，存在恒等态射 $1_A:A\to A$，且对任意态射 $f:A\to B$，
+  \[
+    1_B\circ f=f=f\circ1_A.
+  \]
+\end{enumerate}
+\end{definition}
+
+\begin{purplenote}
+范畴中的对象可以是集合、群等代数对象，也可以是其他数学对象；态射是对象之间指定的映射，未必是通常意义下的集合函数，也不必有逆态射。结合律与恒等态射的条件分别要求复合可结合，以及恒等态射在复合中不起作用。
+\end{purplenote}
+
+\begin{definition}[等价对象（同构对象）]\label{def:equivalent-objects}
+设 $A,B$ 是范畴 $\mathcal C$ 中的对象。若存在态射 $f:A\to B$ 和 $g:B\to A$，使得
+\[
+  g\circ f=1_A,\qquad f\circ g=1_B,
+\]
+则称 $f$、$g$ 互为\textbf{逆态射}，并称 $A$ 与 $B$ \textbf{等价}（或\textbf{同构}）。
+\end{definition}
+
+\begin{purplenote}
+两个等价态射的复合仍是等价态射。
+\end{purplenote}
+
+\begin{definition}[积]\label{def:category-product}
+设 $\{A_i\mid i\in I\}$ 是范畴 $\mathcal C$ 中的一族对象。若对象 $P$ 连同一族态射 $\pi_i:P\to A_i$ 满足下列泛性质，则称 $(P,\{\pi_i\}_{i\in I})$ 为这族对象的\textbf{积}：对任意对象 $B$ 及任意一族态射 $\psi_i:B\to A_i$，存在唯一态射 $\psi:B\to P$，使得
+\[
+  \pi_i\circ\psi=\psi_i\qquad(i\in I).
+\]
+\end{definition}
+
+\begin{purplenote}
+积对象 $P$ 通常记作 $\prod_{i\in I}A_i$。不是每个范畴中的每一族对象都必定有积。
+\end{purplenote}
+
+\begin{theorem}\label{thm:products-unique}
+若 $(P,\{\pi_i\}_{i\in I})$ 和 $(Q,\{\rho_i\}_{i\in I})$ 都是范畴 $\mathcal C$ 中对象族 $\{A_i\mid i\in I\}$ 的积，则 $P$ 与 $Q$ 等价。
+\end{theorem}
+
+\begin{purpleproof}
+由 $P$、$Q$ 的积泛性质，存在唯一态射 $u:P\to Q$ 和 $v:Q\to P$，使得
+\[
+  \rho_i\circ u=\pi_i,\qquad \pi_i\circ v=\rho_i\qquad(i\in I).
+\]
+于是 $\pi_i\circ(v\circ u)=\pi_i$。恒等态射 $1_P$ 也满足 $\pi_i\circ1_P=\pi_i$；由积泛性质的唯一性，$v\circ u=1_P$。同理，$u\circ v=1_Q$，故 $P$ 与 $Q$ 等价。
+\end{purpleproof}
+
+\begin{definition}[余积]\label{def:category-coproduct}
+设 $\{A_i\mid i\in I\}$ 是范畴 $\mathcal C$ 中的一族对象。若对象 $S$ 连同一族态射 $\tau_i:A_i\to S$ 满足下列泛性质，则称 $(S,\{\tau_i\}_{i\in I})$ 为这族对象的\textbf{余积}：对任意对象 $B$ 及任意一族态射 $\psi_i:A_i\to B$，存在唯一态射 $\psi:S\to B$，使得
+\[
+  \psi\circ\tau_i=\psi_i\qquad(i\in I).
+\]
+\end{definition}
+
+\begin{theorem}\label{thm:coproducts-unique}
+若 $(S,\{\tau_i\}_{i\in I})$ 和 $(S',\{\tau'_i\}_{i\in I})$ 都是范畴 $\mathcal C$ 中对象族 $\{A_i\mid i\in I\}$ 的余积，则 $S$ 与 $S'$ 等价。
+\end{theorem}
+
+\begin{purpleproof}
+证明与定理~\ref{thm:products-unique} 对偶。由余积的泛性质，得到相互逆的唯一态射 $u:S\to S'$、$v:S'\to S$，满足 $u\circ\tau_i=\tau'_i$、$v\circ\tau'_i=\tau_i$。
+\end{purpleproof}
+
+% 来源：微信图片_20261008195026_32_215.jpg，1.7.7--1.7.9。
+\begin{definition}[具体范畴]\label{def:concrete-category}
+\textbf{具体范畴}是一个范畴 $\mathcal C$ 连同一个赋值 $\sigma$，它给每个对象 $A$ 指定一个集合 $\sigma(A)$（称为 $A$ 的\textbf{底集}），并满足：
+\begin{enumerate}[label=(\arabic*)]
+  \item $\mathcal C$ 中每个态射 $f:A\to B$ 都是底集间的函数 $\sigma(f):\sigma(A)\to\sigma(B)$；
+  \item $A$ 的恒等态射 $1_A$ 在底集上是恒等函数：$\sigma(1_A)=1_{\sigma(A)}$；
+  \item 范畴中的态射复合与底集函数的复合相容：$\sigma(g\circ f)=\sigma(g)\circ\sigma(f)$。
+\end{enumerate}
+\end{definition}
+
+\begin{purplenote}
+% 补充说明：用群范畴中的具体函数解释“底集函数未必是范畴态射”。
+例如，群范畴中每个群的底集就是它的元素集合，每个态射在底集上是群同态所对应的函数。但底集之间的任意函数未必保持群结构：把加法群 $\mathbb Z$ 映到自身，函数 $f(n)=n+1$ 是底集间的函数，却不是群同态，因为 $f(0)=1\neq0$，而群同态必须把单位元 $0$ 映到 $0$。所以群范畴中的态射只是底集函数中的一部分。通常为简便，会把对象 $A$ 与它的底集 $\sigma(A)$ 用同一符号表示；在集合范畴中，态射就是任意集合函数，但在群范畴中还须保持群运算。
+\end{purplenote}
+
+\begin{purplenote}
+% 转录补充：应用户要求，加入常见具体范畴的例子，并与仅由对象、态射及复合组成的一般范畴对照；此备注不另编号。
+\textbf{常见具体范畴的例子。}
+\begin{enumerate}[label=(\arabic*)]
+  \item 集合范畴 $\mathbf{Set}$：对象是集合，态射是任意集合函数；
+  \item 群范畴 $\mathbf{Grp}$：对象是群，态射是群同态；阿贝尔群范畴 $\mathbf{Ab}$ 是其子范畴；
+  \item 偏序集范畴 $\mathbf{Pos}$：对象是偏序集，态射是保序映射。
+\end{enumerate}
+这些范畴都能把每个对象看成一个底集，并把每个态射看成底集之间的函数。一般范畴的定义本身不要求有这样的底集或函数表示；具体范畴则额外指定这种表示，并要求它与恒等态射、复合相容。换句话说，具体范畴保留了“底层元素”和“底层函数”可供讨论。
+
+本节沿用教材列出的三项条件。常见的更严格约定还要求底集赋值在每个态射集合上是单射：若两个态射诱导出同一个底集函数，则它们本来就是同一个态射。前三项条件保证底集赋值与恒等态射、复合相容；加上这项单射条件，才是通常所说的忠实底集赋值。具体范畴可以理解为：一般范畴结构之外，还能一致地谈论对象的底层元素和态射的底层函数。
+\end{purplenote}
+
+\begin{definition}[自由对象]\label{def:free-object}
+% 记号说明：i 与 f 是底集之间的集合映射；其唯一延拓 \overline f 才是范畴中的态射。
+设 $\mathcal C$ 是具体范畴，$F$ 是 $\mathcal C$ 中的对象，$X$ 是非空集合，且 $i:X\to\sigma(F)$ 是一个集合映射。若对任意对象 $A\in\mathcal C$ 及任意集合映射 $f:X\to\sigma(A)$，都存在唯一态射 $\overline f:F\to A$，使得
+\[
+  \sigma(\overline f)\circ i=f,
+\]
+则称 $F$ 是\textbf{由集合 $X$ 自由生成的对象}，或称 $F$ 是 $X$ 上的\textbf{自由对象}。
+\end{definition}
+
+\begin{purplenote}
+常把底集映射 $\sigma(\overline f)$ 简写为 $\overline f$，于是条件写作 $\overline f\circ i=f$。自由对象的泛性质表示：从 $F$ 出发的态射由它在指定生成元 $i(X)$ 上的取值唯一确定，而且任意给定这些生成元的像都能唯一延拓为态射。
+\end{purplenote}
+
+\begin{theorem}\label{thm:free-objects-equivalent}
+设 $\mathcal C$ 是具体范畴，$F,F'$ 是 $\mathcal C$ 中的对象，分别由映射 $i:X\to\sigma(F)$ 和 $i':X'\to\sigma(F')$ 自由生成。若 $|X|=|X'|$，则 $F$ 与 $F'$ 等价。
+\end{theorem}
+
+\begin{purplenote}
+% 转录补充：根据原稿中的泛性质提示，展开以双射 X→X' 诱导对象同构的证明。
+取双射 $b:X\to X'$。由自由对象的泛性质，映射 $i'\circ b:X\to\sigma(F')$ 唯一延拓为态射 $u:F\to F'$；同理，$i\circ b^{-1}$ 唯一延拓为态射 $v:F'\to F$。复合 $v\circ u$ 在 $i(X)$ 上与 $1_F$ 一致，故由唯一性 $v\circ u=1_F$；同理 $u\circ v=1_{F'}$。这是定理~\ref{thm:free-objects-equivalent} 的证明思路；$X=X'$ 是其特殊情形。
+\end{purplenote}
+
+% 来源：微信图片_20261008195034_33_215.jpg，1.7.10--1.7.12。
+\begin{definition}[泛对象与余泛对象]\label{def:initial-terminal}
+设 $\mathcal C$ 是范畴。
+\begin{enumerate}[label=(\arabic*)]
+  \item 若对象 $I\in\mathcal C$ 满足对每个对象 $A\in\mathcal C$，都存在唯一态射 $I\to A$，则称 $I$ 为\textbf{泛对象}（或\textbf{初始对象}）。
+  \item 若对象 $T\in\mathcal C$ 满足对每个对象 $A\in\mathcal C$，都存在唯一态射 $A\to T$，则称 $T$ 为\textbf{余泛对象}（或\textbf{终对象}）。
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}\label{thm:initial-terminal-unique}
+范畴 $\mathcal C$ 中任意两个泛对象等价，任意两个余泛对象也等价。
+\end{theorem}
+
+\begin{theorem}\label{thm:free-group-generators}
+在群范畴中，设 $F$ 是非空集合 $X$ 上的自由对象，$i:X\to\sigma(F)$ 是相应的集合映射（F的存在性将在第~\ref{sec:free-groups}~节中证明），则 $i(X)$ 是 $F$ 的生成集，即
+\[
+  F=\langle i(X)\rangle.
+\]
+\end{theorem}
+
+\begin{purpleproof}
+% 转录补充：展开原稿 1.7.12 的证明提示，用自由对象的唯一延拓性质证明 i(X) 生成 F。
+令 $U=\langle i(X)\rangle\leq F$，并令 $j:U\hookrightarrow F$ 为包含同态。由于 $i(X)\subseteq U$，可将 $i$ 看成集合映射 $i_U:X\to U$。由 $F$ 的自由性质，存在群同态 $\varphi:F\to U$ 使 $\varphi\circ i=i_U$。于是 $j\circ\varphi:F\to F$ 满足 $(j\circ\varphi)\circ i=i$。恒等同态 $1_F$ 也满足此条件，故由自由性给出的唯一性，$j\circ\varphi=1_F$。所以 $j$ 是满射，从而 $U=F$。
+\end{purpleproof}
