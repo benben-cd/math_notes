@@ -1,0 +1,203 @@
+% !TeX root = ../main.tex
+\subsection{有限群的分类}\label{sec:finite-group-classification}
+
+% 来源目录：../../NotePhotos/BaiduSyncdisk/algebra/2.6/（相对于本科目目录）。
+% 共 4 张照片，覆盖 2.6.1--2.6.10、跨页证明、分类表和紫笔旁注；文件名编号不是原稿页码。
+
+% 来源：微信图片_20261124140052_87_215.jpg，节首紫笔说明、2.6.1 及其证明前半。
+\begin{purplenote}
+本节将在同构意义下对所有阶为 $pq$（$p,q$ 为质数）的群以及一些阶较小（$n\leq15$）的群进行分类。
+即使是这些看起来相对简单的情形，也需要付出很多努力，一般的情形将更困难。
+\end{purplenote}
+
+\begin{proposition}\label{prop:groups-of-order-pq}
+设 $p,q$ 都是质数且 $p>q$。若 $q\nmid p-1$，则所有阶为 $pq$ 的群都同构于 $\mathbb Z_{pq}$。
+若 $q\mid p-1$，则在同构意义下恰有两个阶为 $pq$ 的群：$\mathbb Z_{pq}$ 和一个由 $c,d$ 生成的非阿贝尔群 $K$，其中
+\[
+  |c|=p,\qquad |d|=q,\qquad dc=c^s d,\qquad
+  s\not\equiv1\pmod p,\qquad s^q\equiv1\pmod p.
+\]
+\end{proposition}
+
+\begin{purplenote}
+$s$ 是事先任意给定的满足 $s\not\equiv1\pmod p$ 且 $s^q\equiv1\pmod p$ 的数。
+\end{purplenote}
+
+% 引用修正：原稿在 S 的正规性处写 2.4.2；所用的最小质数指数结论实际是 2.4.12。
+% 保留原稿交集的空集写法及 q | p-1 处的过渡语，疑点见 progress.md。
+\begin{proof}
+首先，由后面的命题~\ref{prop:metacyclic-group-of-order-pq} 知，陈述中提及的非阿贝尔群 $K$ 存在。
+对给定的阶为 $pq$ 的群 $G$，由 \hyperref[thm:cauchy-prime-order-element]{Cauchy 定理}知 $G$ 中存在元素 $a,b$，其中 $|a|=p$、$|b|=q$。
+进一步由推论~\ref{cor:smallest-prime-index-subgroup-normal} 得 $S=\langle a\rangle\trianglelefteq G$。
+考察商群 $G/S$，易知 $|G/S|=q$ 且 $(bS)^q=S$，从而 $G/S=\langle bS\rangle$。
+所以 $G$ 中任意元素可表示成 $b^ia^j$ 的形式，故 $G=\langle a,b\rangle$。
+
+记 $G$ 中 Sylow $q$-子群的个数为 $k$。由定理~\ref{thm:third-sylow} 得 $k\mid pq$ 且 $k\equiv1\pmod q$，故 $k=1$ 或 $p$，且 $k=p$ 时有 $q\mid p-1$。
+若 $q\nmid p-1$，则 $k=1$，此时 $\langle b\rangle$ 是 $G$ 中唯一的 Sylow $q$-子群，所以 $\langle b\rangle\trianglelefteq G$。
+又有 $\langle a\rangle\cap\langle b\rangle=\varnothing$，从而
+\[
+  G=\langle a\rangle\times\langle b\rangle
+    \cong\mathbb Z_p\times\mathbb Z_q\cong\mathbb Z_{pq}.
+\]
+若 $k=p$，则 $q\mid p-1$。由于 $\langle a\rangle\trianglelefteq G$，有 $bab^{-1}=a^r$，且 $r\not\equiv1\pmod p$，否则 $G$ 是阿贝尔群。
+同时，由 $a=b^qab^{-q}=a^{r^q}$ 得 $r^q\equiv1\pmod p$。
+
+下面接着说明 $q\mid p-1$ 时 $G\cong K$。
+由数论知识，同余方程 $x^q\equiv1\pmod p$ 在模 $p$ 意义下恰有 $q$ 个不同的解。
+若 $r$ 是一个解，设 $m$ 是满足 $r^m\equiv1\pmod p$ 的最小正整数，则 $m\mid q$。
+而这里的 \mbox{$r\not\equiv1\pmod p$}，故 $m=q$，所以 $r^0,\ldots,r^{q-1}$ 恰为该同余方程在模 $p$ 意义下的 $q$ 个不同解。
+设 \mbox{$s\equiv r^t\pmod p$}，其中$1 \leq t \leq q-1$。
+
+% 来源：微信图片_20261124140055_88_215.jpg，2.6.1 证明续、紫笔旁注、2.6.2--2.6.4 和分类表。
+由 $b^tab^{-t}=a^{r^t}=a^s$，记 $b^*=b^t$，则
+\[
+  \langle b\rangle=\langle b^*\rangle,\quad |b^*|=q,\quad
+  b^*a=a^sb^*,\quad G=\langle a,b^*\rangle.
+\]
+易验证由 $a\mapsto c$、$b^*\mapsto d$ 给出的映射 $G\to K$ 是一个群同构。
+\end{proof}
+
+% 原稿旁注的阶数条件写 |d|=q，照录；候选改法见 progress.md。
+\begin{purplenote}
+由证明过程可得，只要 $G=\langle a,b\rangle$、$|a|=p$、$|d|=q$、$ba=a^sb$，
+无论取哪个满足 $s\not\equiv1\pmod p$、$s^q\equiv1\pmod p$ 的 $s$，所得的群 $G$ 在同构意义下都是同一个群，即 $K$。
+\end{purplenote}
+
+\begin{corollary}\label{cor:groups-of-order-twice-odd-prime}
+若 $p$ 是奇质数，则任意阶为 $2p$ 的群要么同构于循环群 $\mathbb Z_{2p}$，要么同构于二面体群 $D_p$。
+\end{corollary}
+
+\begin{proposition}\label{prop:nonabelian-groups-of-order-eight}
+在同构意义下，阶为 $8$ 的非阿贝尔群只能是四元数群 $Q_8$ 和二面体群 $D_4$。
+\end{proposition}
+
+% 整理：首句关于阶为 2 的讨论指非单位元素；判定正规性前用指数 [G:<a>] 表示原稿的 |G/<a>|。
+\begin{proof}
+由于 $G$ 是非阿贝尔群，$G$ 中不能有阶为 $8$ 的元素，且非单位元素的阶不能全为 $2$，故存在 $a\in G$ 使得 $|a|=4$。
+由于 $[G:\langle a\rangle]=2$，故 $\langle a\rangle\trianglelefteq G$。
+取 $b\in G\setminus\langle a\rangle$，易知 $b^2\in\langle a\rangle$，$bab^{-1}=a^r$，且 $G=\langle a,b\rangle$。
+由于 $b^2\in\langle a\rangle$ 且 $a=b^2ab^{-2}=a^{r^2}$，故模 $4$ 可取 $r=1$ 或 $3$。
+又由于 $G$ 非阿贝尔，故 $r=3$，即
+\[
+  bab^{-1}=a^3=a^{-1}\quad\Longleftrightarrow\quad ba=a^{-1}b.
+\]
+而 $b^2$ 显然不能为 $a$ 或 $a^3$，否则 $|b|=8$。所以 $b^2=e$ 或 $b^2=a^2$，分别对应于 $D_4$ 和 $Q_8$。
+\end{proof}
+
+\begin{purplenote}
+计数阶为 $2$ 的元素个数，可知 $D_4\not\cong Q_8$。
+\end{purplenote}
+
+\begin{proposition}\label{prop:nonabelian-groups-of-order-twelve}
+在同构意义下，阶为 $12$ 的非阿贝尔群有且仅有二面体群 $D_6$、置换群 $A_4$ 和一个群 $T=\langle a,b\rangle$，其中
+\[
+  |a|=6,\qquad b^2=a^3,\qquad ba=a^{-1}b.
+\]
+\end{proposition}
+
+\begin{purplenote}
+证明详见教材。
+\end{purplenote}
+
+下表列出阶数为 $1$ 至 $15$ 的群的同构类型。
+
+{\centering
+\begin{tabular}{c l@{\qquad}c l}
+  \hline
+  阶数 & 不同的群 & 阶数 & 不同的群 \\
+  \hline
+  $1$ & $\langle e\rangle$ &
+  $8$ & $\mathbb Z_2\oplus\mathbb Z_2\oplus\mathbb Z_2,\ \mathbb Z_8,\ \mathbb Z_2\oplus\mathbb Z_4,\ Q_8,\ D_4$ \\
+  $2$ & $\mathbb Z_2$ & $9$ & $\mathbb Z_3\oplus\mathbb Z_3,\ \mathbb Z_9$ \\
+  $3$ & $\mathbb Z_3$ & $10$ & $\mathbb Z_{10},\ D_5$ \\
+  $4$ & $\mathbb Z_2\oplus\mathbb Z_2,\ \mathbb Z_4$ & $11$ & $\mathbb Z_{11}$ \\
+  $5$ & $\mathbb Z_5$ & $12$ & $\mathbb Z_2\oplus\mathbb Z_6,\ \mathbb Z_{12},\ A_4,\ D_6,\ T$ \\
+  $6$ & $\mathbb Z_6,\ D_3$ & $13$ & $\mathbb Z_{13}$ \\
+  $7$ & $\mathbb Z_7$ & $14$ & $D_7,\ \mathbb Z_{14}$ \\
+      &               & $15$ & $\mathbb Z_{15}$ \\
+  \hline
+\end{tabular}\par}
+
+% 来源：微信图片_20261124140059_89_215.jpg，习题引言、2.6.5--2.6.9 及紫笔说明。
+以下是课后习题里的一些重要结论。
+
+\begin{definition}[半直积]\label{def:semidirect-product}
+设 $G$ 和 $H$ 是群，且 $\theta:H\to\operatorname{Aut}G$ 是群同态。
+令 $G\times_\theta H$ 为集合 $G\times H$ 配备以下二元运算所得的对象：
+\[
+  (g,h)(g',h')=\bigl(g\theta(h)(g'),\,hh'\bigr).
+\]
+则 $G\times_\theta H$ 是以 $(e,e)$ 为单位元的群，且
+\[
+  (g,h)^{-1}=\bigl(\theta(h^{-1})(g^{-1}),\,h^{-1}\bigr).
+\]
+$G\times_\theta H$ 称为群 $G$ 和 $H$ 的\textbf{半直积}。
+\end{definition}
+
+\begin{proposition}[亚循环群]\label{prop:metacyclic-group-of-order-pq}
+设 $C_p=\langle a\rangle$、$C_q=\langle b\rangle$ 为用乘法记号表示的循环群，且 $|a|=p$、$|b|=q$，
+其中 $p,q$ 都是质数，$p>q$ 且 $q\mid p-1$。
+设 $s$ 是满足 $s\not\equiv1\pmod p$、$s^q\equiv1\pmod p$ 的整数
+\textcolor{notepurple}{（数论的知识告诉我们这样的 $s$ 存在）}，则有：
+\begin{enumerate}[label=(\arabic*)]
+  \item 映射 $\alpha:C_p\to C_p$，$a^i\mapsto a^{si}$，是一个自同构。
+  \item 映射 $\theta:C_q\to\operatorname{Aut}C_p$，$\theta(b^i)=\alpha^i$，是一个群同态
+    （$\alpha^{0}=1_{C_p}$）。
+  \item 若将 $(a,e)$ 记为 $a$，$(e,b)$ 记为 $b$，则 $C_p\times_\theta C_q$ 是由 $a,b$ 生成的阶为 $pq$ 的群，且
+    \[
+      |a|=p,\qquad |b|=q,\qquad ba=a^sb.
+    \]
+    这个群 $C_p\times_\theta C_q$ 称为\textbf{亚循环群}。
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}\label{prop:quaternion-multiplication}
+设集合 $G=\{\pm1,\pm i,\pm j,\pm k\}$ 上的乘法满足
+\[
+  \begin{gathered}
+    i^2=j^2=k^2=-1,\\
+    ij=k,\qquad jk=i,\qquad ki=j,\\
+    ji=-k,\qquad kj=-i,\qquad ik=-j,
+  \end{gathered}
+\]
+以及与 $\pm1$ 的常规乘积。则 $G\cong Q_8$，且通过计算阶为 $2$ 的元素个数可知 $D_4\not\cong Q_8$。
+\end{proposition}
+
+\begin{proposition}\label{prop:group-t-in-s3-times-z4}
+存在 $S_3\times\mathbb Z_4$ 的一个阶为 $12$ 的非阿贝尔子群 $T$，它由元素 $a,b$ 生成，且
+\[
+  |a|=6,\qquad a^3=b^2,\qquad ba=a^{-1}b.
+\]
+同时可证明，任意阶为 $12$ 且由满足上述关系的 $a,b$ 生成的群都同构于 $T$。
+\end{proposition}
+
+\begin{proposition}\label{prop:distinct-nonabelian-groups-of-order-twelve}
+$D_6,A_4,T$ 中任意两个群不同构。
+\end{proposition}
+
+\begin{purplenote}
+考虑阶为 $4$ 的元素个数可知 $D_6\not\cong T$。
+考虑阶为 $3$ 的元素个数可知 $D_6\not\cong A_4$、$T\not\cong A_4$。
+\end{purplenote}
+
+% 来源：微信图片_20261124140104_90_215.jpg，2.6.10 及节末紫笔讨论。
+\begin{proposition}\label{prop:center-commutator-nonabelian-order-prime-cubed}
+若 $G$ 是一个阶为 $p^3$ 的非阿贝尔群，其中 $p$ 为质数，则 $G$ 的中心为
+\[
+  C(G)=\bigl\langle\{aba^{-1}b^{-1}\mid a,b\in G\}\bigr\rangle.
+\]
+\end{proposition}
+
+% 紫笔讨论按原稿保留对存在性的提问；有限阶数比较的适用范围见 progress.md。
+\begin{purplenote}
+需注意，这里 $G$ 为阶 $p^3$ 的非阿贝尔群是条件。在此条件下可推出 $|C(G)|=p$，
+但该条件事实上不一定成立，即可能不存在阶为 $p^3$ 的非阿贝尔群 $G$。
+由此引发了我的联想。由自由群的相关性质可知，对于任意指定的生成元和关系，相应的抽象群一定存在。
+可我们反过来做群分类，推出满足某些性质（比如阶为 $p^3$ 的非阿贝尔群）的群的一些必要条件时，
+怎么知道这些必要条件是否也充分，是否还有其他必要条件？
+
+与 AI 交流后我得知，可以利用 \hyperref[thm:van-dyck]{Van Dyck 定理}，
+得到由相应生成元和关系确定的自由群的商群到目标群的满同态，从而控制该自由群商群的元素个数下界。
+若这些关系还能约束该商群的元素个数上界，且两界相同，则由目标群 $G$ 推出的必要条件就够了，
+即这些必要条件能完整确定这个群 $G$。
+\end{purplenote}
